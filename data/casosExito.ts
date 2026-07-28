@@ -48,8 +48,7 @@ export const casosExito: CasoExito[] = [
     cifraDestacada: "246 mW / 262 Ha",
     servicio: "Termografía en planta fotovoltaica",
     servicioSlug: "inspecciones-fotovoltaicas",
-    texto:
-      "La planta fotovoltaica más grande de América Latina, que abastece a 240.000 hogares.",
+    texto: "La planta fotovoltaica más grande de América Latina, que abastece a 240.000 hogares.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenPendiente: true,
   },
@@ -60,8 +59,7 @@ export const casosExito: CasoExito[] = [
     cifraDestacada: "238 mW / 535 Ha",
     servicio: "Termografía en planta fotovoltaica",
     servicioSlug: "inspecciones-fotovoltaicas",
-    texto:
-      "Abastece a 280.000 hogares y reduce 512.000 toneladas de CO2 anualmente.",
+    texto: "Abastece a 280.000 hogares y reduce 512.000 toneladas de CO2 anualmente.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenPendiente: true,
   },
@@ -72,8 +70,7 @@ export const casosExito: CasoExito[] = [
     cifraDestacada: "64 mW / 105 Ha",
     servicio: "Termografía en planta fotovoltaica",
     servicioSlug: "inspecciones-fotovoltaicas",
-    texto:
-      "La tercera planta fotovoltaica más grande de Acciona, con 187.200 módulos instalados.",
+    texto: "La tercera planta fotovoltaica más grande de Acciona, con 187.200 módulos instalados.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenPendiente: true,
   },
@@ -84,8 +81,7 @@ export const casosExito: CasoExito[] = [
     cifraDestacada: "520 Ha",
     servicio: "Levantamiento aerofotogramétrico",
     servicioSlug: "topografia-aerofotogrametria",
-    texto:
-      'Proyecto de exploración "Polo Sur", con mapeo de 520 hectáreas.',
+    texto: 'Proyecto de exploración "Polo Sur", con mapeo de 520 hectáreas.',
     imagen: "/images/servicio-fallback-generico.webp",
     imagenPendiente: true,
   },

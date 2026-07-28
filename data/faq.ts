@@ -40,6 +40,8 @@ export const faq: FaqItem[] = [
   },
 ];
 
-export function getFaqPublicable(includePending = process.env.NODE_ENV !== "production"): FaqItem[] {
+export function getFaqPublicable(
+  includePending = process.env.NODE_ENV !== "production",
+): FaqItem[] {
   return includePending ? faq : faq.filter((item) => !item.pendingContent);
 }

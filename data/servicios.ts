@@ -1,9 +1,4 @@
-export type Industria =
-  | "Energía"
-  | "Minería"
-  | "Construcción"
-  | "Industria"
-  | "Multimedia";
+export type Industria = "Energía" | "Minería" | "Construcción" | "Industria" | "Multimedia";
 
 export interface Servicio {
   slug: string;

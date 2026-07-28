@@ -15,11 +15,7 @@ import type { Config } from "tailwindcss";
  * texto/fondos hasta que el cliente confirme un manual de marca formal.
  */
 const config: Config = {
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./data/**/*.{ts,tsx}",
-  ],
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./data/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -31,6 +27,12 @@ const config: Config = {
           "stone-900": "#2B2F33",
           "sand-50": "#F7F5F1",
         },
+      },
+      fontFamily: {
+        // Tipografía definida en spec 0.4: display geométrica técnica (Space Grotesk) + cuerpo (Inter).
+        // Cargadas vía next/font/google en app/layout.tsx, expuestas como variables CSS.
+        display: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],
+        body: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
     },
   },
