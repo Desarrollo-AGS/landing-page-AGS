@@ -1,3 +1,5 @@
+import { anioFundacion } from "./nosotros";
+
 export interface Estadistica {
   id: string;
   label: string;
@@ -25,7 +27,7 @@ export const estadisticas: Estadistica[] = [
   {
     id: "anios-experiencia",
     label: "Años de experiencia en drones",
-    value: new Date().getFullYear() - 2016,
+    value: new Date().getFullYear() - anioFundacion,
   },
   {
     id: "m2-superficies-lavadas",

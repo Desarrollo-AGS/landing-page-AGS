@@ -1,4 +1,5 @@
 import Hero from "@/components/home/Hero";
+import NosotrosPreview from "@/components/home/NosotrosPreview";
 import ServiciosPreview from "@/components/home/ServiciosPreview";
 import StatsCounter from "@/components/home/StatsCounter";
 
@@ -10,6 +11,8 @@ export default function Home() {
       <ServiciosPreview />
 
       <StatsCounter />
+
+      <NosotrosPreview />
 
       <section
         id="casos-exito"
