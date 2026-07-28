@@ -95,3 +95,22 @@ export const servicios: Servicio[] = [
 export function getServicioBySlug(slug: string): Servicio | undefined {
   return servicios.find((servicio) => servicio.slug === slug);
 }
+
+/**
+ * Servicios relacionados para la sección final de la página de detalle (ticket 2.3).
+ * Prioriza servicios que comparten al menos una industria; completa con el resto si
+ * no alcanzan `limit`, para siempre devolver enlaces internos incluso en casos con
+ * poco solape de industrias (ej. "Producción Audiovisual").
+ */
+export function getServiciosRelacionados(slug: string, limit = 3): Servicio[] {
+  const actual = getServicioBySlug(slug);
+  if (!actual) return [];
+
+  const otros = servicios.filter((servicio) => servicio.slug !== slug);
+  const relacionados = otros.filter((servicio) =>
+    servicio.industrias.some((industria) => actual.industrias.includes(industria)),
+  );
+  const resto = otros.filter((servicio) => !relacionados.includes(servicio));
+
+  return [...relacionados, ...resto].slice(0, limit);
+}
