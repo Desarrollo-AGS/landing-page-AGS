@@ -18,6 +18,12 @@ export interface CasoExito {
 /**
  * Contenido extraído de https://agssoluciones.cl/casos-exito/ (fetch en vivo, Sprint 0).
  * Las slugs se mantienen exactas para no perder posicionamiento/backlinks existentes.
+ *
+ * Los últimos 9 casos (enel-pfv-lalackama en adelante) se agregaron en el ticket 6.4:
+ * no aparecían en la página de listado /casos-exito/ (de donde salió la lista original
+ * de 10), pero SÍ están en el sitemap XML real del sitio (sitemap-posttype-casos-exito)
+ * y responden 200 en vivo — son URLs reales e indexadas que habrían quedado huérfanas
+ * (404) en el sitio nuevo si no se agregaban. Contenido extraído en vivo de cada URL.
  */
 export const casosExito: CasoExito[] = [
   {
@@ -138,6 +144,114 @@ export const casosExito: CasoExito[] = [
     imagenPendiente: true,
     // Cliente global reconocido (Enel) + buena capacidad (160 mW) — diversifica el preview frente a Acciona/Colbún.
     destacado: true,
+  },
+  {
+    slug: "enel-pfv-lalackama",
+    cliente: "Enel",
+    ubicacion: "Taltal, Región de Antofagasta",
+    cifraDestacada: "78 mW / 216 Ha",
+    servicio: "Termografía en planta fotovoltaica",
+    servicioSlug: "inspecciones-fotovoltaicas",
+    texto:
+      "Genera 160 GWh al año, energía para aproximadamente 90.000 viviendas, evitando la emisión de 100.000 toneladas de CO2 anuales.",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
+  },
+  {
+    slug: "enel-pfv-pampa-norte",
+    cliente: "Enel",
+    ubicacion: "Taltal, Región de Antofagasta",
+    cifraDestacada: "80 mW / 175 Ha",
+    servicio: "Inspección termográfica en planta fotovoltaica",
+    servicioSlug: "inspecciones-fotovoltaicas",
+    texto:
+      "258 mil paneles capaces de abastecer aproximadamente 100.000 viviendas, evitando 100 mil toneladas de CO2 al año.",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
+  },
+  {
+    slug: "megatraction-modelado-3d",
+    cliente: "Megatraction",
+    ubicacion: "Minera Radomiro Tomic, Calama, Región de Antofagasta",
+    cifraDestacada: "Rotopala más grande de Sudamérica",
+    servicio: "Modelamiento 3D",
+    servicioSlug: "topografia-aerofotogrametria",
+    texto:
+      "Modelamiento tridimensional de la rotopala de mayor tamaño de Sudamérica, en el yacimiento a rajo abierto de Radomiro Tomic, a 3.000 metros sobre el nivel del mar.",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
+  },
+  {
+    slug: "norte-aridos-cubicacion-de-stock",
+    cliente: "Grupo Norte Áridos",
+    ubicacion: "Antofagasta",
+    cifraDestacada: "100 Ha",
+    servicio: "Topografía — cubicación de stock",
+    servicioSlug: "topografia-aerofotogrametria",
+    texto:
+      "Levantamiento topográfico y cuantificación de inventarios para este operador minero ubicado a 40 km al sureste de Antofagasta, dedicado a la extracción y distribución de materiales pétreos.",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
+  },
+  {
+    slug: "minera-valle-central-ll-ee",
+    cliente: "Minera Valle Central (MVC)",
+    ubicacion: "Requínoa, Región de O'Higgins",
+    cifraDestacada: "12 torres / 3,4 km",
+    servicio: "Inspección de líneas eléctricas",
+    servicioSlug: "inspeccion-lineas-electricas",
+    texto:
+      "Inspección de líneas eléctricas (154 kV) en una operación que procesa 135.000 toneladas diarias de relaves frescos y 30.000 toneladas diarias de relaves antiguos del embalse Colihues.",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
+  },
+  {
+    slug: "minera-guanaco-topografia",
+    cliente: "Minera Guanaco",
+    ubicacion: "Taltal, Región de Antofagasta",
+    cifraDestacada: "1.800 Ha",
+    servicio: "Levantamiento aerofotogramétrico",
+    servicioSlug: "topografia-aerofotogrametria",
+    texto:
+      "Levantamiento topográfico mediante aerofotogrametría para este operador minero de oro y plata, ubicado a 220 km al sureste de Antofagasta.",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
+  },
+  {
+    slug: "minera-guanaco-modelamiento-3d",
+    cliente: "Guanaco Compañía Minera (GCM)",
+    ubicacion: "Taltal, Región de Antofagasta",
+    cifraDestacada: "205 Ha",
+    servicio: "Modelamiento 3D",
+    servicioSlug: "topografia-aerofotogrametria",
+    texto:
+      "Modelo tridimensional del perímetro de protección industrial, para evaluar la vulnerabilidad de accesos y discontinuidades en el cierre perimetral.",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
+  },
+  {
+    slug: "minera-guanaco-ll-ee",
+    cliente: "Guanaco Compañía Minera (GCM)",
+    ubicacion: "Taltal, Región de Antofagasta",
+    cifraDestacada: "301 torres / 34 km²",
+    servicio: "Inspección de líneas eléctricas",
+    servicioSlug: "inspeccion-lineas-electricas",
+    texto:
+      "Evaluación de infraestructuras eléctricas en 301 torres (33 kV), orientada a garantizar el desempeño óptimo y la seguridad de las instalaciones.",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
+  },
+  {
+    slug: "sqm-topografia-x6-sectores",
+    cliente: "SQM",
+    ubicacion: "María Elena, Región de Antofagasta",
+    cifraDestacada: "+400 Ha",
+    servicio: "Levantamiento aerofotogramétrico",
+    servicioSlug: "topografia-aerofotogrametria",
+    texto:
+      "Topografía de 6 sectores para SQM, ubicada a 205 km de Antofagasta, líder global en producción de Nitrato de Potasio (KNO3).",
+    imagen: "/images/servicio-fallback-generico.webp",
+    imagenPendiente: true,
   },
 ];
 

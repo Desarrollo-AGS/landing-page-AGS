@@ -1,9 +1,33 @@
+import type { Metadata } from "next";
 import CasosExitoPreview from "@/components/home/CasosExitoPreview";
 import ClientesLogos from "@/components/home/ClientesLogos";
+import CtaFinal from "@/components/home/CtaFinal";
+import FaqSection from "@/components/home/FaqSection";
 import Hero from "@/components/home/Hero";
 import NosotrosPreview from "@/components/home/NosotrosPreview";
 import ServiciosPreview from "@/components/home/ServiciosPreview";
 import StatsCounter from "@/components/home/StatsCounter";
+import { siteConfig } from "@/lib/metadata";
+
+/**
+ * Explícita a nivel de página (ticket 6.1) en vez de heredar solo de los defaults
+ * del layout raíz: agrega `canonical` y `og:image` propios de Home, que el layout
+ * no definía. El title coincide exactamente con el que pide el ticket.
+ */
+export const metadata: Metadata = {
+  title: siteConfig.defaultTitle,
+  description: siteConfig.defaultDescription,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: siteConfig.defaultTitle,
+    description: siteConfig.defaultDescription,
+    url: siteConfig.url,
+    type: "website",
+    images: [{ url: "/images/favicon-ags.webp", width: 300, height: 300 }],
+  },
+};
 
 export default function Home() {
   return (
@@ -20,15 +44,9 @@ export default function Home() {
 
       <CasosExitoPreview />
 
-      <section
-        id="cotizar"
-        className="flex min-h-[40vh] flex-col items-center justify-center gap-2 border-t border-neutral-200 px-6 text-center"
-      >
-        <h2 className="font-display text-2xl font-semibold text-brand-navy">Cotiza tu proyecto</h2>
-        <p className="text-sm text-brand-stone-900/50">
-          Formulario de cotización pendiente — Sprint 5 (Ticket 5.2).
-        </p>
-      </section>
+      <FaqSection />
+
+      <CtaFinal />
     </>
   );
 }

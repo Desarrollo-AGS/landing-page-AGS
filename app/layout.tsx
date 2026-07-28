@@ -37,6 +37,31 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * `LocalBusiness` a nivel de sitio (ticket 6.2). Datos reales (nombre, teléfono,
+ * localidad — ver lib/metadata.ts para su procedencia). Sin `streetAddress`: no
+ * existe una dirección con calle/número en ningún lugar del sitio actual, no se
+ * inventa. Sin `sameAs`: el footer en vivo de agssoluciones.cl no tiene enlaces a
+ * redes sociales (verificado en Sprint 1) — se agrega en cuanto el cliente confirme
+ * una URL real, mismo criterio que Footer.tsx.
+ */
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  description: siteConfig.defaultDescription,
+  telephone: siteConfig.contacto.telefonoE164,
+  email: siteConfig.contacto.email,
+  image: `${siteConfig.url}/images/logo-ags.svg`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: siteConfig.contacto.direccion.localidad,
+    addressRegion: siteConfig.contacto.direccion.region,
+    addressCountry: siteConfig.contacto.direccion.pais,
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,6 +70,10 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="flex min-h-screen flex-col font-body antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
         <AnuncioBanner />
         <Header />
         <main className="flex-1">{children}</main>

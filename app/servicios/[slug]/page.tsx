@@ -117,7 +117,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
             <p className="mt-2 text-sm text-brand-stone-900/70">
               Cuéntanos el alcance de tu proyecto y te enviamos una cotización a medida.
             </p>
-            <Button href="/#cotizar" className="mt-6">
+            <Button href="/cotizar" className="mt-6">
               Cotiza tu proyecto
             </Button>
           </div>

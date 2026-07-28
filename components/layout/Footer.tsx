@@ -1,22 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { servicios } from "@/data/servicios";
+import { siteConfig } from "@/lib/metadata";
 
 /**
- * Datos reales confirmados: sección 1.2 del spec + verificación en agssoluciones.cl
- * (número de WhatsApp del sitio coincide: 56981992658).
- *
  * Nota: el ticket 1.2 pide un enlace a LinkedIn "según lo visto en el sitio actual",
  * pero el `<footer>` del sitio en vivo está vacío (sin enlaces a redes sociales) al
  * momento de este sprint — no hay una URL real que enlazar todavía. Se omite la
  * sección de redes hasta que el cliente confirme un enlace real (no se inventa).
  */
-const contacto = {
-  email: "servicios@agssoluciones.cl",
-  telefono: "+56 9 8199 2658",
-  telefonoHref: "tel:+56981992658",
-  ubicacion: "Antofagasta, Chile",
-};
+const { contacto } = siteConfig;
 
 export default function Footer() {
   const anio = new Date().getFullYear();
@@ -87,13 +80,13 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={contacto.telefonoHref}
+                  href={`tel:${contacto.telefonoE164}`}
                   className="transition-colors hover:text-brand-orange"
                 >
                   {contacto.telefono}
                 </a>
               </li>
-              <li>{contacto.ubicacion}</li>
+              <li>{contacto.direccion.localidad}, Chile</li>
             </ul>
           </div>
         </div>
