@@ -11,6 +11,8 @@ export interface CasoExito {
   imagen: string;
   /** true mientras no exista una foto real del proyecto — ver blocker "Fotos reales por caso de éxito" (Sprint 4). */
   imagenPendiente: boolean;
+  /** true = aparece en el preview de Home (ticket 4.2) — ver criterio de selección junto a cada caso marcado. */
+  destacado?: boolean;
 }
 
 /**
@@ -51,6 +53,8 @@ export const casosExito: CasoExito[] = [
     texto: "La planta fotovoltaica más grande de América Latina, que abastece a 240.000 hogares.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenPendiente: true,
+    // Mayor capacidad (mW) del set + claim real "planta más grande de América Latina".
+    destacado: true,
   },
   {
     slug: "acciona-pfv-malgarida",
@@ -84,6 +88,8 @@ export const casosExito: CasoExito[] = [
     texto: 'Proyecto de exploración "Polo Sur", con mapeo de 520 hectáreas.',
     imagen: "/images/servicio-fallback-generico.webp",
     imagenPendiente: true,
+    // Mayor cifra individual de todo el set (520 Ha) + cliente reconocido — citado como ejemplo en el propio ticket 4.2.
+    destacado: true,
   },
   {
     slug: "colbun-pfv-diego-de-almagro",
@@ -95,6 +101,8 @@ export const casosExito: CasoExito[] = [
     texto: "Segundo año consecutivo de colaboración en este parque solar.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenPendiente: true,
+    // Segunda mayor capacidad (mW) del set + diversifica cliente (Colbún) frente a Acciona/Enel.
+    destacado: true,
   },
   {
     slug: "colbun-pfv-machicura",
@@ -128,9 +136,21 @@ export const casosExito: CasoExito[] = [
     texto: "Genera más de 400 GWh al año.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenPendiente: true,
+    // Cliente global reconocido (Enel) + buena capacidad (160 mW) — diversifica el preview frente a Acciona/Colbún.
+    destacado: true,
   },
 ];
 
 export function getCasoExitoBySlug(slug: string): CasoExito | undefined {
   return casosExito.find((caso) => caso.slug === slug);
+}
+
+/**
+ * Casos destacados para el preview de Home (ticket 4.2): prioriza mayor cifra
+ * (mW/Ha) y diversidad de clientes reconocidos, ver comentario `destacado` junto a
+ * cada caso elegido. Antofagasta Minerals se cita explícitamente como ejemplo en el
+ * propio ticket.
+ */
+export function getCasosExitoDestacados(limit = 4): CasoExito[] {
+  return casosExito.filter((caso) => caso.destacado).slice(0, limit);
 }

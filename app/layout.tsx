@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import AnuncioBanner from "@/components/layout/AnuncioBanner";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { siteConfig } from "@/lib/metadata";
@@ -44,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="flex min-h-screen flex-col font-body antialiased">
+        <AnuncioBanner />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -1,3 +1,5 @@
+import CasosExitoPreview from "@/components/home/CasosExitoPreview";
+import ClientesLogos from "@/components/home/ClientesLogos";
 import Hero from "@/components/home/Hero";
 import NosotrosPreview from "@/components/home/NosotrosPreview";
 import ServiciosPreview from "@/components/home/ServiciosPreview";
@@ -14,15 +16,9 @@ export default function Home() {
 
       <NosotrosPreview />
 
-      <section
-        id="casos-exito"
-        className="flex min-h-[40vh] flex-col items-center justify-center gap-2 border-t border-neutral-200 px-6 text-center"
-      >
-        <h2 className="font-display text-2xl font-semibold text-brand-navy">Casos de Éxito</h2>
-        <p className="text-sm text-brand-stone-900/50">
-          Preview de casos de éxito pendiente — Sprint 4 (Ticket 4.2).
-        </p>
-      </section>
+      <ClientesLogos />
+
+      <CasosExitoPreview />
 
       <section
         id="cotizar"
