@@ -35,14 +35,14 @@ export default function NosotrosPage() {
 
   return (
     <article>
-      <div className="relative h-64 w-full sm:h-80 lg:h-96">
+      <div className="relative h-64 w-full sm:h-80 lg:h-[28rem]">
         <Image
           src="/images/nosotros-equipo-terreno.jpg"
           alt="Equipo de AGS Soluciones en terreno"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-[center_25%]"
         />
         <div
           aria-hidden="true"

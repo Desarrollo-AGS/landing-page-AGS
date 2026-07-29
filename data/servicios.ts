@@ -9,6 +9,8 @@ export interface Servicio {
   imagen: string;
   /** true mientras la foto sea el fallback genérico y no una foto real de terreno del servicio (ver spec 0.5). */
   imagenEsFallback: boolean;
+  /** true = "Servicios destacados" en el mega-menú del header (spec_mejoras, ticket 5). */
+  destacado?: boolean;
 }
 
 /**
@@ -49,6 +51,8 @@ export const servicios: Servicio[] = [
       "Garantizamos el rendimiento óptimo de las instalaciones eléctricas sin interrupciones. Ofrecemos inspección termográfica (detecta puntos calientes), inspección visual (identifica daños y corrosión), inspección láser Lidar (mapea riesgos de vegetación e interferencia), inspección de hebras de conductor (detecta desgaste y daños), e informes detallados con recomendaciones específicas.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenEsFallback: true,
+    // Respaldado por casos de éxito reales (Minera Valle Central, Minera Guanaco).
+    destacado: true,
   },
   {
     slug: "inspeccion-instalaciones-industriales",
@@ -69,6 +73,8 @@ export const servicios: Servicio[] = [
       "Somos líderes en inspecciones termográficas de plantas fotovoltaicas a nivel nacional. Procesamos imágenes térmicas identificando, clasificando y priorizando el 100% de las anomalías, asignadas a un gemelo digital. Ofrecemos entrega rápida de informes confiables, clasificación granular de anomalías, una plataforma digital geoespacial interactiva con ubicaciones exactas, y digitalización de inspecciones anteriores para contar con un histórico completo.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenEsFallback: true,
+    // El servicio con más casos de éxito reales del set (11 de 19).
+    destacado: true,
   },
   {
     slug: "topografia-aerofotogrametria",
@@ -79,6 +85,8 @@ export const servicios: Servicio[] = [
       "Generamos modelos 3D y mapas topográficos precisos mediante cámaras de alta resolución. Ofrecemos precisión centimétrica que supera los métodos tradicionales, recopilación de datos en horas versus días o semanas, acceso a terrenos remotos o inaccesibles, y visualización 3D con análisis avanzados e interactivos para la planificación de proyectos.",
     imagen: "/images/servicio-fallback-generico.webp",
     imagenEsFallback: true,
+    // Segundo servicio con más casos de éxito reales del set (6 de 19).
+    destacado: true,
   },
   {
     slug: "limpieza-fachadas-maquinarias",
@@ -113,4 +121,19 @@ export function getServiciosRelacionados(slug: string, limit = 3): Servicio[] {
   const resto = otros.filter((servicio) => !relacionados.includes(servicio));
 
   return [...relacionados, ...resto].slice(0, limit);
+}
+
+/**
+ * "Servicios destacados" vs "Otros servicios" para el mega-menú del header
+ * (spec_mejoras_landing_page.md, ticket 5). Criterio real, no arbitrario: destacado
+ * = tiene al menos un caso de éxito real detrás en casosExito.ts (ver comentario
+ * `destacado` junto a cada servicio elegido) — evita elegir "los más importantes"
+ * a ojo.
+ */
+export function getServiciosDestacados(): Servicio[] {
+  return servicios.filter((servicio) => servicio.destacado);
+}
+
+export function getServiciosOtros(): Servicio[] {
+  return servicios.filter((servicio) => !servicio.destacado);
 }

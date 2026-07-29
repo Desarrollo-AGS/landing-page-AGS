@@ -45,7 +45,7 @@ export function CasoExitoCard({ caso }: CasoExitoCardProps) {
             {caso.cifraDestacada}
           </p>
           <p className="flex-1 text-sm text-brand-stone-900/70">{caso.servicio}</p>
-          <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-brand-navy">
+          <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-brand-orange">
             Ver caso completo
             <ArrowRightIcon />
           </span>

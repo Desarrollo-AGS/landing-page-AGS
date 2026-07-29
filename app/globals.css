@@ -9,9 +9,33 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* Mismo hex que brand.orange en tailwind.config.mts (fuente de verdad del token
+     de color) — se repite acá porque los colores del config JS/TS vía @config no
+     se exponen como variable CSS automáticamente en Tailwind v4, y esta variable
+     hace falta para usarla en CSS plano (.text-eyebrow más abajo). */
+  --color-brand-orange: #ff5500;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/**
+ * Réplica de `.text-eyebrow` del diseño Lovable (spec_mejoras_landing_page.md,
+ * ticket 3 — correcciones). CSS original del cliente:
+ *   font-family: var(--font-numeric); font-size: 0.72rem;
+ *   letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary);
+ * `--font-numeric` no existe en este proyecto (no se cargó una fuente numérica
+ * dedicada) — se mapea a --font-display (Space Grotesk), la fuente técnica que sí
+ * tenemos. `--primary` se mapea al naranja de marca real (brand-orange).
+ */
+@layer utilities {
+  .text-eyebrow {
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand-orange);
+  }
 }

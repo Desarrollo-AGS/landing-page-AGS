@@ -1,4 +1,5 @@
 import { Accordion } from "@/components/ui/Accordion";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 import { getFaqPublicable } from "@/data/faq";
 
 /**
@@ -35,6 +36,7 @@ export default function FaqSection() {
         <h2 className="font-display text-3xl font-semibold tracking-tight text-brand-navy sm:text-4xl">
           Preguntas frecuentes
         </h2>
+        <SectionDivider />
       </div>
 
       <div className="mt-10">

@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { buttonClassName } from "@/components/ui/Button";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 import { servicios } from "@/data/servicios";
 import { cotizarSchema, type CotizarFormValues } from "@/lib/cotizarSchema";
 
@@ -73,6 +74,7 @@ export default function CtaFinal({
         <Heading className="font-display text-3xl font-semibold tracking-tight text-brand-navy sm:text-4xl">
           {title}
         </Heading>
+        <SectionDivider />
         <p className="mt-4 text-base text-brand-stone-900/70">{description}</p>
       </div>
 

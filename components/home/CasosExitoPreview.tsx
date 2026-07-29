@@ -1,3 +1,4 @@
+import { SectionDivider } from "@/components/ui/SectionDivider";
 import { getCasosExitoDestacados } from "@/data/casosExito";
 import { CasoExitoCard } from "./CasoExitoCard";
 
@@ -16,6 +17,7 @@ export default function CasosExitoPreview() {
         <h2 className="font-display text-3xl font-semibold tracking-tight text-brand-navy sm:text-4xl">
           Casos de éxito
         </h2>
+        <SectionDivider />
         <p className="mt-4 text-base text-brand-stone-900/70">
           Proyectos reales ejecutados para empresas líderes en minería, energía y construcción.
         </p>

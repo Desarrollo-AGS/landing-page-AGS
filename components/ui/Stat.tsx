@@ -41,7 +41,7 @@ export function Stat({
       duration,
       ease: "easeOut",
       onUpdate(latest) {
-        node.textContent = new Intl.NumberFormat('es-CL').format(Math.round(latest));
+        node.textContent = new Intl.NumberFormat("es-CL").format(Math.round(latest));
       },
     });
 
@@ -59,8 +59,8 @@ export function Stat({
 
   return (
     <div className="text-center">
-      <p className="font-display text-4xl font-semibold tabular-nums text-white sm:text-5xl">
-        +<span ref={numberRef}>{new Intl.NumberFormat('es-CL').format(value)}</span>
+      <p className="font-display text-4xl font-semibold tabular-nums text-brand-orange sm:text-5xl">
+        +<span ref={numberRef}>{new Intl.NumberFormat("es-CL").format(value)}</span>
         {suffix}
       </p>
       <p className="mt-2 text-sm text-white/70">{label}</p>

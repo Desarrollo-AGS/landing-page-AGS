@@ -33,7 +33,6 @@ export const estadisticas: Estadistica[] = [
     id: "m2-superficies-lavadas",
     label: "m² de superficies lavadas",
     value: 40000,
-
   },
   {
     id: "hectareas-topografia",

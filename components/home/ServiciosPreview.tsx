@@ -1,3 +1,4 @@
+import { SectionDivider } from "@/components/ui/SectionDivider";
 import { servicios } from "@/data/servicios";
 import { ServicioCard } from "./ServicioCard";
 
@@ -14,6 +15,7 @@ export default function ServiciosPreview() {
         <h2 className="font-display text-3xl font-semibold tracking-tight text-brand-navy sm:text-4xl">
           Servicios de drones para minería, energía y construcción
         </h2>
+        <SectionDivider />
         <p className="mt-4 text-base text-brand-stone-900/70">
           Soluciones aéreas especializadas para cada etapa de tu operación, con tecnología y datos
           precisos.

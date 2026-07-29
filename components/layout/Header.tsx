@@ -58,7 +58,17 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" aria-label="AGS Soluciones — Inicio" className="shrink-0">
-          <Image src="/images/logo-ags.svg" alt="AGS Soluciones" width={140} height={19} priority />
+          {/* width/height fijan el ratio intrínseco real del SVG (300x41.358); el
+              tamaño visible lo controlan las clases (h-7 en mobile, h-9 desde sm) —
+              ticket 4 de mejoras: logo más grande, sin romper el navbar en mobile. */}
+          <Image
+            src="/images/logo-ags.svg"
+            alt="AGS Soluciones"
+            width={261}
+            height={36}
+            priority
+            className="h-7 w-auto sm:h-9"
+          />
         </Link>
 
         <DesktopNav />

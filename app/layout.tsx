@@ -41,9 +41,9 @@ export const metadata: Metadata = {
  * `LocalBusiness` a nivel de sitio (ticket 6.2). Datos reales (nombre, teléfono,
  * localidad — ver lib/metadata.ts para su procedencia). Sin `streetAddress`: no
  * existe una dirección con calle/número en ningún lugar del sitio actual, no se
- * inventa. Sin `sameAs`: el footer en vivo de agssoluciones.cl no tiene enlaces a
- * redes sociales (verificado en Sprint 1) — se agrega en cuanto el cliente confirme
- * una URL real, mismo criterio que Footer.tsx.
+ * inventa. `sameAs` con las URLs reales de LinkedIn/Instagram provistas por el
+ * cliente (spec_mejoras_landing_page.md, ticket 7) — antes se había omitido por no
+ * tener una fuente real (ver Footer.tsx).
  */
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
@@ -60,6 +60,7 @@ const localBusinessJsonLd = {
     addressRegion: siteConfig.contacto.direccion.region,
     addressCountry: siteConfig.contacto.direccion.pais,
   },
+  sameAs: [siteConfig.redes.linkedin, siteConfig.redes.instagram],
 };
 
 export default function RootLayout({

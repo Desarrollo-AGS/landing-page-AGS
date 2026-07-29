@@ -21,6 +21,15 @@ export const siteConfig = {
       pais: "CL",
     },
   },
+  /**
+   * URLs reales provistas por el cliente (spec_mejoras_landing_page.md, ticket 7).
+   * Antes se habían omitido a propósito en Footer.tsx y en el `sameAs` del schema
+   * LocalBusiness (ticket 6.2) por no tener una fuente real — ya confirmadas.
+   */
+  redes: {
+    linkedin: "https://cl.linkedin.com/company/agssoluciones",
+    instagram: "https://www.instagram.com/agssoluciones.cl/",
+  },
 } as const;
 
 // Helpers de generateMetadata() por ruta se implementan en Sprint 6 (SEO técnico, ticket 6.1).

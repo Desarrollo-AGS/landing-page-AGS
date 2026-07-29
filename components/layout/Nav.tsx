@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { servicios } from "@/data/servicios";
+import { getServiciosDestacados, getServiciosOtros, servicios } from "@/data/servicios";
 import { sectionHref } from "@/lib/nav";
 
 const desktopLinkClass =
@@ -26,8 +26,35 @@ function ChevronDownIcon({ className = "" }: { className?: string }) {
   );
 }
 
+/** Ítem del mega-menú con viñeta de flecha `›` naranja (ticket 5 de mejoras). */
+function MegaMenuLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="flex items-start gap-2 rounded-md px-2 py-2 text-sm text-brand-stone-900 transition-colors hover:bg-brand-sand-50 hover:text-brand-orange"
+    >
+      <span className="text-brand-orange" aria-hidden="true">
+        ›
+      </span>
+      {children}
+    </Link>
+  );
+}
+
+/** Título de columna del mega-menú + línea de acento navy corta debajo. */
+function MegaMenuColumnTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-wide text-brand-navy">{children}</p>
+      <div className="mt-2 h-0.5 w-8 bg-brand-navy" />
+    </div>
+  );
+}
+
 export function DesktopNav() {
   const pathname = usePathname();
+  const serviciosDestacados = getServiciosDestacados();
+  const serviciosOtros = getServiciosOtros();
 
   return (
     <ul className="hidden items-center gap-8 md:flex">
@@ -44,18 +71,34 @@ export function DesktopNav() {
           Servicios
           <ChevronDownIcon className="group-hover:rotate-180 group-focus-within:rotate-180" />
         </Link>
-        <ul className="invisible absolute left-0 top-full z-10 min-w-64 rounded-lg border border-neutral-200 bg-white py-2 opacity-0 shadow-lg transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-          {servicios.map((servicio) => (
-            <li key={servicio.slug}>
-              <Link
-                href={`/servicios/${servicio.slug}`}
-                className="block px-4 py-2 text-sm text-brand-stone-900 hover:bg-brand-sand-50 hover:text-brand-orange"
-              >
-                {servicio.titulo}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="invisible absolute left-0 top-full z-10 w-[560px] rounded-lg border border-neutral-200 bg-white p-6 opacity-0 shadow-lg transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <MegaMenuColumnTitle>Servicios destacados</MegaMenuColumnTitle>
+              <ul className="mt-4 space-y-1">
+                {serviciosDestacados.map((servicio) => (
+                  <li key={servicio.slug}>
+                    <MegaMenuLink href={`/servicios/${servicio.slug}`}>
+                      {servicio.titulo}
+                    </MegaMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <MegaMenuColumnTitle>Otros servicios</MegaMenuColumnTitle>
+              <ul className="mt-4 space-y-1">
+                {serviciosOtros.map((servicio) => (
+                  <li key={servicio.slug}>
+                    <MegaMenuLink href={`/servicios/${servicio.slug}`}>
+                      {servicio.titulo}
+                    </MegaMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </li>
       <li>
         <Link href="/nosotros" className={desktopLinkClass}>

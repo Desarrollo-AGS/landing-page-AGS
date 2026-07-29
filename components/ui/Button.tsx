@@ -16,7 +16,9 @@ const baseClass =
 
 const variantClass: Record<ButtonVariant, string> = {
   primary: "bg-brand-orange text-white hover:bg-brand-orange/90",
-  secondary: "border border-brand-navy text-brand-navy hover:bg-brand-sand-50",
+  // Fondo blanco explícito + borde sutil (no brand-navy) — necesario porque se usa
+  // sobre secciones con fondo claro (ej. NosotrosPreview, bg-brand-sand-50).
+  secondary: "border border-neutral-200 bg-white text-brand-navy hover:bg-brand-sand-50",
   // Para CTAs sobre fondos oscuros/imágenes (ej. Hero) donde "secondary" no tiene contraste suficiente.
   "outline-light": "border border-white text-white hover:bg-white hover:text-brand-navy",
 };
