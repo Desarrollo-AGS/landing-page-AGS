@@ -3,6 +3,8 @@ import { casosExito } from "@/data/casosExito";
 import { servicios } from "@/data/servicios";
 import { siteConfig } from "@/lib/metadata";
 
+export const dynamic = "force-static";
+
 /**
  * Generado dinámicamente desde servicios.ts y casosExito.ts (ticket 6.3) — agregar
  * un servicio o caso de éxito nuevo a esos archivos lo suma automáticamente aquí,

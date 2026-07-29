@@ -38,4 +38,39 @@ body {
     text-transform: uppercase;
     color: var(--color-brand-orange);
   }
+
+  /**
+   * Overlay del Hero sobre el video de fondo: mezcla negro / café oscuro / naranja
+   * de marca, en diagonal horizontal (90deg = izquierda→derecha). Más oscuro del
+   * lado del texto (izquierda, donde está el H1/botones) para legibilidad, y el
+   * naranja se hace más visible hacia el extremo derecho (donde no hay texto).
+   *
+   * Valores documentados por stop, para ajustar fácilmente después:
+   *   0%   (bajo el texto)      rgba(30, 15, 5, 0.82)   negro cálido, casi opaco
+   *   48%  (transición)         rgba(110, 48, 5, 0.62)  café oscuro / naranja quemado
+   *   100% (extremo sin texto)  rgba(210, 90, 15, 0.35) naranja de marca, translúcido
+   *
+   * En mobile (<640px) se sube la opacidad ~6-8pp en cada stop: pantallas chicas
+   * suelen verse con más luz ambiente y el texto ocupa proporcionalmente más ancho.
+   */
+  .hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(30, 15, 5, 0.82) 0%,
+      rgba(110, 48, 5, 0.62) 48%,
+      rgba(210, 90, 15, 0.35) 100%
+    );
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .hero-overlay {
+      background: linear-gradient(
+        90deg,
+        rgba(20, 10, 3, 0.88) 0%,
+        rgba(90, 40, 5, 0.7) 48%,
+        rgba(190, 80, 15, 0.42) 100%
+      );
+    }
+  }
 }
