@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     description,
     url: `${siteConfig.url}/nosotros`,
     type: "website",
-    images: [{ url: "/images/nosotros-equipo-terreno.webp" }],
+    images: [{ url: "/images/nosotros-equipo-terreno.jpg" }],
   },
 };
 
@@ -37,7 +37,7 @@ export default function NosotrosPage() {
     <article>
       <div className="relative h-64 w-full sm:h-80 lg:h-96">
         <Image
-          src="/images/nosotros-equipo-terreno.webp"
+          src="/images/nosotros-equipo-terreno.jpg"
           alt="Equipo de AGS Soluciones en terreno"
           fill
           priority

@@ -32,20 +32,18 @@ export const estadisticas: Estadistica[] = [
   {
     id: "m2-superficies-lavadas",
     label: "m² de superficies lavadas",
-    value: null,
-    pendingContent: true,
+    value: 40000,
+
   },
   {
     id: "hectareas-topografia",
     label: "Hectáreas de topografía",
-    value: null,
-    pendingContent: true,
+    value: 21000,
   },
   {
     id: "gw-inspecciones-termograficas",
     label: "Gw de inspecciones termográficas",
-    value: null,
-    pendingContent: true,
+    value: 8,
   },
 ];
 

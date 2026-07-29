@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-[85vh] items-center overflow-hidden bg-brand-navy">
       <Image
-        src="/images/hero-drone-aerofotografia-antofagasta.webp"
+        src="/images/banner-ags-temp.png"
         alt="Dron sobrevolando una faena minera en el desierto de Antofagasta"
         fill
         priority

@@ -14,11 +14,11 @@ export default function NosotrosPreview() {
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="relative h-72 w-full overflow-hidden rounded-xl sm:h-96">
           <Image
-            src="/images/nosotros-equipo-terreno.webp"
+            src="/images/nosotros-equipo-terreno.jpg"
             alt="Equipo de AGS Soluciones en terreno"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover"
+            className="object-cover scale-150"
           />
         </div>
 
