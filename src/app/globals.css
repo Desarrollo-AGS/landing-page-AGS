@@ -1,0 +1,482 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   AGS SOLUCIONES · SISTEMA DE DISEÑO
+   ----------------------------------------------------------------------------
+   Fuente de verdad del color y la tipografía: "Manual de Normas Gráficas AGS
+   v. 2024" (Freaktools, Chile). Los tres corporativos que fija el manual son:
+
+     Primario       Pantone Orange 021 C   #FF5500
+     Secundario     Pantone 2965 C         #00263E
+     Complementario Pantone Cool Gray 8 C  #888B8D
+
+   El navy #0E2A47 que usaban las versiones anteriores del sitio era una
+   aproximación hecha sin acceso al manual. Acá se corrige al valor oficial.
+
+   Tipografía corporativa según el manual: Inter (Light/Regular/Medium/Bold).
+   Se usa Inter Tight para display: es la misma superfamilia, con un corte más
+   estrecho pensado para titulares, así que respeta el manual y da jerarquía.
+   ========================================================================== */
+
+@theme {
+  /* --- Marca ------------------------------------------------------------ */
+  --color-orange: #ff5500;
+  --color-orange-bright: #ff6a1f; /* hover del CTA: sube el brillo, no cambia el tono */
+  --color-orange-press: #e84d00; /* estado :active */
+  /* Naranja legible como TEXTO sobre blanco. #FF5500 sobre blanco da 3.21:1 y
+     reprueba AA; este oscurecido da 5.11:1. El naranja puro sigue siendo el
+     color de relleno de marca; este solo se usa para tinta. */
+  --color-orange-ink: #c63f00;
+
+  /* --- Rampa de acero: neutros fríos derivados del navy corporativo ------ */
+  --color-steel-950: #001a2b;
+  --color-steel-900: #00263e; /* = navy de marca */
+  --color-steel-800: #0e3a55;
+  --color-steel-700: #29506a; /* 8.57:1 sobre blanco */
+  --color-steel-600: #476a83; /* 5.74:1 sobre blanco  · cuerpo */
+  --color-steel-500: #5b7a90; /* 4.53:1 sobre blanco  · metadatos */
+  --color-steel-400: #93a5b2; /* 6.14:1 sobre navy    · cuerpo en oscuro */
+  --color-steel-300: #b8c4cd;
+  --color-steel-200: #d5dde3;
+  --color-steel-100: #e7ecf0;
+  --color-steel-50: #f4f7f9;
+
+  /* Gris frío del manual. Reservado para logotipos en monocromo y reglas,
+     no para texto: 3.43:1 sobre blanco. */
+  --color-cool: #888b8d;
+
+  /* --- Tipografía ------------------------------------------------------- */
+  --font-display: var(--font-inter-tight), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+
+  /* Escala de display con tracking óptico ya incorporado. A tamaños grandes el
+     tracking por defecto de Inter Tight se abre demasiado. */
+  --text-d1: 4.25rem;
+  --text-d1--line-height: 0.98;
+  --text-d1--letter-spacing: -0.035em;
+  --text-d1--font-weight: 700;
+  --text-d2: 3.25rem;
+  --text-d2--line-height: 1.02;
+  --text-d2--letter-spacing: -0.03em;
+  --text-d2--font-weight: 700;
+  --text-d3: 2.5rem;
+  --text-d3--line-height: 1.08;
+  --text-d3--letter-spacing: -0.026em;
+  --text-d3--font-weight: 700;
+  --text-d4: 1.875rem;
+  --text-d4--line-height: 1.15;
+  --text-d4--letter-spacing: -0.02em;
+  --text-d4--font-weight: 600;
+
+  /* --- Forma ------------------------------------------------------------
+     SHAPE LOCK. Un solo sistema en todo el sitio: 2px. El logotipo AGS es
+     completamente angular (cortes a 45°, sin curvas), así que redondear
+     controles a 12-16px lo contradice. Lo curvo queda fuera del sistema.
+     El "chaflán" (.chamfer) es el eco del corte del logotipo y se reserva
+     para marcos de imagen y fichas de dato: nunca para controles. */
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+
+  /* --- Elevación: sombras tintadas al navy, nunca negro puro ------------- */
+  --shadow-e1: 0 1px 2px rgb(0 38 62 / 0.06), 0 1px 3px rgb(0 38 62 / 0.04);
+  --shadow-e2: 0 2px 4px rgb(0 38 62 / 0.05), 0 10px 24px -8px rgb(0 38 62 / 0.12);
+  --shadow-e3: 0 4px 8px rgb(0 38 62 / 0.06), 0 22px 44px -14px rgb(0 38 62 / 0.2);
+
+  /* --- Movimiento ------------------------------------------------------- */
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --container-page: 82.5rem; /* 1320px */
+}
+
+/* ============================================================================
+   BASE
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+  --dur-press: 120ms;
+  --dur-hover: 200ms;
+  --dur-panel: 260ms;
+}
+
+/**
+ * Todo esto va DENTRO de `@layer base` a propósito. Tailwind v4 publica sus
+ * utilidades en la capa `utilities`, y en CSS el estilo SIN capa gana siempre
+ * al que sí la tiene, sin importar la especificidad. Un `h1 { color }` suelto
+ * acá afuera anularía `text-white` en todos los titulares sobre fondo oscuro
+ * del sitio. Dentro de la capa base, la utilidad manda, que es lo correcto.
+ */
+@layer base {
+  html {
+    /* La barra superior + navbar suman ~104px pegajosos; sin esto los saltos a
+       ancla dejan el título tapado. */
+    scroll-padding-top: 8rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-steel-700);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* El sitio muestra muchas cifras (MW, hectáreas, torres, años). `cv05` y
+       `cv11` dan el "1" sin serifa y la "l" con cola, que evita confundirlas
+       cuando se leen como dato. */
+    font-feature-settings:
+      "cv05" 1,
+      "cv11" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-steel-900);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-orange) 25%, transparent);
+    color: var(--color-steel-950);
+  }
+
+  /* Foco visible global. `:focus-visible` no dispara con puntero, así que no
+     ensucia la interacción con mouse. Anillo doble para que se vea tanto sobre
+     blanco como sobre el navy. */
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgb(255 85 0 / 0.18);
+    border-radius: 2px;
+  }
+}
+
+/* ============================================================================
+   UTILIDADES DE MARCA
+   ========================================================================== */
+
+@utility chamfer {
+  /* Corte a 45° en la esquina inferior derecha: el mismo gesto que hace el
+     logotipo AGS en la "A" y la "G". Se aplica a marcos de imagen y fichas de
+     dato. Nunca a botones: el clip recorta el anillo de foco. */
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+}
+
+@utility chamfer-sm {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility measure {
+  max-width: 64ch;
+}
+
+@utility num {
+  /* Cifras alineadas en columna: obligatorio en tablas de casos y contadores. */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings:
+    "tnum" 1,
+    "cv05" 1;
+}
+
+/* Regla de sección: filete de 2px que se apaga. Es el acento de marca sin
+   competir con el naranja de los CTA. */
+@utility rule-accent {
+  display: block;
+  height: 2px;
+  width: 2.75rem;
+  background: linear-gradient(
+    90deg,
+    var(--color-orange) 0%,
+    color-mix(in srgb, var(--color-orange) 15%, transparent) 100%
+  );
+}
+
+/* ============================================================================
+   HERO · capa de legibilidad sobre el video
+   ----------------------------------------------------------------------------
+   Dos capas apiladas, con los valores documentados por parada para poder
+   ajustarlos sin adivinar:
+     · vertical   protege el pie del bloque de texto en viewports bajos
+     · horizontal protege el flanco izquierdo, donde vive el H1 y los botones
+   Verificado contra los cuadros MÁS CLAROS del video (cielo del desierto a
+   mediodía), no contra el promedio.
+   ========================================================================== */
+
+.hero-scrim {
+  background:
+    linear-gradient(
+      180deg,
+      rgb(0 26 43 / 0.55) 0%,
+      rgb(0 26 43 / 0.15) 42%,
+      rgb(0 26 43 / 0.72) 100%
+    ),
+    linear-gradient(
+      92deg,
+      rgb(0 26 43 / 0.88) 0%,
+      rgb(0 26 43 / 0.62) 46%,
+      rgb(0 26 43 / 0.2) 100%
+    );
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  /* En móvil el texto ocupa proporcionalmente más ancho y la pantalla se mira
+     con más luz ambiente: se sube la opacidad ~8pp por parada. */
+  .hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgb(0 26 43 / 0.62) 0%,
+      rgb(0 26 43 / 0.55) 45%,
+      rgb(0 26 43 / 0.85) 100%
+    );
+  }
+}
+
+/* ============================================================================
+   MARQUESINA DE LOGOS (F-10a)
+   ----------------------------------------------------------------------------
+   Se anima `transform` sobre una pista duplicada: sin layout ni paint por
+   cuadro, corre en GPU. Se pausa al hover y cuando algo dentro recibe foco de
+   teclado, para que no se escape un logo enlazado mientras se tabula.
+   ========================================================================== */
+
+@keyframes marquee-slide {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-slide 46s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ============================================================================
+   DRON AMBIENTAL DEL HERO (F-03)
+   ----------------------------------------------------------------------------
+   Un solo elemento recorriendo la pantalla en 26s. No es un GIF ni un canvas:
+   son dos transforms compuestos (traslación horizontal + deriva vertical con
+   distinto período), lo que evita que el recorrido se lea como un bucle exacto.
+   `pointer-events: none` para que nunca bloquee un clic.
+   ========================================================================== */
+
+@keyframes drone-cross {
+  0% {
+    transform: translate3d(-14vw, 0, 0);
+  }
+  100% {
+    transform: translate3d(114vw, 0, 0);
+  }
+}
+
+@keyframes drone-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-3deg);
+  }
+  28% {
+    transform: translate3d(0, -26px, 0) rotate(2deg);
+  }
+  63% {
+    transform: translate3d(0, 18px, 0) rotate(-1.5deg);
+  }
+}
+
+.drone-path {
+  animation: drone-cross 26s linear infinite;
+  pointer-events: none;
+}
+
+.drone-body {
+  animation: drone-drift 7.5s ease-in-out infinite;
+}
+
+/* ============================================================================
+   ESTADOS DE PUNTERO
+   ----------------------------------------------------------------------------
+   Todo hover con movimiento va detrás de `hover: hover` + `pointer: fine`. En
+   táctil el hover se dispara al tocar y el elemento queda "levantado" después
+   de navegar: un falso positivo que se lee como bug.
+   ========================================================================== */
+
+.media-zoom {
+  transform: scale(1);
+  transition: transform 640ms var(--ease-smooth);
+}
+
+.logo-mark {
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition:
+    filter var(--dur-hover) ease,
+    opacity var(--dur-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .media-zoom {
+    transform: scale(1.045);
+  }
+
+  .logo-mark:hover,
+  .logo-mark:focus-visible {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   PANEL DESPLEGABLE (menú móvil, acordeones)
+   ----------------------------------------------------------------------------
+   `grid-template-rows: 0fr → 1fr` anima la altura sin conocerla y sin animar
+   `height`, que dispara layout en cada cuadro. Es transición y no keyframes:
+   si se abre y cierra rápido, retoma desde donde va en vez de reiniciar.
+   ========================================================================== */
+
+.disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--dur-panel) var(--ease-out-quint),
+    opacity var(--dur-panel) var(--ease-out-quint);
+}
+
+.disclosure[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.disclosure > * {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ============================================================================
+   PROSA DE ARTÍCULO (detalle de noticias)
+   ========================================================================== */
+
+.prose-ags {
+  color: var(--color-steel-700);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.prose-ags > * + * {
+  margin-top: 1.25em;
+}
+.prose-ags h2 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-top: 2.25em;
+}
+.prose-ags h3 {
+  font-size: 1.1875rem;
+  line-height: 1.3;
+  margin-top: 1.75em;
+}
+.prose-ags a {
+  color: var(--color-orange-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-ags ul,
+.prose-ags ol {
+  padding-left: 1.25rem;
+}
+.prose-ags ul {
+  list-style: none;
+}
+.prose-ags ul > li {
+  position: relative;
+  padding-left: 0.25rem;
+}
+.prose-ags ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1rem;
+  top: 0.72em;
+  width: 6px;
+  height: 2px;
+  background: var(--color-orange);
+}
+.prose-ags ol {
+  list-style: decimal;
+}
+.prose-ags li + li {
+  margin-top: 0.5em;
+}
+.prose-ags blockquote {
+  border-left: 2px solid var(--color-orange);
+  padding-left: 1.25rem;
+  color: var(--color-steel-900);
+  font-size: 1.125rem;
+}
+.prose-ags strong {
+  color: var(--color-steel-900);
+  font-weight: 600;
+}
+
+/* ============================================================================
+   MOVIMIENTO REDUCIDO
+   ----------------------------------------------------------------------------
+   Se conservan opacidad y color (ayudan a entender el cambio de estado) y se
+   elimina todo desplazamiento, escala y bucle: dron, marquesina y revelados.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .drone-path,
+  .drone-body {
+    animation: none !important;
+  }
+
+  .marquee-track {
+    /* Sin animación la pista duplicada sobra: se muestra estática desde el
+       inicio y el contenedor pasa a grilla (ver ClientesFranja). */
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
