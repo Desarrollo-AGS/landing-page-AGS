@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 { "printWidth": 96, "semi": true, "singleQuote": false, "trailingComma": "all" }
+=======
+{
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "plugins": []
+}
+>>>>>>> d182303865c38616bb5da603164608a3e4eb865b

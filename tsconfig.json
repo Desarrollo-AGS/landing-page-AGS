@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
+<<<<<<< HEAD
     "target": "ES2022",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+=======
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+>>>>>>> d182303865c38616bb5da603164608a3e4eb865b
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,9 +28,13 @@
       }
     ],
     "paths": {
+<<<<<<< HEAD
       "@/*": [
         "./src/*"
       ]
+=======
+      "@/*": ["./*"]
+>>>>>>> d182303865c38616bb5da603164608a3e4eb865b
     }
   },
   "include": [
@@ -33,9 +42,16 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
+<<<<<<< HEAD
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
   ]
+=======
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+>>>>>>> d182303865c38616bb5da603164608a3e4eb865b
 }
