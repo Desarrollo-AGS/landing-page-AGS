@@ -95,7 +95,7 @@ src/
     home/                   secciones de la portada
     forms/                  formulario de contacto
     ui/                     botones, contenedor, fichas, revelado
-    brand/                  logotipo y dron ambiental
+    brand/                  logotipo, y el dron acompañante (ver sección 7)
   content/                  DATOS: site, servicios, casos, clientes, software,
                             comunidad, nosotros, certificaciones, noticias
   lib/                      navegación, SEO, esquema de validación
@@ -172,7 +172,7 @@ Hay un control accesible de pausa, y su etiqueta se sincroniza con lo que el
 video hace de verdad: si el navegador bloquea la reproducción automática, el
 botón aparece en "reproducir" en vez de mentir.
 
-**Movimiento.** El dron del hero, la marquesina de logos y los revelados al
+**Movimiento.** El dron acompañante, la marquesina de logos y los revelados al
 scroll respetan `prefers-reduced-motion`. La franja de clientes no muestra una
 marquesina detenida: cambia a grilla estática, igual que en móvil.
 
@@ -193,7 +193,75 @@ los desplegables respondan al teclado.
 
 ---
 
-## 7. Pendientes de AGS
+## 7. El dron acompañante
+
+En la portada, un dron recorre la página junto al lector: navega por el margen
+derecho mientras se lee y, al llegar al titular de cada sección, se aproxima,
+despliega el sensor y hace dos pasadas de inspección sobre el texto.
+
+**El modelo es el real.** Es el DJI Matrice 400 exportado del CAD oficial de
+DJI. El archivo venía en 1,29 MB con 113k triángulos; acá se simplificó al 30%
+y se recomprimió con meshopt hasta **505 KB**, conservando la jerarquía de
+nodos porque los cuatro rotores se animan por separado.
+
+**Lleva el logotipo de AGS en los dos costados**, uno a cada lado del
+fuselaje, como el equipo real (ver `AGS-36.jpg`). No va ni en el morro ni en la
+cola. No es una textura del modelo: el `.glb` viene del CAD sin coordenadas UV,
+así que son dos planos texturizados con `public/models/ags-marca.png` pegados a
+la carcasa.
+
+**Cuidado con el eje.** Los costados son las caras **+Z y -Z**, no +X y -X: el
+pod es un bloque alargado a lo largo de X, así que +X y -X son el morro y la
+cola. Dónde se pegan no está escrito a mano: se lanza un rayo desde fuera hacia
+cada costado y la calcomanía se coloca en el primer impacto válido, filtrando
+por subárbol (los brazos comparten material con la carcasa), por material
+(descarta tren de aterrizaje y discos de hélice) y por normal (el pod está
+facetado y el primer triángulo suele ser un chaflán).
+
+**El haz sale del morro.** El emisor va bajo la panza, en el extremo delantero
+y centrado entre los costados, como opera el equipo real. Los valores salen de
+medir la panza con rayos hacia arriba: baja hasta y = -0,04 en x = -0,30.
+
+### Cómo está construido
+
+| Archivo | Qué hace |
+|---|---|
+| `components/brand/DronAcompanante.tsx` | Solo decide si se monta. Nada más. |
+| `components/brand/dron/escena.ts` | Escena Three.js: modelo, materiales, luz de estudio, rotores, marcas y baliza del sensor. |
+| `components/brand/dron/coreografia.ts` | El vuelo, el haz y el enganche al scroll. |
+
+GSAP se ocupa de la coreografía —entrada, encendido del sensor, la línea de
+tiempo del barrido, y ScrollTrigger para saber en qué sección va el lector— y
+un muelle en el ticker se ocupa del vuelo.
+
+El vuelo **no** es un tween: un tween a una posición fija se rompe apenas la
+página se mueve, porque el titular objetivo se desplaza bajo el dron mientras
+se scrollea. Cada cuadro se recalcula el destino y el dron persigue ese punto
+con un muelle críticamente amortiguado. El alabeo y el cabeceo salen de la
+velocidad del propio dron y de la del scroll, no de una animación aparte.
+
+**El bucle no lee layout.** La medida del titular se toma en coordenadas de
+documento al entrar en la etapa, y la posición en pantalla sale de restar el
+scroll, que se lee una sola vez por cuadro antes de escribir nada.
+
+### Agregar o quitar paradas
+
+El dron inspecciona cualquier elemento con `data-dron-objetivo`. Hoy son los
+seis titulares de sección de la portada. Para sumar una parada se le pone el
+atributo al titular; para quitarla, se le saca. No hay una lista de posiciones
+que mantener en ningún lado.
+
+### Cuándo NO se monta
+
+Ni Three.js ni GSAP entran en el bundle inicial: se importan de forma dinámica
+y solo después de `load` y de que el hilo principal quede ocioso. Se descarta
+por completo si hay `prefers-reduced-motion`, si el viewport está bajo 1024px,
+si la conexión se declara medida o lenta, o si no hay WebGL. En móvil el modelo
+no se descarga y el LCP no se mueve.
+
+---
+
+## 8. Pendientes de AGS
 
 Nada de esto bloquea el desarrollo, pero sí la publicación de la sección
 correspondiente.
@@ -219,7 +287,7 @@ como las otras cinco.
 
 ---
 
-## 8. Video corporativo
+## 9. Video corporativo
 
 El video que se usa hoy en el hero y en el bloque de faena es material real de
 AGS: una operación de limpieza de fachada en faena minera activa. Sirve como

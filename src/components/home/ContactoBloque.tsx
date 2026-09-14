@@ -22,7 +22,7 @@ export function ContactoBloque({ conTitulo = true }: { conTitulo?: boolean }) {
               {conTitulo ? (
                 <>
                   <span className="rule-accent mb-6" aria-hidden="true" />
-                  <h2 className="text-d3 text-steel-900 sm:text-d2">
+                  <h2 data-dron-objetivo className="text-d3 text-steel-900 sm:text-d2">
                     Cuéntanos qué hay que inspeccionar
                   </h2>
                 </>

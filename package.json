@@ -6,29 +6,36 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --write .",
     "verificar": "node scripts/verificar.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "gray-matter": "^4.0.3",
+    "gsap": "^3.15.0",
     "motion": "^12.23.12",
     "next": "16.2.12",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
+    "three": "^0.180.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.185.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.12",
     "prettier": "^3.6.2",
     "puppeteer-core": "^23.11.1",
     "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.70.0"
   }
 }

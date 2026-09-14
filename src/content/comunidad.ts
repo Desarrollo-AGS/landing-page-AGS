@@ -26,9 +26,12 @@ export const iniciativas: Iniciativa[] = [
     bajada: "Antofagasta",
     descripcion:
       "Equipo de AGS en aula, mostrando cómo se opera un dron industrial y para qué se usa en la minería y la energía de la región. El objetivo es que estudiantes de Antofagasta vean de cerca una salida técnica que existe en su propia ciudad.",
-    imagenes: [],
-    pendiente:
-      "Sin fotografías publicadas: las tomas involucran a menores y requieren autorización escrita del colegio y de los apoderados.",
+    imagenes: [
+      {
+        src: "/images/AGSxAIS.webp",
+        alt: "Equipo de AGS durante una charla técnica en el colegio AIS de Antofagasta",
+      },
+    ],
   },
   {
     slug: "coyotes-antofagasta",
@@ -36,7 +39,11 @@ export const iniciativas: Iniciativa[] = [
     bajada: "Rugby",
     descripcion:
       "AGS patrocina al club de rugby Coyotes Antofagasta. El deporte amateur de la región se sostiene con apoyo local, y para AGS es una forma directa de devolver algo a la ciudad donde opera.",
-    imagenes: [],
-    pendiente: "Fotografías del club pendientes de entrega por AGS.",
+    imagenes: [
+      {
+        src: "/images/AGSxcoyotes.webp",
+        alt: "Club de rugby Coyotes Antofagasta patrocinado por AGS",
+      },
+    ],
   },
 ];

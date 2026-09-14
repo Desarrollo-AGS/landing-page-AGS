@@ -21,7 +21,9 @@ export function CasosBloque() {
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-[36rem]">
               <span className="rule-accent mb-6" aria-hidden="true" />
-              <h2 className="text-d3 text-white sm:text-d2">Proyectos ya ejecutados</h2>
+              <h2 data-dron-objetivo className="text-d3 text-white sm:text-d2">
+                Proyectos ya ejecutados
+              </h2>
               <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-400">
                 La franja de logos genera confianza a primera vista. Esto es lo que hay detrás:
                 plantas, ubicaciones y superficies medidas.

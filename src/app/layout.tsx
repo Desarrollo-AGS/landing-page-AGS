@@ -52,7 +52,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-CL" className={`${inter.variable} ${interTight.variable}`}>
+    // `data-scroll-behavior`: el sitio usa `scroll-behavior: smooth`, y sin
+    // esta marca Next lo desactiva por su cuenta durante las transiciones de
+    // ruta y avisa por consola en cada navegación.
+    <html
+      lang="es-CL"
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${interTight.variable}`}
+    >
       <body className="flex min-h-screen flex-col">
         {/* Salto al contenido: primer tabulador de la página. Sin él, navegar
             con teclado obliga a recorrer barra superior, logo, seis ítems de

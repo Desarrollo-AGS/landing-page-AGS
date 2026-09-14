@@ -34,7 +34,7 @@ export function ServiciosIndice() {
           <div className="lg:sticky lg:top-32 lg:self-start">
             <Revelar>
               <span className="rule-accent mb-6" aria-hidden="true" />
-              <h2 className="text-d3 text-steel-900 sm:text-d2">
+              <h2 data-dron-objetivo className="text-d3 text-steel-900 sm:text-d2">
                 Siete operaciones, un mismo criterio: nadie sube
               </h2>
               <p className="measure mt-5 text-[1.0625rem] leading-relaxed text-steel-600">

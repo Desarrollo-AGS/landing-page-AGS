@@ -74,11 +74,22 @@ export function Navbar() {
     setDespegado((prev) => (prev === nuevo ? prev : nuevo));
   });
 
-  // Al navegar se cierra todo: si no, el panel queda abierto sobre la página nueva.
-  useEffect(() => {
+  /**
+   * Al navegar se cierra todo: si no, el panel queda abierto sobre la página
+   * nueva.
+   *
+   * Va durante el render y no en un efecto. Llamar a `setState` dentro de un
+   * `useEffect` que depende de `pathname` provoca un render en cascada: React
+   * pinta la página nueva con el menú todavía abierto y recién después lo
+   * cierra. Comparando contra la ruta anterior, el ajuste ocurre antes del
+   * primer pintado. Es el patrón que recomienda React para estado derivado.
+   */
+  const [rutaPrevia, setRutaPrevia] = useState(pathname);
+  if (rutaPrevia !== pathname) {
+    setRutaPrevia(pathname);
     setDesplegado(null);
     setMovilAbierto(false);
-  }, [pathname]);
+  }
 
   // Con el menú móvil abierto el fondo no debe poder scrollear detrás del panel.
   useEffect(() => {

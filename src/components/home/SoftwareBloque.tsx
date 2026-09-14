@@ -21,7 +21,7 @@ export function SoftwareBloque() {
         <Revelar>
           <div className="max-w-[42rem]">
             <span className="rule-accent mb-6" aria-hidden="true" />
-            <h2 className="text-d3 text-steel-900 sm:text-d2">
+            <h2 data-dron-objetivo className="text-d3 text-steel-900 sm:text-d2">
               El vuelo termina donde empieza el dato
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-600">

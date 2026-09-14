@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DronAcompanante } from "@/components/brand/DronAcompanante";
 import { Hero } from "@/components/home/Hero";
 import { ClientesFranja } from "@/components/home/ClientesFranja";
 import { ServiciosIndice } from "@/components/home/ServiciosIndice";
@@ -40,6 +41,11 @@ export const metadata: Metadata = metadatosDe({
 export default function Home() {
   return (
     <>
+      {/* Capa ambiental: el dron recorre la portada acompañando la lectura y
+          hace una pasada de inspección sobre el titular de cada sección.
+          Se monta solo en escritorio y con movimiento normal. */}
+      <DronAcompanante />
+
       <Hero />
       <ClientesFranja />
       <ServiciosIndice />

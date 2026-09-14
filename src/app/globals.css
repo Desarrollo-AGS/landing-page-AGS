@@ -287,43 +287,41 @@
 }
 
 /* ============================================================================
-   DRON AMBIENTAL DEL HERO (F-03)
+   DRON ACOMPAÑANTE (F-03)
    ----------------------------------------------------------------------------
-   Un solo elemento recorriendo la pantalla en 26s. No es un GIF ni un canvas:
-   son dos transforms compuestos (traslación horizontal + deriva vertical con
-   distinto período), lo que evita que el recorrido se lea como un bucle exacto.
-   `pointer-events: none` para que nunca bloquee un clic.
+   El dron es un modelo 3D en su propio canvas y se anima desde JavaScript (ver
+   components/brand/dron/). Lo único que necesita del CSS es el tratamiento del
+   titular mientras está siendo inspeccionado.
+
+   La pasada del sensor deja una veladura naranja sobre el texto, del mismo
+   color de marca que el haz. No se anima `background-position` sobre el texto
+   en cada cuadro: es una transición de opacidad sobre un pseudo-elemento, que
+   el compositor resuelve sin repintar la tipografía.
    ========================================================================== */
 
-@keyframes drone-cross {
-  0% {
-    transform: translate3d(-14vw, 0, 0);
-  }
-  100% {
-    transform: translate3d(114vw, 0, 0);
-  }
+[data-dron-objetivo] {
+  position: relative;
 }
 
-@keyframes drone-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(-3deg);
-  }
-  28% {
-    transform: translate3d(0, -26px, 0) rotate(2deg);
-  }
-  63% {
-    transform: translate3d(0, 18px, 0) rotate(-1.5deg);
-  }
-}
-
-.drone-path {
-  animation: drone-cross 26s linear infinite;
+[data-dron-objetivo]::after {
+  content: "";
+  position: absolute;
+  inset: -0.2em -0.4em;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out-quint);
+  background: linear-gradient(
+    104deg,
+    color-mix(in srgb, var(--color-orange) 8%, transparent) 0%,
+    color-mix(in srgb, var(--color-orange) 2%, transparent) 100%
+  );
+  /* Sin la máscara, la veladura termina en un canto recto y se lee como una
+     caja puesta sobre el titular en vez de como luz cayendo sobre él. */
+  mask-image: radial-gradient(100% 92% at 46% 42%, #000 18%, transparent 100%);
 }
 
-.drone-body {
-  animation: drone-drift 7.5s ease-in-out infinite;
+[data-dron-objetivo][data-dron-escaneando]::after {
+  opacity: 1;
 }
 
 /* ============================================================================
@@ -459,9 +457,7 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .drone-path,
-  .drone-body {
+  .marquee-track {
     animation: none !important;
   }
 

@@ -88,7 +88,7 @@ export function FaenaVideo() {
               <Play size={13} weight="fill" aria-hidden="true" />
               Operación registrada en faena
             </p>
-            <h2 className="mt-4 text-d3 text-white sm:text-d2">
+            <h2 data-dron-objetivo className="mt-4 text-d3 text-white sm:text-d2">
               Fachada de faena minera, limpiada en vuelo
             </h2>
             <p className="mt-5 max-w-[32rem] text-[1.0625rem] leading-relaxed text-white/85">

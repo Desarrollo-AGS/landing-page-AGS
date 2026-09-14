@@ -6,7 +6,6 @@ import { Pause, Play } from "@phosphor-icons/react/dist/ssr";
 import { useReducedMotion } from "motion/react";
 import { BotonEnlace } from "@/components/ui/Boton";
 import { Contenedor } from "@/components/ui/Contenedor";
-import { Dron } from "@/components/brand/Dron";
 
 /**
  * F-03 · Hero.
@@ -157,8 +156,6 @@ export function Hero() {
       ) : null}
 
       <div aria-hidden="true" className="hero-scrim absolute inset-0" />
-
-      {!reducido ? <Dron /> : null}
 
       <Contenedor className="relative z-10 pb-16 pt-[calc(68px+5rem)] sm:pb-20 lg:pb-24">
         <div className="max-w-[46rem]">

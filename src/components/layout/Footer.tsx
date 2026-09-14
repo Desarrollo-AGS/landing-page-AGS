@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowUpRight,
   EnvelopeSimple,
@@ -110,9 +111,13 @@ export function Footer() {
         <div className="mt-14 border-t border-white/10 pt-8">
           <p className="eyebrow text-steel-500">Apoyado por</p>
           <div className="mt-4 flex h-11 items-center">
-            <span className="flex h-11 items-center border border-dashed border-white/15 px-4 text-[0.8125rem] text-steel-500">
-              Logo de Aster pendiente de entrega por AGS
-            </span>
+            <Image
+              src="/images/open-aster-logo.webp"
+              alt="Open Aster"
+              width={347}
+              height={77}
+              className="h-11 w-auto object-contain brightness-0 invert opacity-70"
+            />
           </div>
         </div>
 

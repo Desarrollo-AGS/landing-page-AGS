@@ -10,6 +10,8 @@
  * Si Chrome está en otra ruta, pásala en la variable CHROME_PATH.
  */
 
+/* eslint-disable no-console -- es una herramienta de línea de comandos: su
+   salida ES el informe. */
 import puppeteer from "puppeteer-core";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:3000";
