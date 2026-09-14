@@ -1,6 +1,5 @@
 import type { NextConfig } from "next";
 
-<<<<<<< HEAD
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Hay otros package-lock.json en carpetas hermanas del escritorio. Sin esto,
@@ -16,32 +15,9 @@ const nextConfig: NextConfig = {
       // Las URLs de casos del sitio WordPress actual están indexadas. No se pierden.
       { source: "/casos-exito", destination: "/casos", permanent: true },
       { source: "/casos-exito/:slug", destination: "/casos", permanent: true },
-=======
-/**
- * Redirects 301 desde URLs del sitio WordPress actual (ticket 6.4).
- *
- * Los 7 mapeos de /servicio/[slug-antiguo]/ se verificaron uno por uno contra el
- * sitio en vivo (HTTP 200/301 real probado con curl, no adivinados) — los slugs
- * antiguos usan el patrón WordPress completo ("inspeccion-de-lineas-electricas"),
- * distinto de los slugs nuevos, más cortos.
- *
- * /casos-exito/[slug]/ NO necesita redirect: los slugs son idénticos entre el sitio
- * viejo y el nuevo (verificado tres veces — ticket 4.3, 6.3 y 6.4 — contra la
- * página de listado y el sitemap XML real del sitio) — la página ya existe en la
- * misma URL, no cambió de estructura.
- *
- * No hace falta declarar variantes "con slash final" (`/servicios/`, `/proyectos/`):
- * con `trailingSlash: false` (default), Next.js ya normaliza esas URLs a la versión
- * sin slash ANTES de evaluar `redirects()` — declarar ambas es código muerto que
- * nunca se dispara (verificado: `/servicios/` sí llega a destino, pero via un salto
- * extra por esa normalización interna, no por una regla explícita acá).
- */
-const nextConfig: NextConfig = {
-  async redirects() {
-    return [
-      // Listado de servicios con anclas (#inspeccion-de-lineas-electricas, etc. en
-      // el sitio viejo) — no tiene equivalente 1:1 en el sitio nuevo (no existe una
-      // página agregadora /servicios/), redirige al preview de servicios en Home.
+
+      // Listado de servicios — no tiene equivalente 1:1 en el sitio nuevo,
+      // redirige al preview de servicios en Home.
       {
         source: "/servicios",
         destination: "/#servicios",
@@ -85,17 +61,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // /proyectos/ — URL real e indexada según el sitemap XML del sitio actual
-      // (aunque hoy devuelve error 500 en el sitio viejo, ya roto). Mapeo de mejor
-      // esfuerzo a Casos de Éxito por nombre/contexto — no hay forma de confirmar
-      // su contenido original (la página está caída); validar con el cliente antes
-      // de publicar si corresponde a otra sección.
+      // /proyectos/ — URL indexada del sitio viejo (hoy devuelve 500).
       {
         source: "/proyectos",
         destination: "/#casos-exito",
         permanent: true,
       },
->>>>>>> d182303865c38616bb5da603164608a3e4eb865b
     ];
   },
 };

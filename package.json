@@ -1,17 +1,11 @@
 {
-<<<<<<< HEAD
   "name": "ags-soluciones-web",
   "version": "1.0.0",
-=======
-  "name": "landing-page-ags",
-  "version": "0.1.0",
->>>>>>> d182303865c38616bb5da603164608a3e4eb865b
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-<<<<<<< HEAD
     "lint": "eslint .",
     "format": "prettier --write .",
     "verificar": "node scripts/verificar.mjs"
@@ -43,32 +37,5 @@
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.70.0"
-=======
-    "lint": "eslint",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
-  },
-  "dependencies": {
-    "@hookform/resolvers": "^5.5.7",
-    "framer-motion": "^12.43.0",
-    "lucide-react": "^1.27.0",
-    "next": "16.2.12",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "react-hook-form": "^7.83.0",
-    "zod": "^4.4.3"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.12",
-    "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.9.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
->>>>>>> d182303865c38616bb5da603164608a3e4eb865b
   }
 }
