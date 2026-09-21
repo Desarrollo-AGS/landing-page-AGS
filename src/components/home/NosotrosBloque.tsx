@@ -17,11 +17,14 @@ export function NosotrosBloque() {
   const anios = new Date().getFullYear() - anioFundacion;
 
   return (
-    <section className="bg-white py-20 sm:py-24 lg:py-28">
+    <section data-dron-escena="nosotros" className="bg-white py-20 sm:py-24 lg:py-28">
       <Contenedor>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Revelar>
-            <div className="chamfer relative aspect-[4/3] overflow-hidden bg-steel-100">
+            <div
+              data-nosotros-foto
+              className="chamfer relative aspect-[4/3] overflow-hidden bg-steel-100"
+            >
               <Image
                 src="/images/equipo-reconocimiento-bhp.webp"
                 alt="Equipo de AGS Soluciones recibiendo un reconocimiento en el encuentro de proveedores de Minera Escondida, BHP"
@@ -35,7 +38,7 @@ export function NosotrosBloque() {
 
           <Revelar delay={0.08}>
             <span className="rule-accent mb-6" aria-hidden="true" />
-            <h2 className="text-d3 text-steel-900 sm:text-d2">
+            <h2 data-dron-objetivo className="text-d3 text-steel-900 sm:text-d2">
               {anios} años operando drones en faena industrial
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-600">

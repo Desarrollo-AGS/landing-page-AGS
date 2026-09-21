@@ -16,23 +16,23 @@ export const anioFundacion = 2016;
 export const quienesSomos = {
   verificado: true,
   texto:
-    "Desde 2016, somos pioneros en servicios de drones en Chile, especializados en energía, minería y construcción. Extendemos nuestro abanico de servicios a Perú y Argentina, ofreciendo ventajas comparativas sobre métodos tradicionales, minimizando riesgos de los trabajadores y aumentando la eficiencia operativa de nuestros clientes mediante datos confiables y un servicio de calidad. Nuestro compromiso es superar las expectativas de nuestros clientes respaldados por la responsabilidad y de calidad, entregados por profesionales especializados en cada industria.",
+    "AGS Soluciones Industriales Aéreas es una empresa antofagastina especializada en servicios aéreos e inteligencia de datos con drones para industrias como la minera, energética y de construcción. Con más de 9 años de trayectoria en el norte de Chile, transformamos la inspección técnica y la captura de campo en soluciones 'end-to-end', maximizando la seguridad y la eficiencia operacional de nuestros clientes.",
 };
 
 /** Primera oración del párrafo anterior. Se reutiliza en el bloque del home. */
 export const quienesSomosExtracto =
-  "Desde 2016, somos pioneros en servicios de drones en Chile, especializados en energía, minería y construcción.";
+  "AGS Soluciones Industriales Aéreas es una empresa antofagastina especializada en servicios aéreos e inteligencia de datos con drones para industrias como la minera, energética y de construcción.";
 
 export const mision = {
   verificado: true,
   texto:
-    "AGS nace para cubrir la creciente demanda industrial de tecnología de drones. Nos destacamos por nuestra innovación y experiencia en soluciones aéreas, aprovechando al máximo la versatilidad y eficacia de esta tecnología para abordar los desafíos de diversos sectores industriales.",
+    "Entregar soluciones aéreas e industriales integrales a través de tecnología de drones, desarrollo de software y utilizando inteligencia artificial, optimizando la continuidad operacional, reduciendo los riesgos de las personas y transformando datos de terreno en decisiones estratégicas de alto valor.",
 };
 
 export const vision = {
   verificado: false,
   texto:
-    "En nuestro compromiso de proporcionar soluciones aéreas innovadoras y de alta calidad, nos esforzamos por superar las expectativas de nuestros clientes. Trabajamos incansablemente para brindar servicios que optimizan la eficiencia y la seguridad en diversos sectores industriales.",
+    "Ser consolidados como la empresa líder y el socio tecnológico 'end-to-end' referente en Chile para la inspección, mantenimiento y analítica de datos en industrias, destacando por la innovación continua, la automatización de procesos y el impacto positivo en la seguridad operacional.",
 };
 
 export const metodologia = {

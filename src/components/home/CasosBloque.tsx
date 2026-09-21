@@ -15,13 +15,15 @@ import { BotonEnlace } from "@/components/ui/Boton";
  */
 export function CasosBloque() {
   return (
-    <section id="casos" className="bg-steel-950 py-20 sm:py-24 lg:py-28">
+    <section id="casos" data-dron-escena="casos" className="bg-steel-950 py-20 sm:py-24 lg:py-28">
       <Contenedor>
         <Revelar>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-[36rem]">
               <span className="rule-accent mb-6" aria-hidden="true" />
-              <h2 className="text-d3 text-white sm:text-d2">Proyectos ya ejecutados</h2>
+              <h2 data-dron-objetivo className="text-d3 text-white sm:text-d2">
+                Proyectos ya ejecutados
+              </h2>
               <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-400">
                 La franja de logos genera confianza a primera vista. Esto es lo que hay detrás:
                 plantas, ubicaciones y superficies medidas.
@@ -31,14 +33,23 @@ export function CasosBloque() {
             {/* A 320px, tres columnas con `gap-x-10` y cifras de 2rem no caben
                 en los 278px disponibles y empujaban la página al scroll
                 horizontal. El paso y el cuerpo suben recién desde 640px. */}
-            <dl className="grid shrink-0 grid-cols-3 gap-x-5 gap-y-2 border-l-2 border-orange pl-5 sm:gap-x-10 sm:pl-6">
+            {/* `data-dron-haz`: el dron escanea las cifras mientras cuentan.
+                `data-cifra`: valor numérico para el conteo; el texto real ya
+                viene en el HTML. */}
+            <dl
+              data-dron-haz
+              className="grid shrink-0 grid-cols-3 gap-x-5 gap-y-2 border-l-2 border-orange pl-5 sm:gap-x-10 sm:pl-6"
+            >
               {[
-                { k: "Proyectos", v: String(totales.proyectos) },
-                { k: "MW inspeccionados", v: formatearCifra(totales.mw) },
-                { k: "Hectáreas", v: formatearCifra(totales.hectareas) },
-              ].map(({ k, v }) => (
+                { k: "Proyectos", v: String(totales.proyectos), n: totales.proyectos },
+                { k: "MW inspeccionados", v: formatearCifra(totales.mw), n: totales.mw },
+                { k: "Hectáreas", v: formatearCifra(totales.hectareas), n: totales.hectareas },
+              ].map(({ k, v, n }) => (
                 <div key={k}>
-                  <dd className="num text-[1.5rem] font-semibold leading-none tracking-[-0.028em] text-white sm:text-[2rem]">
+                  <dd
+                    data-cifra={n}
+                    className="num text-[1.5rem] font-semibold leading-none tracking-[-0.028em] text-white sm:text-[2rem]"
+                  >
                     {v}
                   </dd>
                   <dt className="mt-2 text-xs leading-snug text-steel-500">{k}</dt>

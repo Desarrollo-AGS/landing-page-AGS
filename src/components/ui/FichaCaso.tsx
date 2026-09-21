@@ -14,13 +14,7 @@ import type { Caso } from "@/content/casos";
 export function FichaCaso({ caso, tono = "claro" }: { caso: Caso; tono?: "claro" | "oscuro" }) {
   const oscuro = tono === "oscuro";
 
-  const cifras = [
-    caso.mw !== null ? { valor: formatearCifra(caso.mw), unidad: "MW" } : null,
-    caso.hectareas !== null
-      ? { valor: formatearCifra(caso.hectareas), unidad: "hectáreas" }
-      : null,
-    caso.cifraAlterna ?? null,
-  ].filter(Boolean) as { valor: string; unidad: string }[];
+  const cifras = cifrasDeCaso(caso);
 
   return (
     <article
@@ -76,6 +70,20 @@ export function FichaCaso({ caso, tono = "claro" }: { caso: Caso; tono?: "claro"
       </p>
     </article>
   );
+}
+
+/**
+ * Las cifras publicadas de un caso, ya formateadas. Las que el proyecto no
+ * declara no aparecen: nunca un cero de relleno.
+ */
+export function cifrasDeCaso(caso: Caso): { valor: string; unidad: string }[] {
+  return [
+    caso.mw !== null ? { valor: formatearCifra(caso.mw), unidad: "MW" } : null,
+    caso.hectareas !== null
+      ? { valor: formatearCifra(caso.hectareas), unidad: "hectáreas" }
+      : null,
+    caso.cifraAlterna ?? null,
+  ].filter(Boolean) as { valor: string; unidad: string }[];
 }
 
 /** Separador de miles con coma decimal, que es la convención chilena. */

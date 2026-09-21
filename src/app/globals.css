@@ -287,44 +287,46 @@
 }
 
 /* ============================================================================
-   DRON AMBIENTAL DEL HERO (F-03)
+   DRON ACOMPAÑANTE (F-03)
    ----------------------------------------------------------------------------
-   Un solo elemento recorriendo la pantalla en 26s. No es un GIF ni un canvas:
-   son dos transforms compuestos (traslación horizontal + deriva vertical con
-   distinto período), lo que evita que el recorrido se lea como un bucle exacto.
-   `pointer-events: none` para que nunca bloquee un clic.
+   El dron es un modelo 3D en su propio canvas y se anima desde JavaScript (ver
+   components/brand/dron/). Lo único que necesita del CSS es el tratamiento del
+   titular mientras está siendo inspeccionado.
+
+   La pasada del sensor deja una veladura naranja sobre el texto, del mismo
+   color de marca que el haz. No se anima `background-position` sobre el texto
+   en cada cuadro: es una transición de opacidad sobre un pseudo-elemento, que
+   el compositor resuelve sin repintar la tipografía.
    ========================================================================== */
 
-@keyframes drone-cross {
-  0% {
-    transform: translate3d(-14vw, 0, 0);
-  }
-  100% {
-    transform: translate3d(114vw, 0, 0);
-  }
+[data-dron-objetivo],
+[data-dron-haz] {
+  position: relative;
 }
 
-@keyframes drone-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(-3deg);
-  }
-  28% {
-    transform: translate3d(0, -26px, 0) rotate(2deg);
-  }
-  63% {
-    transform: translate3d(0, 18px, 0) rotate(-1.5deg);
-  }
-}
-
-.drone-path {
-  animation: drone-cross 26s linear infinite;
+[data-dron-objetivo]::after,
+[data-dron-haz]::after {
+  content: "";
+  position: absolute;
+  inset: -0.2em -0.4em;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out-quint);
+  background: linear-gradient(
+    104deg,
+    color-mix(in srgb, var(--color-orange) 8%, transparent) 0%,
+    color-mix(in srgb, var(--color-orange) 2%, transparent) 100%
+  );
+  /* Sin la máscara, la veladura termina en un canto recto y se lee como una
+     caja puesta sobre el titular en vez de como luz cayendo sobre él. */
+  mask-image: radial-gradient(100% 92% at 46% 42%, #000 18%, transparent 100%);
 }
 
-.drone-body {
-  animation: drone-drift 7.5s ease-in-out infinite;
+[data-dron-objetivo][data-dron-escaneando]::after,
+[data-dron-haz][data-dron-escaneando]::after {
+  opacity: 1;
 }
+
 
 /* ============================================================================
    ESTADOS DE PUNTERO
@@ -452,6 +454,135 @@
 }
 
 /* ============================================================================
+   LIBRITO DEL BROCHURE (/nosotros/brochure)
+   ----------------------------------------------------------------------------
+   Las hojas las crea `Librito.tsx` a mano (StPageFlip mueve sus nodos), así
+   que se estilan con clases propias y no con utilidades de Tailwind.
+
+   OJO: StPageFlip escribe `display` en línea sobre cada hoja para mostrarla u
+   ocultarla. Ninguna regla de abajo toca `display` en `.librito-pagina`; la
+   maquetación interna va en un hijo.
+   ========================================================================== */
+
+.librito-pagina {
+  overflow: hidden;
+  background: var(--color-steel-950);
+  /* Las medidas internas de la contratapa escalan con la hoja. */
+  container-type: size;
+}
+
+.librito-pagina img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.librito-contratapa {
+  background-color: var(--color-steel-950);
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 6cqw 6cqw;
+  border-left: 2px solid var(--color-orange);
+}
+
+.librito-contratapa__interior {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 9cqh 8cqw;
+  color: var(--color-steel-300);
+}
+
+.librito-pagina img.librito-contratapa__logo {
+  width: 30cqw;
+  height: auto;
+  object-fit: contain;
+}
+
+.librito-contratapa__titulo {
+  font-family: var(--font-display);
+  font-size: 6.2cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.librito-contratapa__datos {
+  display: grid;
+  gap: 0.6cqh;
+  font-size: 2.3cqw;
+  font-variant-numeric: tabular-nums;
+}
+
+.librito-contratapa__datos a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--color-orange);
+  text-underline-offset: 0.3em;
+}
+
+/* Reserva: el mismo alto que tendrá el libro. Con la portada sola el libro
+   ocupa media doble página, así que la portada va en la mitad derecha. */
+.librito-reserva {
+  aspect-ratio: 16 / 9;
+}
+
+.librito-reserva__portada {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .librito-reserva {
+    aspect-ratio: 32 / 9;
+  }
+
+  .librito-reserva__portada {
+    width: 50%;
+    margin-left: 50%;
+  }
+}
+
+/* Pantalla completa: el libro al centro y sin miniaturas. */
+.librito:fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: none;
+  padding: 2rem clamp(1rem, 4vw, 4rem);
+  overflow: auto;
+  background: var(--color-steel-950);
+}
+
+.librito:fullscreen .librito-miniaturas {
+  display: none;
+}
+
+.librito-dialogo {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(0 26 43 / 0.97);
+  overscroll-behavior: contain;
+}
+
+.librito-dialogo::backdrop {
+  background: rgb(0 26 43 / 0.9);
+}
+
+/* ============================================================================
    MOVIMIENTO REDUCIDO
    ----------------------------------------------------------------------------
    Se conservan opacidad y color (ayudan a entender el cambio de estado) y se
@@ -459,9 +590,7 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .drone-path,
-  .drone-body {
+  .marquee-track {
     animation: none !important;
   }
 
@@ -479,4 +608,583 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+
+/* ============================================================================
+   AGS — INDUSTRIAL AIR OPERATIONS (/nosotros/brochure)
+   ----------------------------------------------------------------------------
+   La maquetación base de cada capítulo es estática y completa: así se ve con
+   movimiento reducido y antes de que cargue GSAP. `animaciones.ts` marca la
+   raíz con `data-movimiento="escritorio" | "movil"`, y solo entonces se
+   activan los marcos fijados de abajo. Ninguna regla de este bloque oculta
+   contenido por su cuenta.
+
+   Estas reglas van fuera de capa a propósito: tienen que ganarle a las
+   utilidades de Tailwind del layout estático (aspect-ratio, padding, margin)
+   cuando el capítulo pasa a estar fijado.
+   ========================================================================== */
+
+/* `clip` y no `hidden`: recorta el desborde horizontal sin crear un
+   contenedor de scroll, que rompería el `position: sticky` del panel. */
+.iao {
+  overflow-x: clip;
+}
+
+/* ---- Titulares con máscara ---------------------------------------------- */
+
+.iao-mascara {
+  display: block;
+  overflow: hidden;
+  /* Aire para los descendentes y la tilde: sin esto la máscara corta la "j"
+     y la "Í" en mayúsculas de interlineado 0,9. */
+  padding-block: 0.08em 0.12em;
+  margin-block: -0.08em -0.12em;
+}
+
+.iao-mascara__texto {
+  display: block;
+}
+
+@keyframes iao-subir {
+  from {
+    transform: translate3d(0, 108%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes iao-aparecer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Entrada de la portada: CSS, no GSAP, para que el titular no dependa de
+   JavaScript. Con movimiento reducido el bloque de abajo la deja en 0,01ms. */
+.iao-entrada {
+  animation: iao-subir 1.15s var(--ease-smooth) both;
+  animation-delay: var(--retraso, 0ms);
+}
+
+.iao-entrada-suave {
+  animation: iao-aparecer 1.4s var(--ease-smooth) both;
+  animation-delay: var(--retraso, 0ms);
+}
+
+@keyframes iao-sonda {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.iao-sonda {
+  animation: iao-sonda 2.2s var(--ease-smooth) infinite;
+}
+
+/* ---- Detalles técnicos --------------------------------------------------- */
+
+/* Retícula de levantamiento: filete de 1px cada 88px, desvanecida hacia los
+   bordes. Es el único "fondo" de la experiencia además de la fotografía. */
+.iao-reticula {
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(ellipse 78% 68% at 68% 42%, #000 8%, transparent 72%);
+}
+
+.iao-reticula-fina {
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to top, transparent, #000 70%);
+}
+
+.iao-numero-contorno {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.07);
+}
+
+/* Fotografía de reserva de la portada. Es fondo CSS condicionado al atributo:
+   si el dron 3D está montado, la imagen ni siquiera se descarga. */
+.iao-dron-reserva {
+  opacity: 0;
+  transition: opacity 900ms var(--ease-smooth);
+}
+
+[data-iao][data-dron="ausente"] .iao-dron-reserva {
+  opacity: 1;
+  background: url("/images/dron-en-vuelo.webp") 40% center / cover no-repeat;
+}
+
+.iao-solo-movimiento,
+.iao-solo-escritorio {
+  display: none;
+}
+
+[data-movimiento] .iao-solo-movimiento,
+[data-movimiento="escritorio"] .iao-solo-escritorio {
+  display: block;
+}
+
+/* ---- Marcos fijados ------------------------------------------------------
+   El capítulo ocupa exactamente la ventana bajo el navbar mientras está
+   fijado. El mínimo evita que en laptops bajos el contenido se monte. */
+
+[data-movimiento] .iao-fijado,
+[data-movimiento="escritorio"] .iao-fijado-escritorio {
+  height: calc(100svh - 68px);
+  min-height: 36rem;
+  padding-block: 0;
+}
+
+/* 01 · Desafío */
+[data-movimiento="escritorio"] .iao-desafio {
+  overflow: hidden;
+}
+
+[data-movimiento="escritorio"] .iao-desafio__contenido {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+[data-movimiento="escritorio"] .iao-desafio__foto {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  margin: 0;
+  aspect-ratio: auto;
+}
+
+/* 02 · Operación */
+[data-movimiento] .iao-operacion__contenido {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-block: clamp(2rem, 7svh, 5rem) clamp(2rem, 8svh, 5.5rem);
+}
+
+[data-movimiento] .iao-operacion__riel {
+  margin-top: auto;
+}
+
+/* En móvil las cuatro etapas ocupan la misma celda y se relevan. */
+[data-movimiento="movil"] .iao-pasos {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+[data-movimiento="movil"] .iao-paso {
+  grid-area: 1 / 1;
+}
+
+/* 04 · Del vuelo al dato */
+[data-movimiento="escritorio"] .iao-vuelo__contenido {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-block: clamp(2rem, 7svh, 5rem) clamp(2rem, 7svh, 4.5rem);
+}
+
+[data-movimiento="escritorio"] .iao-flujo {
+  margin-top: auto;
+}
+
+/* Riel del flujo: vertical en móvil, horizontal desde 1024px. */
+.iao-flujo::before,
+.iao-flujo__linea {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.iao-flujo::before {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.iao-flujo__linea {
+  background: var(--color-orange);
+  transform-origin: top;
+}
+
+.iao-flujo__punto {
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  width: 7px;
+  height: 7px;
+  background: var(--color-steel-900);
+  border: 1px solid var(--color-orange);
+}
+
+@media (min-width: 1024px) {
+  .iao-flujo::before,
+  .iao-flujo__linea {
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .iao-flujo__linea {
+    transform-origin: left;
+  }
+
+  .iao-flujo__punto {
+    top: -3px;
+  }
+}
+
+/* Capas del dato: tres planos en isométrica. Es un diagrama, no una interfaz. */
+.iao-capas {
+  height: clamp(13rem, 30svh, 19rem);
+}
+
+.iao-capa {
+  --paso: clamp(2.6rem, 6svh, 3.6rem);
+  position: absolute;
+  left: 38%;
+  top: 50%;
+  width: clamp(8rem, 18svh, 11rem);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  transform: translateY(calc((1 - var(--i)) * var(--paso))) rotateX(60deg) rotateZ(45deg);
+  border: 1px solid rgb(255 255 255 / 0.22);
+  background-color: rgb(0 38 62 / 0.6);
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.iao-capa[data-hallazgos] {
+  border-color: rgb(255 85 0 / 0.65);
+  background-image:
+    radial-gradient(circle at 26% 32%, var(--color-orange) 0 3px, transparent 4px),
+    radial-gradient(circle at 68% 24%, var(--color-orange) 0 3px, transparent 4px),
+    radial-gradient(circle at 54% 72%, var(--color-orange) 0 3px, transparent 4px),
+    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    14px 14px,
+    14px 14px;
+}
+
+.iao-capa__rotulo {
+  --paso: clamp(2.6rem, 6svh, 3.6rem);
+  position: absolute;
+  left: calc(38% + clamp(6.5rem, 14svh, 8.5rem));
+  top: calc(50% + (1 - var(--i)) * var(--paso));
+  translate: 0 -50%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.iao-capa__rotulo::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: rgb(255 255 255 / 0.3);
+}
+
+/* 05 · Casos: recorrido horizontal */
+[data-movimiento="escritorio"] .iao-casos {
+  height: calc(100svh - 68px);
+  min-height: 36rem;
+  overflow: hidden;
+}
+
+[data-movimiento="escritorio"] .iao-casos__pista {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  height: 100%;
+  padding-inline: max(0rem, calc((100vw - 1320px) / 2)) 8vw;
+}
+
+[data-movimiento="escritorio"] .iao-caso {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  width: min(84vw, 74rem);
+  height: 100%;
+  border-bottom: 0;
+  border-left: 1px solid rgb(255 255 255 / 0.1);
+  padding-bottom: 3rem;
+}
+
+[data-movimiento="escritorio"] .iao-caso:first-child {
+  border-left: 0;
+}
+
+[data-movimiento="escritorio"] .iao-caso--cierre {
+  width: min(40vw, 30rem);
+}
+
+[data-movimiento="escritorio"] .iao-caso__interior {
+  max-width: none;
+  padding-inline: clamp(2rem, 4vw, 4.5rem);
+}
+
+/* 07 · Cierre */
+[data-movimiento="escritorio"] .iao-cierre__contenido {
+  padding-top: 0;
+  padding-bottom: clamp(2.5rem, 9svh, 6rem);
+}
+
+/* ============================================================================
+   VISTA PREVIA DEL INICIO (/vista-previa/inicio-gsap)
+   ----------------------------------------------------------------------------
+   El inicio contado como recorrido. La maquetación base de cada capítulo es
+   estática y completa: así se ve con movimiento reducido y antes de que cargue
+   GSAP. `animaciones.ts` marca la raíz con `data-movimiento` y solo entonces se
+   activan los marcos fijados de abajo.
+
+   Fuera de capa a propósito: tienen que ganarle a las utilidades de Tailwind
+   del layout estático cuando el capítulo pasa a estar fijado.
+   ========================================================================== */
+
+/* Retícula de la portada, desvanecida hacia la izquierda: marca el aire de la
+   derecha como espacio de vuelo sin restarle contraste al titular. */
+.ini-reticula {
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(ellipse 62% 70% at 78% 46%, #000 10%, transparent 74%);
+}
+
+/* El contenido del capítulo ocupa el alto fijado y queda centrado. */
+[data-movimiento="escritorio"] .ini-capitulo__contenido {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  /* El marco fijado pone `padding-block: 0` para ocupar exactamente la ventana,
+     así que el aire tiene que darlo el contenido: sin esto el encabezado rozaba
+     el navbar y el pie de la figura quedaba pegado a la sección siguiente. */
+  padding-block: clamp(1.5rem, 4.5svh, 3rem);
+}
+
+/* ---- 02 · Servicios: los siete se relevan en la misma celda -------------- */
+
+[data-movimiento="escritorio"] .ini-servicios {
+  display: grid;
+  align-content: center;
+  min-height: 22rem;
+  border-top: 0;
+}
+
+[data-movimiento="escritorio"] .ini-servicio {
+  grid-area: 1 / 1;
+}
+
+/* ---- 05 · Casos: recorrido horizontal ------------------------------------ */
+
+/* Sin fijar (móvil y movimiento reducido) es la grilla de siempre. */
+.ini-casos__pista {
+  display: grid;
+  gap: 1rem;
+  padding-inline: max(1.25rem, calc((100vw - 1320px) / 2 + 1.25rem));
+}
+
+@media (min-width: 640px) {
+  .ini-casos__pista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-inline: max(2rem, calc((100vw - 1320px) / 2 + 2rem));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ini-casos__pista {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+[data-movimiento="escritorio"] .ini-casos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100svh - 68px);
+  min-height: 34rem;
+  overflow: hidden;
+}
+
+[data-movimiento="escritorio"] .ini-casos__pista {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  grid-template-columns: none;
+  gap: 1.25rem;
+  padding-inline: max(2rem, calc((100vw - 1320px) / 2 + 2rem)) 8vw;
+}
+
+[data-movimiento="escritorio"] .ini-caso {
+  flex-shrink: 0;
+  width: min(32vw, 25rem);
+}
+
+[data-movimiento="escritorio"] .ini-caso__interior {
+  height: 100%;
+}
+
+
+
+/* El índice de servicios ocupa el alto del capítulo fijado. Sin esto la
+   columna derecha se quedaba con el servicio pegado arriba y un vacío enorme
+   debajo: parecía un error de maquetación, no una puesta en escena. */
+[data-movimiento="escritorio"] .ini-servicios {
+  flex: 1;
+  min-height: 28rem;
+}
+
+/* Con la pantalla completa para él, el servicio es el protagonista: escala de
+   titular, no de ítem de lista. */
+[data-movimiento="escritorio"] .ini-servicio h3 {
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+/* ---- 06 · Carrusel de plataformas en perspectiva --------------------------
+   Sin `[data-movimiento]` (movimiento reducido, o antes de que cargue GSAP) es
+   una GRILLA normal y legible, y los controles no existen: el carrusel no es
+   contenido, es una forma de recorrerlo. Por eso el componente escribe solo
+   `--off`/`--abs` en línea y el `transform` vive acá: un transform en línea le
+   habría ganado a esta regla y habría dejado las tarjetas giradas y apiladas
+   también en el estado estático. */
+
+.ini-carrusel {
+  display: grid;
+  gap: 1rem;
+  padding-inline: max(1.25rem, calc((100vw - 1320px) / 2 + 1.25rem));
+}
+
+@media (min-width: 640px) {
+  .ini-carrusel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-inline: max(2rem, calc((100vw - 1320px) / 2 + 2rem));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ini-carrusel {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ini-carrusel__controles {
+  display: none;
+}
+
+[data-movimiento] .ini-carrusel__controles {
+  display: flex;
+}
+
+[data-movimiento] .ini-carrusel {
+  display: block;
+  position: relative;
+  height: clamp(34rem, 68svh, 44rem);
+  padding-inline: 0;
+  perspective: 1500px;
+  perspective-origin: 50% 46%;
+  transform-style: preserve-3d;
+}
+
+[data-movimiento] .ini-carrusel__tarjeta {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(30rem, 38vw);
+  margin: 0;
+  transform-style: preserve-3d;
+  /* El orden importa: primero se centra, después se separa, se hunde y gira. */
+  transform:
+    translate(-50%, -50%)
+    translateX(calc(var(--off) * 58%))
+    translateZ(calc(var(--abs) * -180px))
+    rotateY(calc(var(--off) * -32deg));
+  opacity: calc(1 - var(--abs) * 0.4);
+  z-index: calc(10 - var(--abs));
+  box-shadow: 0 18px 50px -26px rgb(0 26 43 / 0.35);
+  transition:
+    transform 620ms var(--ease-smooth),
+    opacity 620ms var(--ease-smooth),
+    box-shadow 620ms var(--ease-smooth);
+}
+
+[data-movimiento] .ini-carrusel__tarjeta[data-activa] {
+  opacity: 1;
+  box-shadow: 0 34px 74px -32px rgb(0 26 43 / 0.45);
+}
+
+/* Más allá de las vecinas inmediatas no se dibuja: con una cuarta plataforma
+   entraría por detrás en vez de aparecer de la nada en el costado. */
+[data-movimiento] .ini-carrusel__tarjeta[aria-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Flechas del carrusel: flanquean las tarjetas. En el encabezado quedaban
+   fuera de cuadro justo cuando se quieren usar, porque el escenario es alto y
+   al centrarlo en la ventana el encabezado ya se fue hacia arriba. */
+.ini-carrusel__flecha {
+  display: none;
+}
+
+[data-movimiento] .ini-carrusel__flecha {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  translate: 0 -50%;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-steel-300);
+  background: #fff;
+  color: var(--color-steel-700);
+  box-shadow: 0 10px 30px -18px rgb(0 26 43 / 0.5);
+  transition:
+    border-color 200ms var(--ease-smooth),
+    color 200ms var(--ease-smooth);
+}
+
+[data-movimiento] .ini-carrusel__flecha:hover {
+  border-color: var(--color-orange);
+  color: var(--color-orange);
+}
+
+/* Alineadas con la canaleta del contenedor de 1320px, con un mínimo de 5,5rem:
+   con el mínimo anterior la flecha izquierda se montaba sobre el índice de
+   capítulos, que ocupa hasta unos 62px desde el borde. El mínimo es el mismo en
+   las dos para que queden simétricas. */
+[data-movimiento] .ini-carrusel__flecha--izq {
+  left: max(5.5rem, calc((100vw - 1320px) / 2));
+}
+
+[data-movimiento] .ini-carrusel__flecha--der {
+  right: max(5.5rem, calc((100vw - 1320px) / 2));
 }

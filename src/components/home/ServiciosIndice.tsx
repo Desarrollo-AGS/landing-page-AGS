@@ -27,14 +27,14 @@ import { servicios } from "@/content/servicios";
  */
 export function ServiciosIndice() {
   return (
-    <section id="servicios" className="bg-white py-20 sm:py-24 lg:py-28">
+    <section id="servicios" data-dron-escena="servicios" className="bg-white py-20 sm:py-24 lg:py-28">
       <Contenedor>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-20">
           {/* ---------- Columna fija ---------- */}
           <div className="lg:sticky lg:top-32 lg:self-start">
             <Revelar>
               <span className="rule-accent mb-6" aria-hidden="true" />
-              <h2 className="text-d3 text-steel-900 sm:text-d2">
+              <h2 data-dron-objetivo className="text-d3 text-steel-900 sm:text-d2">
                 Siete operaciones, un mismo criterio: nadie sube
               </h2>
               <p className="measure mt-5 text-[1.0625rem] leading-relaxed text-steel-600">
@@ -43,7 +43,10 @@ export function ServiciosIndice() {
               </p>
 
               <figure className="mt-10 hidden lg:block">
-                <div className="chamfer relative aspect-[4/3] overflow-hidden bg-steel-100">
+                <div
+                  data-servicios-foto
+                  className="chamfer relative aspect-[4/3] overflow-hidden bg-steel-100"
+                >
                   <Image
                     src="/images/dron-fachada.webp"
                     alt="Dron de AGS aplicando agua a presión sobre la fachada de una planta industrial, con la línea de proceso operando debajo"

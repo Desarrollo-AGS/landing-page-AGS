@@ -20,9 +20,9 @@ export interface Producto {
   servicios: string[];
   sitio: string;
   /**
-   * Captura del producto. PENDIENTE DE ENTREGA POR AGS (brief, sección 8,
-   * punto 7). Mientras no llegue, la ficha muestra un marco de reserva con la
-   * proporción final, no una imagen falsa ni una maqueta dibujada.
+   * Captura del producto, entregada por AGS. Si vuelve a `null`, la ficha cae
+   * al marco de reserva con la proporción final (ver `ui/MarcoCaptura`), nunca
+   * a una imagen falsa ni a una maqueta dibujada.
    */
   captura: string | null;
   capturaAlt: string;
@@ -38,8 +38,9 @@ export const productos: Producto[] = [
       "SmartField es la plataforma sobre la que AGS entrega el resultado de las campañas de inspección. Las anomalías detectadas en terreno quedan clasificadas, priorizadas y asignadas a su ubicación exacta dentro de la instalación, de modo que el equipo de mantenimiento del cliente trabaje sobre el hallazgo y no sobre un informe suelto.",
     servicios: ["inspecciones-fotovoltaicas", "inspeccion-lineas-electricas"],
     sitio: "https://www.smart-field.cl",
-    captura: null,
-    capturaAlt: "Interfaz de SmartField mostrando anomalías georreferenciadas sobre una planta",
+    captura: "/images/imagen-Smartfield.png",
+    capturaAlt:
+      "Interfaz de SmartField: menú de Mapa, Hallazgos, Dashboard y Administración junto a una vista aérea del área de trabajo",
   },
   {
     slug: "smartlayout",
@@ -48,10 +49,14 @@ export const productos: Producto[] = [
       "Convierte el levantamiento aéreo en un layout medible para planificar sobre el terreno real.",
     descripcion:
       "SmartLayout toma el modelo tridimensional y el ortomosaico generados en el levantamiento y los deja disponibles como base de planificación. Es la contraparte digital del servicio de topografía y aerofotogrametría: el mismo vuelo que produce la nube de puntos alimenta la vista sobre la que el cliente proyecta y mide.",
-    servicios: ["topografia-aerofotogrametria", "control-riego-pilas-lixiviacion"],
+    // El control de riego en pilas de lixiviación NO es de SmartLayout: es el
+    // dominio de SmartLix (ver su PRODUCT.md). Venía así desde el commit
+    // inicial del proyecto y estaba equivocado.
+    servicios: ["topografia-aerofotogrametria"],
     sitio: "https://www.smartlayout.cl",
-    captura: null,
-    capturaAlt: "Interfaz de SmartLayout con un layout medible sobre un levantamiento aéreo",
+    captura: "/images/imagen-samrtlayout.avif",
+    capturaAlt:
+      "Editor de SmartLayout: panel de capas de segregación, tránsito, emergencias, maquinaria y riesgos sobre un layout operacional dibujado encima de una ortofoto de faena",
   },
 ];
 

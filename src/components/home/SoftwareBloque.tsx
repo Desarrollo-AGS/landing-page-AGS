@@ -16,12 +16,12 @@ import { getServicio } from "@/content/servicios";
  */
 export function SoftwareBloque() {
   return (
-    <section className="bg-steel-50 py-20 sm:py-24 lg:py-28">
+    <section data-dron-escena="software" className="bg-steel-50 py-20 sm:py-24 lg:py-28">
       <Contenedor>
         <Revelar>
           <div className="max-w-[42rem]">
             <span className="rule-accent mb-6" aria-hidden="true" />
-            <h2 className="text-d3 text-steel-900 sm:text-d2">
+            <h2 data-dron-objetivo className="text-d3 text-steel-900 sm:text-d2">
               El vuelo termina donde empieza el dato
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-600">
@@ -42,6 +42,7 @@ export function SoftwareBloque() {
               <Revelar as="li" key={p.slug} delay={i * 0.08} className="h-full h-full">
                 <Link
                   href={`/software/${p.slug}`}
+                  data-dron-haz
                   className="group flex h-full flex-col border border-steel-200 bg-white p-6 transition-[border-color,box-shadow] duration-200 hover:border-steel-400 hover:shadow-e2 sm:p-8"
                 >
                   <MarcoCaptura src={p.captura} alt={p.capturaAlt} nombre={p.nombre} />

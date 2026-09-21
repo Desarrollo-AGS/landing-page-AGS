@@ -22,6 +22,7 @@ import { Contenedor } from "@/components/ui/Contenedor";
 export function ClientesFranja() {
   return (
     <section
+      data-dron-escena="clientes"
       aria-labelledby="clientes-titulo"
       className="border-y border-steel-100 bg-white py-10 sm:py-12"
     >

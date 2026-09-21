@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/home/Hero";
-import { ClientesFranja } from "@/components/home/ClientesFranja";
-import { ServiciosIndice } from "@/components/home/ServiciosIndice";
-import { FaenaVideo } from "@/components/home/FaenaVideo";
-import { NosotrosBloque } from "@/components/home/NosotrosBloque";
-import { CasosBloque } from "@/components/home/CasosBloque";
-import { SoftwareBloque } from "@/components/home/SoftwareBloque";
-import { NoticiasBloque } from "@/components/home/NoticiasBloque";
 import { ContactoBloque } from "@/components/home/ContactoBloque";
+import { NoticiasBloque } from "@/components/home/NoticiasBloque";
+import { InicioGsap } from "@/components/vistaPrevia/inicio/InicioGsap";
 import { DESCRIPCION_BASE, TITULO_BASE, metadatosDe } from "@/lib/seo";
 import { site } from "@/content/site";
 
@@ -23,7 +17,7 @@ export const metadata: Metadata = metadatosDe({
  * Cada sección responde una pregunta distinta, en el orden en que se la hace
  * alguien de abastecimiento evaluando un proveedor:
  *
- *   Hero        qué hacen
+ *   Portada     qué hacen
  *   Clientes    a quién le han hecho esto antes
  *   Servicios   qué operaciones cubren
  *   Faena       cómo se ve en terreno de verdad
@@ -33,20 +27,14 @@ export const metadata: Metadata = metadatosDe({
  *   Noticias    si la empresa está viva
  *   Contacto    cómo se parte
  *
- * Ninguna familia de layout se repite: tarjetas asimétricas, marquesina, banda
- * de video a sangre, dos columnas con foto, grilla de datos y formulario
- * partido son seis composiciones distintas.
+ * Las siete primeras son un recorrido con capítulos fijados, coreografía GSAP y
+ * el dron 3D acompañando (ver `InicioGsap`). Noticias y contacto son la cola de
+ * la página y se leen solas: el recorrido del dron termina antes, en casos.
  */
 export default function Home() {
   return (
     <>
-      <Hero />
-      <ClientesFranja />
-      <ServiciosIndice />
-      <FaenaVideo />
-      <NosotrosBloque />
-      <CasosBloque />
-      <SoftwareBloque />
+      <InicioGsap />
       <NoticiasBloque />
       <ContactoBloque />
     </>
