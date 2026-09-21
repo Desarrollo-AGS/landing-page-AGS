@@ -147,7 +147,24 @@ function estudio(): Scene {
   return env;
 }
 
-export async function crearEscena(canvas: HTMLCanvasElement): Promise<Escena> {
+export async function crearEscena(
+  canvas: HTMLCanvasElement,
+  {
+    /**
+     * Techo de densidad de píxeles. El acompañante usa 2; el dron del brochure
+     * baja a 1,5 en pantallas táctiles, donde el canvas es grande respecto de
+     * la GPU y el coste sube al cuadrado.
+     */
+    dprMaximo = 2,
+    /**
+     * Amplitud de la flotación propia del modelo. 1 en el acompañante, donde
+     * el dron nunca está quieto. 0 en la coreografía del inicio, que tiene que
+     * ser función exacta del scroll: con flotación, el mismo punto de scroll
+     * se vería distinto según el momento.
+     */
+    flotacion: amplitudFlotacion = 1,
+  }: { dprMaximo?: number; flotacion?: number } = {},
+): Promise<Escena> {
   const renderer = new WebGLRenderer({
     canvas,
     alpha: true,
@@ -265,12 +282,26 @@ export async function crearEscena(canvas: HTMLCanvasElement): Promise<Escena> {
    *
    * En el equipo real el sensor va en el morro del fuselaje, así que acá va
    * debajo de la panza, en el extremo delantero y centrado entre los dos
-   * costados. Los valores salen de medir el modelo con rayos hacia arriba a lo
-   * largo del eje longitudinal: la panza baja hasta y = -0,04 en x = -0,30, que
-   * es el punto más adelantado y más bajo del cuerpo antes de que empiece el
-   * tren de aterrizaje.
+   * costados. El morro es +X: es el extremo que la coreografía orienta hacia
+   * el rumbo y hacia el titular que se inspecciona, así que el haz tiene que
+   * salir de ahí y no de la cola.
+   *
+   * La altura no está escrita a mano: se lanza un rayo hacia arriba desde
+   * debajo del dron y la baliza queda 3 cm por debajo del primer impacto
+   * contra la carcasa. Filtrar por material descarta el tren de aterrizaje. Si
+   * el rayo no encuentra panza, se usa una altura razonable.
    */
-  const anclaSensor = new Vector3(-0.28, -0.07, 0);
+  const anclaSensor = new Vector3(0.28, -0.07, 0);
+  nave.updateMatrixWorld(true);
+  const panza = new Raycaster(new Vector3(anclaSensor.x, -4, 0), new Vector3(0, 1, 0))
+    .intersectObject(fuselaje, true)
+    .find(
+      (i) =>
+        ((i.object as Mesh).material as MeshStandardMaterial)?.name === "ags_shell" &&
+        i.point.y > -0.4 &&
+        i.point.y < 0.3,
+    );
+  if (panza) anclaSensor.y = panza.point.y - 0.03;
 
   const materialBaliza = new MeshBasicMaterial({
     color: NARANJA,
@@ -413,7 +444,7 @@ export async function crearEscena(canvas: HTMLCanvasElement): Promise<Escena> {
     const alto = canvas.clientHeight || 1;
     // DPR limitado a 2: por encima de eso el coste sube al cuadrado y no se
     // distingue nada en un objeto de este tamaño.
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, dprMaximo));
     renderer.setSize(ancho, alto, false);
     camara.aspect = ancho / alto;
     camara.updateProjectionMatrix();
@@ -430,12 +461,14 @@ export async function crearEscena(canvas: HTMLCanvasElement): Promise<Escena> {
       // Flotación propia: el dron nunca está perfectamente quieto, ni siquiera
       // parado. Dos senos de período distinto para que no se lea como bucle.
       flotacion += dt;
-      const bobY = Math.sin(flotacion * 1.7) * 0.055 + Math.sin(flotacion * 0.63) * 0.03;
-      const bobZ = Math.sin(flotacion * 1.11 + 1.2) * 0.04;
+      const bobY =
+        (Math.sin(flotacion * 1.7) * 0.055 + Math.sin(flotacion * 0.63) * 0.03) *
+        amplitudFlotacion;
+      const bobZ = Math.sin(flotacion * 1.11 + 1.2) * 0.04 * amplitudFlotacion;
 
       nave.position.set(0, bobY, bobZ);
       nave.rotation.set(
-        postura.cabeceo + Math.sin(flotacion * 0.9) * 0.012,
+        postura.cabeceo + Math.sin(flotacion * 0.9) * 0.012 * amplitudFlotacion,
         postura.guinada,
         postura.alabeo,
       );

@@ -15,23 +15,19 @@
  * El vuelo NO es un tween. Un tween a una posición fija se rompe apenas la
  * página se mueve, porque el titular objetivo se desplaza bajo el dron
  * mientras se scrollea. En vez de eso, cada cuadro se recalcula el destino
- * desde el rectángulo del titular y el dron persigue ese punto con un muelle
- * críticamente amortiguado. Eso es lo que hace que se lea como una aeronave
- * manteniendo posición sobre un objetivo, y no como una imagen deslizándose.
- *
- * El alabeo y el cabeceo salen de la velocidad del propio dron y de la del
- * scroll, no de una animación aparte: si acelera hacia la derecha se inclina a
- * la derecha, y al bajar rápido se adelanta y baja el morro. Es la física la
- * que da el carácter.
+ * desde el rectángulo del titular y el dron lo persigue con el piloto de
+ * `./vuelo`, que es el mismo que usa la coreografía del brochure. Eso es lo
+ * que hace que se lea como una aeronave manteniendo posición sobre un
+ * objetivo, y no como una imagen deslizándose.
  */
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Escena } from "./escena";
+import { crearHaz } from "./haz";
+import { crearMedidorScroll, crearPiloto } from "./vuelo";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const NS = "http://www.w3.org/2000/svg";
 
 /** Lado del canvas del dron, en píxeles CSS. */
 const LADO = 260;
@@ -48,13 +44,6 @@ const TECHO = 104 + LADO * 0.26;
 
 export interface Coreografia {
   destruir(): void;
-}
-
-interface Estado {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
 }
 
 /** Rectángulo en coordenadas del DOCUMENTO, no de la ventana. */
@@ -87,51 +76,15 @@ export function crearCoreografia(
   canvas.style.height = `${LADO}px`;
   escena.resize();
 
-  /* ---------------------------------------------------------------- */
-  /* Capa de dibujo: haz del sensor y retícula sobre el titular         */
-  /* ---------------------------------------------------------------- */
-
-  const svg = document.createElementNS(NS, "svg");
-  svg.setAttribute("class", "absolute inset-0 h-full w-full");
-  svg.setAttribute("aria-hidden", "true");
-
-  const haz = document.createElementNS(NS, "path");
-  haz.setAttribute("fill", "url(#dron-haz)");
-  haz.setAttribute("opacity", "0");
-
-  const defs = document.createElementNS(NS, "defs");
-  defs.innerHTML = `
-    <linearGradient id="dron-haz" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ff5500" stop-opacity="0.30" />
-      <stop offset="60%" stop-color="#ff5500" stop-opacity="0.09" />
-      <stop offset="100%" stop-color="#ff5500" stop-opacity="0.015" />
-    </linearGradient>`;
-
-  const reticula = document.createElementNS(NS, "path");
-  reticula.setAttribute("fill", "none");
-  reticula.setAttribute("stroke", "#ff5500");
-  reticula.setAttribute("stroke-width", "1.5");
-  reticula.setAttribute("stroke-linecap", "square");
-  reticula.setAttribute("opacity", "0");
-
-  const barrido = document.createElementNS(NS, "line");
-  barrido.setAttribute("stroke", "#ff5500");
-  barrido.setAttribute("stroke-width", "1.5");
-  barrido.setAttribute("opacity", "0");
-
-  svg.append(defs, haz, reticula, barrido);
-  capa.append(svg);
+  /** Haz del sensor y retícula sobre el titular. */
+  const rayo = crearHaz(capa);
 
   /* ---------------------------------------------------------------- */
   /* Estado                                                            */
   /* ---------------------------------------------------------------- */
 
-  const nave: Estado = {
-    x: window.innerWidth + LADO,
-    y: window.innerHeight * 0.34,
-    vx: 0,
-    vy: 0,
-  };
+  const piloto = crearPiloto({ x: window.innerWidth + LADO, y: window.innerHeight * 0.34 });
+  const nave = piloto.nave;
 
   /** Valores que anima GSAP. Se leen en el ticker y se aplican al dibujo. */
   const efectos = { haz: 0, reticula: 0, barrido: 0, sensor: 0 };
@@ -150,9 +103,8 @@ export function crearCoreografia(
    * al margen: al bajar rápido se adelanta hacia abajo y baja el morro, al
    * frenar se recupera.
    */
+  const medidor = crearMedidorScroll();
   let velScroll = 0;
-  let velMedida = 0;
-  let instanteMedida = 0;
 
   /** Desplazamiento vertical del cuadro en curso. Se lee una sola vez. */
   let scrollActual = 0;
@@ -212,97 +164,49 @@ export function crearCoreografia(
     canvas.style.transform = `translate3d(${nave.x - LADO / 2}px, ${nave.y - LADO / 2}px, 0)`;
 
     if (!rectDoc || efectos.haz < 0.01) {
-      haz.setAttribute("opacity", "0");
-      reticula.setAttribute("opacity", "0");
-      barrido.setAttribute("opacity", "0");
+      rayo.ocultar();
       return;
     }
 
-    const r = enPantalla(rectDoc);
-    const sensor = escena.puntoSensor();
     // El origen del haz es la baliza del morro proyectada a coordenadas de
     // ventana: sale del sensor real del modelo, no del centro del canvas.
-    const ox = nave.x - LADO / 2 + sensor.x;
-    const oy = nave.y - LADO / 2 + sensor.y;
-
-    const izq = r.left - 10;
-    const der = r.right + 10;
-    const arriba = r.top - 8;
-    const abajo = r.bottom + 8;
-
-    // Cono: del punto del sensor a los dos extremos de la banda inspeccionada.
-    haz.setAttribute("d", `M ${ox} ${oy} L ${izq} ${abajo} L ${der} ${abajo} Z`);
-    haz.setAttribute("opacity", String(efectos.haz * 0.75));
-
-    // Retícula de esquinas. Marca el área bajo inspección sin encerrar el
-    // texto en una caja, que se leería como un componente de interfaz.
-    const c = Math.min(22, r.height * 0.55, r.width * 0.12);
-    reticula.setAttribute(
-      "d",
-      `M ${izq} ${arriba + c} L ${izq} ${arriba} L ${izq + c} ${arriba}
-       M ${der - c} ${arriba} L ${der} ${arriba} L ${der} ${arriba + c}
-       M ${der} ${abajo - c} L ${der} ${abajo} L ${der - c} ${abajo}
-       M ${izq + c} ${abajo} L ${izq} ${abajo} L ${izq} ${abajo - c}`,
+    const sensor = escena.puntoSensor();
+    rayo.dibujar(
+      { x: nave.x - LADO / 2 + sensor.x, y: nave.y - LADO / 2 + sensor.y },
+      enPantalla(rectDoc),
+      efectos,
+      pasada.p,
     );
-    reticula.setAttribute("opacity", String(efectos.reticula * 0.85));
-
-    // Línea de barrido: la pasada del sensor sobre el texto.
-    const y = arriba + (abajo - arriba) * pasada.p;
-    barrido.setAttribute("x1", String(izq));
-    barrido.setAttribute("x2", String(der));
-    barrido.setAttribute("y1", String(y));
-    barrido.setAttribute("y2", String(y));
-    barrido.setAttribute("opacity", String(efectos.barrido * 0.9));
   }
 
   /* ---------------------------------------------------------------- */
   /* Vuelo                                                             */
   /* ---------------------------------------------------------------- */
 
-  const RIGIDEZ = 5.2;
-
   function volar(dt: number) {
-    // `getVelocity` solo se actualiza mientras el scroll se mueve: si dejó de
-    // llegar hace más de 90ms, la velocidad real es cero y hay que dejarla
-    // decaer, o el dron se quedaría adelantado para siempre.
-    const fresca = performance.now() - instanteMedida < 90;
-    const cruda = fresca ? gsap.utils.clamp(-3000, 3000, velMedida) : 0;
-    velScroll += (cruda - velScroll) * Math.min(1, dt * 4.5);
+    velScroll = medidor.leer(dt);
 
-    const destino = rectDoc ? poseInspeccion(enPantalla(rectDoc)) : poseCrucero();
-    if (rectDoc) {
+    const titular = rectDoc ? enPantalla(rectDoc) : null;
+    const destino = titular ? poseInspeccion(titular) : poseCrucero();
+    if (titular) {
       // Manteniendo estación sobre un titular la deriva es mínima: solo lo
       // suficiente para que no se vea clavado en un punto.
       destino.y += gsap.utils.clamp(-16, 16, velScroll * 0.008);
     }
 
-    // Muelle críticamente amortiguado. `1 - e^(-k·dt)` da un acercamiento
-    // suave e independiente de los fps, a diferencia de un lerp con factor
-    // fijo, que va más rápido en pantallas de 120Hz que en las de 60.
-    const k = 1 - Math.exp(-dt * RIGIDEZ);
-    const dx = (destino.x - nave.x) * k;
-    const dy = (destino.y - nave.y) * k;
-
-    nave.x += dx;
-    nave.y += dy;
-
-    // Velocidad suavizada: es lo que alimenta la actitud de vuelo.
-    nave.vx += (dx / Math.max(dt, 0.001) - nave.vx) * Math.min(1, dt * 8);
-    nave.vy += (dy / Math.max(dt, 0.001) - nave.vy) * Math.min(1, dt * 8);
-
-    const alabeo = gsap.utils.clamp(-0.42, 0.42, -nave.vx * 0.0012);
-    const cabeceo = gsap.utils.clamp(-0.3, 0.3, nave.vy * 0.0006 + velScroll * 0.00004);
-    // El morro sigue el rumbo, con un mínimo de tres cuartos para que nunca se
-    // vea completamente de perfil.
-    const guinada = -0.62 + gsap.utils.clamp(-0.5, 0.5, nave.vx * 0.0009);
-
-    escena.setPostura({
-      alabeo,
-      cabeceo,
-      guinada,
-      regimen: gsap.utils.clamp(0.35, 1, Math.hypot(nave.vx, nave.vy) / 700 + 0.4),
+    const postura = piloto.volar(dt, destino, {
+      velScroll,
+      // En crucero el morro sigue el rumbo de vuelo. Sobre un titular apunta al
+      // centro del texto: si queda a la izquierda del dron mira a la izquierda,
+      // y si el dron tuvo que pasar al otro lado, mira a la derecha.
+      mirarHacia: titular ? (titular.left + titular.width / 2 - nave.x) / 160 : null,
+      // Mientras el sensor está encendido el morro se agacha hacia el titular
+      // y acompaña a la línea de barrido.
+      mirada: efectos.sensor * (0.12 + 0.1 * pasada.p),
       sensor: efectos.sensor,
     });
+
+    escena.setPostura(postura);
   }
 
   /* ---------------------------------------------------------------- */
@@ -355,21 +259,6 @@ export function crearCoreografia(
   /* ---------------------------------------------------------------- */
   /* Enganche al scroll                                                */
   /* ---------------------------------------------------------------- */
-
-  /**
-   * Un único disparador que cubre el documento entero, solo para leer la
-   * velocidad del scroll. `getVelocity` es un método de instancia y no
-   * estático, así que hace falta una instancia aunque no se use para nada más.
-   */
-  const medidor = ScrollTrigger.create({
-    trigger: document.documentElement,
-    start: 0,
-    end: "max",
-    onUpdate: (self) => {
-      velMedida = self.getVelocity();
-      instanteMedida = performance.now();
-    },
-  });
 
   const objetivos = Array.from(document.querySelectorAll<HTMLElement>("[data-dron-objetivo]"));
 
@@ -439,11 +328,11 @@ export function crearCoreografia(
       gsap.ticker.remove(ticker);
       tlInspeccion?.kill();
       disparadores.forEach((d) => d.kill());
-      medidor.kill();
+      medidor.destruir();
       document.removeEventListener("visibilitychange", alCambiarVisibilidad);
       window.removeEventListener("resize", alRedimensionar);
       objetivos.forEach((el) => delete el.dataset.dronEscaneando);
-      svg.remove();
+      rayo.destruir();
     },
   };
 }

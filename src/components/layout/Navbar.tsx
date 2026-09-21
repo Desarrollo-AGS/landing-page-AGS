@@ -39,14 +39,24 @@ import { esRutaActiva, navPrincipal, type ItemNav } from "@/lib/nav";
  *    envolver a dos líneas.
  */
 
+/**
+ * Rutas que abren con un hero oscuro a pantalla completa. Solo ahí el navbar
+ * entra transparente y pasa a blanco al despegarse; en el resto del sitio
+ * arranca sólido desde el primer píxel.
+ *
+ * Es una LISTA DE RUTAS y no una detección del DOM a propósito: `heroOscuro`
+ * tiene que estar resuelto ya en el primer render. Buscando un marcador con un
+ * efecto, el navbar pintaría blanco y saltaría a transparente recién tras la
+ * hidratación, y ese parpadeo se ve en cada carga del inicio.
+ */
+const RUTAS_HERO_OSCURO = new Set(["/"]);
+
 const CIERRE_MS = 140;
 
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  // Solo el home abre con un hero en video a pantalla completa. En el resto del
-  // sitio el navbar arranca sólido desde el primer píxel.
-  const heroOscuro = pathname === "/";
+  const heroOscuro = RUTAS_HERO_OSCURO.has(pathname);
   const [desplegado, setDesplegado] = useState<string | null>(null);
   const [movilAbierto, setMovilAbierto] = useState(false);
   const [despegado, setDespegado] = useState(false);

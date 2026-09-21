@@ -34,6 +34,7 @@ export const navPrincipal: ItemNav[] = [
         { label: "Quiénes somos", href: "/nosotros" },
         { label: "Misión y visión", href: "/nosotros#mision" },
         { label: "Nuestra historia", href: "/nosotros#historia" },
+        { label: "Brochure", href: "/nosotros/brochure" },
         { label: "Permisos y certificaciones", href: "/nosotros/certificaciones" },
       ],
     },
@@ -73,18 +74,25 @@ export const navFooterServicios: Enlace[] = servicios.map((s) => ({
 
 export const navFooterEmpresa: Enlace[] = [
   { label: "Nosotros", href: "/nosotros" },
+  { label: "Brochure", href: "/nosotros/brochure" },
   { label: "Permisos y certificaciones", href: "/nosotros/certificaciones" },
   { label: "Casos de éxito", href: "/casos" },
   { label: "Comunidad", href: "/comunidad" },
   { label: "Noticias", href: "/noticias" },
 ];
 
-/** Los productos enlazan a su propio sitio, tal como pide el brief (F-12). */
-export const navFooterSoftware: Enlace[] = productos.map((p) => ({
-  label: p.nombre,
-  href: p.sitio,
-  externo: true,
-}));
+/**
+ * Los productos enlazan a su propio sitio, tal como pide el brief (F-12).
+ *
+ * SmartLix va aparte y no en `productos`: ese arreglo alimenta además el menú
+ * de Software, el sitemap y las rutas `/software/<slug>`, y SmartLix todavía no
+ * tiene ficha en este sitio. Cuando la tenga, se mueve al arreglo y esta
+ * entrada se borra.
+ */
+export const navFooterSoftware: Enlace[] = [
+  ...productos.map((p) => ({ label: p.nombre, href: p.sitio, externo: true })),
+  { label: "SmartLix", href: "https://www.smartlix.cl", externo: true },
+];
 
 /** Marca activo el ítem cuya sección se está viendo, incluidas subrutas. */
 export function esRutaActiva(pathname: string, href: string): boolean {

@@ -125,7 +125,6 @@ export function Footer() {
           <p>
             &copy; {anio} {site.nombre}. {site.legal.aviso}.
           </p>
-          <p className="num">{site.operacion.join(" · ")}</p>
         </div>
       </Contenedor>
     </footer>

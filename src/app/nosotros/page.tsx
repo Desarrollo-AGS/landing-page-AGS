@@ -6,6 +6,7 @@ import { CabeceraPagina } from "@/components/ui/CabeceraPagina";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Revelar } from "@/components/ui/Revelar";
 import { AvisoProvisional } from "@/components/ui/AvisoProvisional";
+import { BotonEnlace } from "@/components/ui/Boton";
 import { ContactoBloque } from "@/components/home/ContactoBloque";
 import {
   anioFundacion,
@@ -25,11 +26,12 @@ export const metadata: Metadata = metadatosDe({
   ruta: "/nosotros",
 });
 
-/** Navegación interna de la página. Las cuatro secciones son anclas reales. */
+/** Navegación interna de la página. Las cinco secciones son anclas reales. */
 const SECCIONES = [
   { id: "quienes-somos", label: "Quiénes somos" },
   { id: "mision", label: "Misión y visión" },
   { id: "historia", label: "Nuestra historia" },
+  { id: "brochure", label: "Brochure" },
   { id: "certificaciones", label: "Certificaciones" },
 ];
 
@@ -183,8 +185,39 @@ export default function PaginaNosotros() {
         </Contenedor>
       </section>
 
+      {/* ---------------- Puente al brochure ----------------
+          Oscuro y con tipografía display a propósito: es la antesala del
+          librito al que lleva, no un enlace más de la página. */}
+      <section id="brochure" className="scroll-mt-32 bg-steel-950 py-16 sm:py-20">
+        <Contenedor>
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
+            <div>
+              <p className="eyebrow flex items-center gap-3 text-steel-400">
+                <span className="text-orange">Brochure</span>
+                <span aria-hidden="true" className="h-px w-8 bg-current opacity-40" />
+                Presentación comercial
+              </p>
+              <h2 className="mt-5 font-display text-[clamp(2rem,4.6vw,4rem)] font-bold uppercase leading-[0.92] tracking-[-0.035em] text-white">
+                Brochure AGS 2026
+              </h2>
+              <p className="measure mt-5 text-[1.0625rem] leading-relaxed text-steel-400">
+                Capacidades operacionales, servicios, plataformas y por qué elegir AGS, en un
+                librito que se hojea en la web.
+              </p>
+            </div>
+            <BotonEnlace href="/nosotros/brochure" tamano="lg">
+              Hojear el brochure
+              <ArrowRight size={15} weight="bold" aria-hidden="true" />
+            </BotonEnlace>
+          </div>
+        </Contenedor>
+      </section>
+
       {/* ---------------- Puente a certificaciones ---------------- */}
-      <section id="certificaciones" className="scroll-mt-32 bg-steel-900 py-14">
+      <section
+        id="certificaciones"
+        className="scroll-mt-32 border-t border-white/10 bg-steel-900 py-14"
+      >
         <Contenedor>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-5">

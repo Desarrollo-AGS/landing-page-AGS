@@ -13,6 +13,14 @@ import { ImageSquare } from "@phosphor-icons/react/dist/ssr";
  * producto inventada se ve como una captura real hasta que alguien la compara
  * con el sistema de verdad, y entonces el sitio queda mostrando algo que no
  * existe. Es preferible el hueco declarado.
+ *
+ * `object-contain`, NO `object-cover`
+ * ----------------------------------
+ * Son capturas de interfaz: recortarlas se come la barra lateral y los paneles,
+ * que es justo lo que hay que ver. El marco mantiene su 16:10 para que todas las
+ * fichas midan igual, y cada captura entra completa dentro de él. La que ya viene
+ * en 16:10 lo llena sin bandas; las más anchas dejan una franja mínima arriba y
+ * abajo, que es un precio muy menor frente a perder parte de la pantalla.
  */
 export function MarcoCaptura({
   src,
@@ -32,7 +40,7 @@ export function MarcoCaptura({
           fill
           sizes="(min-width: 1024px) 45vw, 100vw"
           loading="lazy"
-          className="object-cover object-top"
+          className="object-contain"
         />
       </div>
     );

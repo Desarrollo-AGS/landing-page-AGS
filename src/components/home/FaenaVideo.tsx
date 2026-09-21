@@ -52,8 +52,10 @@ export function FaenaVideo() {
   }, [visible]);
 
   return (
-    <section ref={seccionRef} className="bg-steel-950">
-      <div className="relative min-h-[26rem] overflow-hidden lg:min-h-[36rem]">
+    <section ref={seccionRef} data-dron-escena="faena" className="bg-steel-950">
+      {/* `data-faena-banda`: en escritorio se fija y se abre a sangre con el
+          scroll (ver animacionesInicio.ts). */}
+      <div data-faena-banda className="relative min-h-[26rem] overflow-hidden lg:min-h-[36rem]">
         <Image
           src="/images/faena-limpieza-fachada.webp"
           alt="Fachada de una instalación minera durante la limpieza con dron"
@@ -83,7 +85,7 @@ export function FaenaVideo() {
         />
 
         <Contenedor className="relative flex min-h-[26rem] items-end py-14 lg:min-h-[36rem] lg:py-20">
-          <div className="max-w-[36rem]">
+          <div data-faena-texto className="max-w-[36rem]">
             <p className="inline-flex items-center gap-2 text-[0.8125rem] font-medium text-orange">
               <Play size={13} weight="fill" aria-hidden="true" />
               Operación registrada en faena

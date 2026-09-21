@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { alQuedarOcioso, puedeMontarDron } from "./dron/condiciones";
 
 /**
  * Dron 3D que recorre la portada ejecutando una operación aérea.
@@ -26,32 +27,16 @@ import { useEffect, useRef } from "react";
  * puede competir con el LCP.
  */
 
-type Conexion = { saveData?: boolean; effectiveType?: string };
-
 export function DronAcompanante() {
   const capaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const capa = capaRef.current;
     if (!capa) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!window.matchMedia("(min-width: 1024px)").matches) return;
-
-    const c = (navigator as Navigator & { connection?: Conexion }).connection;
-    if (c?.saveData === true) return;
-    if (typeof c?.effectiveType === "string" && /^(slow-2g|2g|3g)$/.test(c.effectiveType))
-      return;
-
-    // Sonda de WebGL: hay equipos y navegadores endurecidos donde el contexto
-    // no se concede. Sin esto, el fallo aparecería recién después de haber
-    // descargado el modelo y las librerías.
-    const sonda = document.createElement("canvas");
-    if (!(sonda.getContext("webgl2") ?? sonda.getContext("webgl"))) return;
+    if (!puedeMontarDron({ anchoMinimo: 1024 })) return;
 
     let cancelado = false;
     let limpiar: (() => void) | undefined;
-    let idOcioso: number | undefined;
 
     async function montar() {
       if (cancelado || !capa) return;
@@ -92,25 +77,11 @@ export function DronAcompanante() {
       }
     }
 
-    function programar() {
-      if (cancelado) return;
-      idOcioso =
-        typeof window.requestIdleCallback === "function"
-          ? window.requestIdleCallback(() => void montar(), { timeout: 3000 })
-          : window.setTimeout(() => void montar(), 1200);
-    }
-
-    if (document.readyState === "complete") programar();
-    else window.addEventListener("load", programar, { once: true });
+    const cancelarOcio = alQuedarOcioso(() => void montar());
 
     return () => {
       cancelado = true;
-      window.removeEventListener("load", programar);
-      if (idOcioso !== undefined) {
-        if (typeof window.cancelIdleCallback === "function")
-          window.cancelIdleCallback(idOcioso);
-        else clearTimeout(idOcioso);
-      }
+      cancelarOcio();
       limpiar?.();
     };
   }, []);

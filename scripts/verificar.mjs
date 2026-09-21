@@ -23,6 +23,7 @@ const RUTAS = [
   "/servicios",
   "/servicios/inspecciones-fotovoltaicas",
   "/nosotros",
+  "/nosotros/brochure",
   "/nosotros/certificaciones",
   "/software",
   "/software/smartfield",

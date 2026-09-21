@@ -111,10 +111,14 @@ export function Hero() {
 
   return (
     <section
+      data-dron-escena="hero"
       // -mt: el hero pasa por debajo del navbar transparente. El padding
       // superior del contenido lo compensa, así que nada queda tapado.
       className="relative -mt-[68px] flex min-h-[36rem] items-end overflow-hidden bg-steel-950 lg:min-h-[calc(100svh-2.25rem)] lg:max-h-[54rem]"
     >
+      {/* Fondo: póster y video en una sola capa, para que la animación de
+          salida (animacionesInicio.ts) los mueva juntos. */}
+      <div data-hero-fondo className="absolute inset-0">
       <Image
         src="/images/faena-limpieza-fachada.webp"
         alt="Dron de AGS limpiando la fachada de una instalación minera en operación"
@@ -154,11 +158,12 @@ export function Hero() {
           <source src="/videos/faena-limpieza-fachada.mp4" type="video/mp4" />
         </video>
       ) : null}
+      </div>
 
       <div aria-hidden="true" className="hero-scrim absolute inset-0" />
 
       <Contenedor className="relative z-10 pb-16 pt-[calc(68px+5rem)] sm:pb-20 lg:pb-24">
-        <div className="max-w-[46rem]">
+        <div data-hero-texto className="max-w-[46rem]">
           <p className="eyebrow text-orange">Operaciones aéreas industriales desde 2016</p>
 
           <h1 className="mt-5 text-[2.5rem] leading-[1.04] font-bold tracking-[-0.03em] text-white text-balance [text-shadow:0_2px_24px_rgb(0_26_43/0.5)] sm:text-[3.4rem] lg:text-d1">
