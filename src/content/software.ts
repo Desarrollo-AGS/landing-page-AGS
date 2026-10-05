@@ -6,8 +6,10 @@
  * la entrega del dato. Ninguna ficha habla de planes, licencias ni precios: la
  * plataforma es el soporte del servicio, no un SaaS aparte.
  *
- * Solo se publican estos dos productos. La estructura admite un tercero sin
- * rehacer el layout: basta agregar un objeto a este arreglo.
+ * Se publican tres productos. La estructura admite más sin rehacer el layout:
+ * basta agregar un objeto a este arreglo, y con eso aparece en el índice de
+ * software, en su propia ficha `/software/<slug>`, en el menú, en el footer y
+ * en el sitemap.
  */
 
 export interface Producto {
@@ -57,6 +59,19 @@ export const productos: Producto[] = [
     captura: "/images/imagen-samrtlayout.avif",
     capturaAlt:
       "Editor de SmartLayout: panel de capas de segregación, tránsito, emergencias, maquinaria y riesgos sobre un layout operacional dibujado encima de una ortofoto de faena",
+  },
+  {
+    slug: "smartlix",
+    nombre: "SmartLix",
+    resuelve:
+      "Convierte cada vuelo sobre la pila de lixiviación en un estado de riego medible por módulo.",
+    descripcion:
+      "SmartLix toma el par de ortofotos de cada vuelo —RGB y térmica de la misma fecha— y las alinea sobre la grilla real de módulos de la pila. Cada celda queda clasificada por bandas de temperatura configurables, de modo que la operación lee el estado del riego sobre la pila completa y compara un vuelo con otro bajo la misma escala térmica.",
+    servicios: ["control-riego-pilas-lixiviacion"],
+    sitio: "https://www.smartlix.cl",
+    captura: "/images/imagen-smartlix.png",
+    capturaAlt:
+      "Interfaz de SmartLix: monitoreo térmico de una pila de lixiviación, con la grilla de módulos coloreada por temperatura y la escala en grados",
   },
 ];
 

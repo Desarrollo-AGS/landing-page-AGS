@@ -17,10 +17,10 @@ export const site = {
 
   contacto: {
     email: "servicios@agssoluciones.cl",
-    telefono: "+56 9 7947 4352",
+    telefono: "+56 9 8199 2658",
     /** E.164 sin signos, para `tel:` y para la API de WhatsApp. */
-    telefonoE164: "+56979474352",
-    whatsapp: "56979474352",
+    telefonoE164: "+56981992658",
+    whatsapp: "56981992658",
     direccion: {
       calle: "Avenida José Miguel Carrera 1587",
       detalle: "Oficina 406",

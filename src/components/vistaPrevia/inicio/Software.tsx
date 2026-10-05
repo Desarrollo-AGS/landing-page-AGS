@@ -7,7 +7,7 @@ import { Contenedor } from "@/components/ui/Contenedor";
 import { MarcoCaptura } from "@/components/ui/MarcoCaptura";
 import { getServicio } from "@/content/servicios";
 import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
-import { plataformas } from "./plataformas";
+import { productos } from "@/content/software";
 
 /**
  * 06 · El vuelo termina donde empieza el dato.
@@ -24,6 +24,9 @@ import { plataformas } from "./plataformas";
  * El desfase de cada tarjeta se normaliza a la mitad de la lista, así que la
  * última empalma con la primera y las flechas nunca quedan sin efecto.
  *
+ * Las plataformas salen de `content/software.ts`, el mismo arreglo que alimenta
+ * el índice de software, las fichas, el menú y el sitemap: una sola fuente.
+ *
  * LAS TRANSFORMACIONES VIVEN EN CSS
  * ---------------------------------
  * Acá solo se escriben `--off` y `--abs` (el desfase y su valor absoluto). El
@@ -34,7 +37,7 @@ import { plataformas } from "./plataformas";
  */
 export function Software() {
   const [activa, setActiva] = useState(0);
-  const total = plataformas.length;
+  const total = productos.length;
   const stageRef = useRef<HTMLDivElement>(null);
 
   const mover = useCallback(
@@ -97,7 +100,7 @@ export function Software() {
         tabIndex={-1}
         className="ini-carrusel relative mt-14 focus:outline-none"
       >
-        {plataformas.map((p, i) => {
+        {productos.map((p, i) => {
           // Desfase circular: la última empalma con la primera.
           let off = i - activa;
           if (off > total / 2) off -= total;
@@ -122,11 +125,7 @@ export function Software() {
               <h3 className="mt-7 text-2xl font-semibold tracking-[-0.02em] text-steel-900">
                 {p.nombre}
               </h3>
-              <p
-                className={`mt-3 flex-1 text-[0.9375rem] leading-relaxed ${
-                  p.pendiente ? "italic text-steel-400" : "text-steel-600"
-                }`}
-              >
+              <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-steel-600">
                 {p.resuelve}
               </p>
 
@@ -140,27 +139,21 @@ export function Software() {
                 </p>
               )}
 
-              {/* Sin ficha publicada no se enlaza a ninguna parte: un enlace a
-                  una página inexistente es peor que no tenerlo. */}
-              {p.ficha ? (
-                <Link
-                  href={p.ficha}
-                  // Las tarjetas del costado salen del orden de tabulación:
-                  // están recortadas y girando, y no se pueden leer.
-                  tabIndex={esActiva ? undefined : -1}
-                  className="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-orange-ink"
-                >
-                  Ver la plataforma
-                  <ArrowRight
-                    size={14}
-                    weight="bold"
-                    aria-hidden="true"
-                    className="transition-transform duration-200 group-hover:translate-x-0.5"
-                  />
-                </Link>
-              ) : (
-                <p className="mt-5 text-sm font-semibold text-steel-400">Ficha en preparación</p>
-              )}
+              <Link
+                href={`/software/${p.slug}`}
+                // Las tarjetas del costado salen del orden de tabulación:
+                // están recortadas y girando, y no se pueden leer.
+                tabIndex={esActiva ? undefined : -1}
+                className="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-orange-ink"
+              >
+                Ver la plataforma
+                <ArrowRight
+                  size={14}
+                  weight="bold"
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                />
+              </Link>
             </article>
           );
         })}
