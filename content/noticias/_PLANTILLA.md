@@ -1,5 +1,15 @@
 ---
 titulo: "Título de la noticia, tal como se lee en la tarjeta y en la pestaña"
+
+# El tag distingue qué es cada entrada dentro de la misma sección. Hoy hay
+# dos: "noticia" (el valor por defecto, se puede omitir) y "comunidad". Para
+# agregar uno nuevo, basta con declararlo acá y poner su etiqueta visible en
+# `noticias.tags` de los dos diccionarios de `src/content/i18n/`.
+tag: "noticia"
+
+# OPCIONAL. Sin fecha, la tarjeta no muestra ninguna y la entrada se ordena
+# después de las fechadas. Es lo correcto para una iniciativa en curso, que no
+# es un hecho de un día: mejor sin fecha que con una inventada.
 fecha: "2026-09-09"
 resumen: "Dos líneas que resumen la noticia. Es lo que se muestra en la tarjeta del índice y lo que LinkedIn usa como descripción al compartir el enlace."
 portada: "/noticias/nombre-de-la-imagen.webp"
@@ -12,8 +22,11 @@ autor: "AGS Soluciones"
 galeria:
   - src: "/noticias/nombre-de-la-imagen.webp"
     alt: "Descripción real de lo que se ve."
-  - src: "/noticias/otra-imagen.webp"
+  # `encaje: "contener"` para lo que NO es una fotografía —un logotipo, una
+  # captura de pantalla—: entra entero en el marco en vez de recortarse.
+  - src: "/noticias/un-logotipo.webp"
     alt: "Descripción real de lo que se ve."
+    encaje: "contener"
 
 # OPCIONAL — la publicación original, cuando la noticia salió primero en otra
 # parte. Aparece al final del artículo, después del cuerpo.

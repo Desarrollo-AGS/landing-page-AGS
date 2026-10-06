@@ -35,7 +35,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     lang: idioma,
     imagen: n.portada,
     tipo: "article",
-    publicado: n.fecha,
+    // Sin fecha no se declara una: `publishedTime` vacío es mejor que uno
+    // inventado, que es lo que Google verificaría contra el contenido.
+    publicado: n.fecha ?? undefined,
   });
 }
 
@@ -51,7 +53,7 @@ export default async function PaginaNoticia({ params }: Props) {
     "@type": "NewsArticle",
     headline: noticia.titulo,
     description: noticia.resumen,
-    datePublished: noticia.fecha,
+    ...(noticia.fecha ? { datePublished: noticia.fecha } : {}),
     image: noticia.portada ? `${site.url}${noticia.portada}` : undefined,
     author: { "@type": "Organization", name: noticia.autor ?? site.nombre },
     publisher: { "@type": "Organization", name: site.nombre, url: site.url },
@@ -76,12 +78,18 @@ export default async function PaginaNoticia({ params }: Props) {
               {t.paginas.noticiaDetalle.volver}
             </Link>
 
-            <time
-              dateTime={noticia.fecha}
-              className="num mt-8 block text-[0.8125rem] font-medium tracking-[0.08em] text-orange"
-            >
-              {formatearFecha(noticia.fecha, idioma)}
-            </time>
+            {/* El tag siempre; la fecha solo cuando la nota la tiene. Una
+                iniciativa en curso no es un hecho de un día. */}
+            <p className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.8125rem] font-medium tracking-[0.08em]">
+              <span className="border border-orange/50 px-2 py-0.5 uppercase text-orange">
+                {t.noticias.tags[noticia.tag] ?? noticia.tag}
+              </span>
+              {noticia.fecha ? (
+                <time dateTime={noticia.fecha} className="num text-steel-400">
+                  {formatearFecha(noticia.fecha, idioma)}
+                </time>
+              ) : null}
+            </p>
 
             <h1 className="mt-3 max-w-[24ch] text-d3 text-white sm:text-d2">
               {noticia.titulo}

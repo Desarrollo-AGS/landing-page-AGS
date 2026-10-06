@@ -2,6 +2,7 @@ import { IDIOMA_POR_DEFECTO, LOCALE_INTL, type Idioma } from "@/lib/idioma";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import sharp from "sharp";
 import { remark } from "remark";
 import html from "remark-html";
 
@@ -23,14 +24,42 @@ import html from "remark-html";
  * La traducción solo necesita declarar lo que cambia: lo que no traiga
  * (portada, galería, fuente, fecha) se toma del archivo en español, que es
  * donde viven los datos que no son texto.
+ *
+ * TAGS
+ * ----
+ * Noticias y comunidad son la misma sección y se distinguen por `tag`. El tag
+ * es un SLUG, no una etiqueta: su texto visible sale del diccionario, así que
+ * una nota no queda marcada "Comunidad" en la versión inglesa. Sin `tag`
+ * declarado, una nota es `noticia`, que es el caso habitual.
  */
 
 const DIR = path.join(process.cwd(), "content", "noticias");
 
+/** Lo que es una nota salvo que diga otra cosa. */
+export const TAG_POR_DEFECTO = "noticia";
+
 export interface FotoNoticia {
   src: string;
   alt: string;
+  /**
+   * `cubrir` (por defecto) llena el marco recortando: es lo correcto para una
+   * fotografía. `contener` la mete entera dentro, que es lo que necesita un
+   * logotipo o una captura de pantalla, donde recortar los bordes destruye la
+   * imagen en vez de encuadrarla.
+   */
+  encaje?: "cubrir" | "contener";
+  /**
+   * Medidas reales del archivo, leídas en build. No se declaran a mano: con
+   * ellas la galería puede dar a cada foto su propia proporción en vez de
+   * meter una vertical en un marco apaisado, que es donde se pierden las
+   * cabezas.
+   */
+  ancho: number;
+  alto: number;
 }
+
+/** Lo que se declara en el front matter: las medidas las pone el build. */
+type FotoDeclarada = Omit<FotoNoticia, "ancho" | "alto">;
 
 export interface FuenteNoticia {
   /** Dónde se publicó el original: "LinkedIn", "El Mercurio de Antofagasta". */
@@ -43,7 +72,14 @@ export interface FuenteNoticia {
 export interface Noticia {
   slug: string;
   titulo: string;
-  fecha: string;
+  /** Slug del tag: `noticia`, `comunidad`. Su texto visible está en el diccionario. */
+  tag: string;
+  /**
+   * null en lo que no es un hecho fechado. Las iniciativas de comunidad son
+   * actividades en curso, no sucesos de un día: ponerles una fecha inventada
+   * para que la tarjeta no quede coja sería publicar un dato falso.
+   */
+  fecha: string | null;
   resumen: string;
   portada: string | null;
   portadaAlt: string;
@@ -62,12 +98,13 @@ export interface Noticia {
 
 type FrontMatter = {
   titulo?: string;
+  tag?: string;
   fecha?: string;
   resumen?: string;
   portada?: string;
   portadaAlt?: string;
   autor?: string;
-  galeria?: FotoNoticia[];
+  galeria?: FotoDeclarada[];
   fuente?: FuenteNoticia;
 };
 
@@ -88,6 +125,23 @@ function leerArchivos(): string[] {
 const rutaDeArchivo = (slug: string, lang: Idioma) =>
   path.join(DIR, lang === IDIOMA_POR_DEFECTO ? `${slug}.md` : `${slug}.${lang}.md`);
 
+/**
+ * Medidas de un archivo de `public/`. Si por lo que sea no se puede leer, se
+ * cae a 16:9 en vez de reventar el build: una proporción aproximada estropea
+ * una foto, un build caído estropea el despliegue.
+ */
+async function medir(foto: FotoDeclarada): Promise<FotoNoticia> {
+  try {
+    const { width, height } = await sharp(
+      path.join(process.cwd(), "public", foto.src),
+    ).metadata();
+    if (width && height) return { ...foto, ancho: width, alto: height };
+  } catch {
+    console.warn(`[noticias] No se pudo medir ${foto.src}; se asume 16:9.`);
+  }
+  return { ...foto, ancho: 1600, alto: 900 };
+}
+
 async function parsear(slug: string, lang: Idioma): Promise<Noticia> {
   const base = matter(fs.readFileSync(rutaDeArchivo(slug, IDIOMA_POR_DEFECTO), "utf8"));
   const rutaTraducida = rutaDeArchivo(slug, lang);
@@ -102,26 +156,33 @@ async function parsear(slug: string, lang: Idioma): Promise<Noticia> {
   return {
     slug,
     titulo: fm.titulo ?? slug,
-    fecha: fm.fecha ?? "1970-01-01",
+    tag: fm.tag ?? TAG_POR_DEFECTO,
+    fecha: fm.fecha ?? null,
     resumen: fm.resumen ?? "",
     portada,
     portadaAlt: fm.portadaAlt ?? "",
     autor: fm.autor,
     // Sin galería declarada, la portada ES la galería: así la página no tiene
     // que distinguir dos casos para mostrar una sola foto.
-    galeria: fm.galeria ?? (portada ? [{ src: portada, alt: fm.portadaAlt ?? "" }] : []),
+    galeria: await Promise.all(
+      (fm.galeria ?? (portada ? [{ src: portada, alt: fm.portadaAlt ?? "" }] : [])).map(medir),
+    ),
     fuente: fm.fuente,
     contenidoHtml: procesado.toString(),
     traducida: lang === IDIOMA_POR_DEFECTO || hayTraduccion,
   };
 }
 
-/** Orden cronológico inverso: la más reciente primero. */
+/**
+ * Orden cronológico inverso: la más reciente primero, y lo que no tiene fecha
+ * al final. Una iniciativa en curso no compite por el primer lugar con una
+ * noticia de esta semana, pero tampoco desaparece.
+ */
 export async function getNoticias(lang: Idioma = IDIOMA_POR_DEFECTO): Promise<Noticia[]> {
   const todas = await Promise.all(
     leerArchivos().map((f) => parsear(f.replace(/\.md$/, ""), lang)),
   );
-  return todas.sort((a, b) => b.fecha.localeCompare(a.fecha));
+  return todas.sort((a, b) => (b.fecha ?? "").localeCompare(a.fecha ?? ""));
 }
 
 export async function getNoticia(
