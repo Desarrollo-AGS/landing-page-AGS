@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import Image from "next/image";
 import {
   ArrowUpRight,
@@ -12,11 +12,13 @@ import { Logo } from "@/components/brand/Logo";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { mailHref, site, telHref } from "@/content/site";
 import {
-  navFooterEmpresa,
-  navFooterServicios,
+  navFooterEmpresaDe,
+  navFooterServiciosDe,
   navFooterSoftware,
   type Enlace,
 } from "@/lib/nav";
+import { diccionario } from "@/content/i18n";
+import type { Idioma } from "@/lib/idioma";
 
 /**
  * F-12 · Footer corporativo.
@@ -25,7 +27,10 @@ import {
  * "Apoyado por". El año del aviso legal se calcula en cada render del servidor,
  * no está escrito fijo.
  */
-export function Footer() {
+export function Footer({ lang }: { lang: Idioma }) {
+  const t = diccionario(lang);
+  const navFooterServicios = navFooterServiciosDe(t);
+  const navFooterEmpresa = navFooterEmpresaDe(t);
   const anio = new Date().getFullYear();
 
   return (
@@ -36,8 +41,7 @@ export function Footer() {
           <div>
             <Logo variante="negativo" alto={24} />
             <p className="measure mt-5 text-[0.9375rem] leading-relaxed text-steel-400">
-              Operaciones aéreas industriales para energía, minería y construcción. Tecnología e
-              innovación al servicio de la seguridad y la eficiencia.
+              {t.ui.footer.intro}
             </p>
 
             <ul className="mt-7 space-y-3 text-[0.9375rem]">
@@ -64,7 +68,7 @@ export function Footer() {
                 <address className="not-italic leading-relaxed">
                   {site.contacto.direccion.calle}, {site.contacto.direccion.detalle}
                   <br />
-                  {site.contacto.direccion.ciudad}, {site.contacto.direccion.region}
+                  {site.contacto.direccion.ciudad}, {t.contacto.region}
                 </address>
               </li>
             </ul>
@@ -75,7 +79,7 @@ export function Footer() {
                   href={site.redes.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Instagram de AGS Soluciones, se abre en una pestaña nueva"
+                  aria-label={t.ui.instagram}
                   className="flex h-10 w-10 items-center justify-center border border-white/12 text-steel-300 transition-colors hover:border-orange hover:text-orange"
                 >
                   <InstagramLogo size={18} aria-hidden="true" />
@@ -86,7 +90,7 @@ export function Footer() {
                   href={site.redes.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="LinkedIn de AGS Soluciones, se abre en una pestaña nueva"
+                  aria-label={t.ui.linkedin}
                   className="flex h-10 w-10 items-center justify-center border border-white/12 text-steel-300 transition-colors hover:border-orange hover:text-orange"
                 >
                   <LinkedinLogo size={18} aria-hidden="true" />
@@ -95,9 +99,9 @@ export function Footer() {
             </ul>
           </div>
 
-          <ColumnaFooter titulo="Servicios" enlaces={navFooterServicios} />
-          <ColumnaFooter titulo="Empresa" enlaces={navFooterEmpresa} />
-          <ColumnaFooter titulo="Software" enlaces={navFooterSoftware} />
+          <ColumnaFooter titulo={t.ui.footer.servicios} enlaces={navFooterServicios} />
+          <ColumnaFooter titulo={t.ui.footer.empresa} enlaces={navFooterEmpresa} />
+          <ColumnaFooter titulo={t.ui.footer.software} enlaces={navFooterSoftware} />
         </div>
 
         {/* -------- Apoyado por (F-12) -------------------------------------
@@ -109,7 +113,7 @@ export function Footer() {
             el alto final ya definido, para que al reemplazarla no se mueva
             nada del layout. */}
         <div className="mt-14 border-t border-white/10 pt-8">
-          <p className="eyebrow text-steel-500">Apoyado por</p>
+          <p className="eyebrow text-steel-500">{t.ui.footer.apoyadoPor}</p>
           <div className="mt-4 flex h-11 items-center">
             <Image
               src="/images/open-aster-logo.webp"
@@ -123,7 +127,7 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-7 text-[0.8125rem] text-steel-500 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; {anio} {site.nombre}. {site.legal.aviso}.
+            &copy; {anio} {site.nombre}. {t.ui.footer.derechos}.
           </p>
         </div>
       </Contenedor>

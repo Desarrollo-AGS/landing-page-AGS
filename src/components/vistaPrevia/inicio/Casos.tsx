@@ -4,6 +4,8 @@ import { Contenedor } from "@/components/ui/Contenedor";
 import { FichaCaso, formatearCifra } from "@/components/ui/FichaCaso";
 import { BotonEnlace } from "@/components/ui/Boton";
 import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
+import { diccionario } from "@/content/i18n";
+import type { Idioma } from "@/lib/idioma";
 
 /**
  * 05 · Proyectos ya ejecutados.
@@ -23,7 +25,8 @@ import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
  * La grilla sigue existiendo bajo 1024px y con movimiento reducido: la pista
  * solo se arma cuando `animaciones.ts` marca la raíz (ver `.ini-casos`).
  */
-export function Casos() {
+export function Casos({ lang }: { lang: Idioma }) {
+  const t = diccionario(lang);
   return (
     <section
       id="capitulo-05"
@@ -35,13 +38,12 @@ export function Casos() {
       <Contenedor>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[36rem]">
-            <Encabezado numero="05" nombre="La prueba" />
+            <Encabezado numero="05" nombre={t.inicio.casos.capitulo} />
             <h2 id="ini-casos" className="mt-5 text-d3 text-white sm:text-d2">
-              <Lineas lineas={["Proyectos ya ejecutados"]} />
+              <Lineas lineas={[t.inicio.casos.titulo]} />
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-400">
-              La franja de logos genera confianza a primera vista. Esto es lo que hay detrás:
-              plantas, ubicaciones y superficies medidas.
+              {t.inicio.casos.parrafo}
             </p>
           </div>
 
@@ -50,9 +52,21 @@ export function Casos() {
             className="grid shrink-0 grid-cols-3 gap-x-5 gap-y-2 border-l-2 border-orange pl-5 sm:gap-x-10 sm:pl-6"
           >
             {[
-              { k: "Proyectos", v: String(totales.proyectos), n: totales.proyectos },
-              { k: "MW inspeccionados", v: formatearCifra(totales.mw), n: totales.mw },
-              { k: "Hectáreas", v: formatearCifra(totales.hectareas), n: totales.hectareas },
+              {
+                k: t.inicio.casos.proyectos,
+                v: String(totales.proyectos),
+                n: totales.proyectos,
+              },
+              {
+                k: t.inicio.casos.mwInspeccionados,
+                v: formatearCifra(totales.mw, lang),
+                n: totales.mw,
+              },
+              {
+                k: t.inicio.casos.hectareas,
+                v: formatearCifra(totales.hectareas, lang),
+                n: totales.hectareas,
+              },
             ].map(({ k, v, n }) => (
               <div key={k}>
                 <dd
@@ -76,7 +90,10 @@ export function Casos() {
           className="iao-solo-escritorio mb-8 flex items-center gap-4 max-lg:!hidden"
         >
           <div className="relative h-px flex-1 bg-white/15">
-            <span data-casos-barra className="absolute inset-0 origin-left scale-x-0 bg-orange" />
+            <span
+              data-casos-barra
+              className="absolute inset-0 origin-left scale-x-0 bg-orange"
+            />
           </div>
           <p className="num shrink-0 text-[0.8125rem] font-semibold tracking-[0.06em]">
             <span data-casos-actual className="text-white">
@@ -101,7 +118,7 @@ export function Casos() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="relative">
-                  <FichaCaso caso={caso} tono="oscuro" />
+                  <FichaCaso caso={caso} tono="oscuro" lang={lang} />
                 </div>
               </div>
             </li>
@@ -111,7 +128,7 @@ export function Casos() {
 
       <Contenedor className="mt-10">
         <BotonEnlace href="/casos" variante="linea-clara" tamano="lg">
-          Ver los {totales.proyectos} proyectos
+          {t.inicio.casos.cta.replace("{n}", String(totales.proyectos))}
           <ArrowRight size={15} weight="bold" aria-hidden="true" />
         </BotonEnlace>
       </Contenedor>

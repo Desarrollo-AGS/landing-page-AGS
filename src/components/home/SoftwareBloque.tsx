@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Revelar } from "@/components/ui/Revelar";

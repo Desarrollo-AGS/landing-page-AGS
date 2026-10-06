@@ -10,6 +10,8 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
+import { diccionario } from "@/content/i18n";
+import type { Idioma } from "@/lib/idioma";
 
 /**
  * 03 · La operación registrada en faena.
@@ -27,7 +29,8 @@ import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
  * bucle decodificando a mitad de página, con el usuario tres secciones más
  * abajo, no aporta nada.
  */
-export function Faena() {
+export function Faena({ lang }: { lang: Idioma }) {
+  const t = diccionario(lang);
   const seccionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = useState(false);
@@ -66,7 +69,7 @@ export function Faena() {
       <div data-faena-banda className="relative min-h-[26rem] overflow-hidden lg:min-h-[36rem]">
         <Image
           src="/images/faena-limpieza-fachada.webp"
-          alt="Fachada de una instalación minera durante la limpieza con dron"
+          alt={t.inicio.faena.altFoto}
           fill
           sizes="100vw"
           loading="lazy"
@@ -80,7 +83,7 @@ export function Faena() {
           playsInline
           preload="none"
           poster="/images/faena-limpieza-fachada.webp"
-          aria-label="Registro de una operación de limpieza de fachada con dron, en faena minera activa"
+          aria-label={t.inicio.faena.ariaVideo}
           className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
         >
           <source src="/videos/faena-limpieza-fachada.webm" type="video/webm" />
@@ -94,17 +97,16 @@ export function Faena() {
 
         <Contenedor className="relative flex min-h-[26rem] items-end py-14 lg:min-h-[36rem] lg:py-20">
           <div data-faena-texto className="max-w-[36rem]">
-            <Encabezado numero="03" nombre="Operación registrada en faena" />
+            <Encabezado numero="03" nombre={t.inicio.faena.capitulo} />
             <p className="mt-4 inline-flex items-center gap-2 text-[0.8125rem] font-medium text-orange">
               <Play size={13} weight="fill" aria-hidden="true" />
-              Registro real
+              {t.inicio.faena.registroReal}
             </p>
             <h2 id="ini-faena" className="mt-3 text-d3 text-white sm:text-d2">
-              <Lineas lineas={["Fachada de faena minera,", "limpiada en vuelo"]} />
+              <Lineas lineas={t.inicio.faena.titulo} />
             </h2>
             <p className="mt-5 max-w-[32rem] text-[1.0625rem] leading-relaxed text-white/85">
-              Registro real de una operación sobre estructura industrial activa. Nadie subió, y la
-              planta no se detuvo.
+              {t.inicio.faena.parrafo}
             </p>
           </div>
         </Contenedor>
@@ -112,32 +114,18 @@ export function Faena() {
 
       <Contenedor className="border-t border-white/10 py-14 lg:py-16">
         <ul className="grid gap-10 sm:grid-cols-3 sm:gap-8">
-          {[
-            {
-              Icono: ShieldCheck,
-              titulo: "Sin trabajo en altura",
-              texto:
-                "Nadie sube. Se elimina la exposición del personal al riesgo de caída y la logística de permisos que la acompaña.",
-            },
-            {
-              Icono: ClockCountdown,
-              titulo: "Sin detener la planta",
-              texto:
-                "Se opera sobre estructuras activas, sin montar andamios ni coordinar cortes prolongados de producción.",
-            },
-            {
-              Icono: ArrowsOutSimple,
-              titulo: "Sin límite de acceso",
-              texto:
-                "Se alcanzan superficies que el andamio y la grúa no cubren, incluidas cubiertas y estructuras de gran altura.",
-            },
-          ].map(({ Icono, titulo, texto }) => (
-            <li key={titulo} data-razon>
-              <Icono size={22} weight="light" aria-hidden="true" className="text-orange" />
-              <h3 className="mt-4 text-lg font-semibold text-white">{titulo}</h3>
-              <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-steel-400">{texto}</p>
-            </li>
-          ))}
+          {[ShieldCheck, ClockCountdown, ArrowsOutSimple].map((Icono, i) => {
+            const razon = t.inicio.faena.razones[i];
+            return (
+              <li key={razon.titulo} data-razon>
+                <Icono size={22} weight="light" aria-hidden="true" className="text-orange" />
+                <h3 className="mt-4 text-lg font-semibold text-white">{razon.titulo}</h3>
+                <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-steel-400">
+                  {razon.detalle}
+                </p>
+              </li>
+            );
+          })}
         </ul>
       </Contenedor>
     </section>

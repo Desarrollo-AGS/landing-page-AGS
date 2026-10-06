@@ -3,9 +3,12 @@
 import { useId, useRef, useState } from "react";
 import { CheckCircle, PaperPlaneTilt, WarningCircle } from "@phosphor-icons/react/dist/ssr";
 import { Boton } from "@/components/ui/Boton";
-import { contactoSchema, erroresPorCampo } from "@/lib/contactoSchema";
-import { opcionesOperacion } from "@/content/servicios";
+import { contactoSchemaDe, erroresPorCampo } from "@/lib/contactoSchema";
+import { opcionesOperacionDe } from "@/content/servicios";
 import { mailHref, site } from "@/content/site";
+import { diccionario } from "@/content/i18n";
+import { IDIOMA_POR_DEFECTO, type Idioma } from "@/lib/idioma";
+import type { Diccionario } from "@/content/i18n/tipos";
 
 /**
  * F-11 · Formulario de contacto.
@@ -42,15 +45,13 @@ const VACIO = {
   sitioWeb: "",
 };
 
-const MENSAJES_ERROR: Record<string, string> = {
-  "sin-configurar":
-    "El envío automático todavía no está habilitado en este entorno. Tu mensaje no se perdió: usa el botón de abajo para enviarlo por correo con el texto ya escrito.",
-  envio:
-    "No pudimos entregar la solicitud. Vuelve a intentarlo en un momento, o escríbenos directamente por correo.",
-  red: "No hay conexión con el servidor. Revisa tu red y vuelve a intentarlo.",
-};
-
-export function FormularioContacto() {
+export function FormularioContacto({ lang = IDIOMA_POR_DEFECTO }: { lang?: Idioma }) {
+  const t = diccionario(lang);
+  const f = t.formulario;
+  // El esquema se arma por idioma porque sus mensajes son texto visible; la
+  // forma de los datos es la misma, así que el servidor valida igual.
+  const esquema = contactoSchemaDe(lang);
+  const opciones = opcionesOperacionDe(t);
   const idBase = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const [valores, setValores] = useState({ ...VACIO });
@@ -70,7 +71,7 @@ export function FormularioContacto() {
   }
 
   function validarCampo(nombre: string, datos: typeof valores) {
-    const resultado = contactoSchema.safeParse(datos);
+    const resultado = esquema.safeParse(datos);
     const mapa = resultado.success ? {} : erroresPorCampo(resultado.error);
     setErrores((prev) => {
       const siguiente = { ...prev };
@@ -83,7 +84,7 @@ export function FormularioContacto() {
   async function enviar(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const resultado = contactoSchema.safeParse(valores);
+    const resultado = esquema.safeParse(valores);
     if (!resultado.success) {
       const mapa = erroresPorCampo(resultado.error);
       setErrores(mapa);
@@ -102,7 +103,9 @@ export function FormularioContacto() {
     setCodigoError(null);
 
     try {
-      const respuesta = await fetch("/api/contacto", {
+      // `lang` viaja en la URL y no en el cuerpo: el cuerpo es exactamente lo
+      // que valida el esquema, y meterle un campo de más lo haría fallar.
+      const respuesta = await fetch(`/api/contacto?lang=${lang}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(resultado.data),
@@ -138,10 +141,9 @@ export function FormularioContacto() {
         className="chamfer flex flex-col items-start gap-4 border border-steel-200 bg-white p-8 sm:p-10"
       >
         <CheckCircle size={30} weight="light" aria-hidden="true" className="text-orange" />
-        <h3 className="text-xl font-semibold text-steel-900">Solicitud recibida</h3>
+        <h3 className="text-xl font-semibold text-steel-900">{f.exitoTitulo}</h3>
         <p className="measure text-[0.9375rem] leading-relaxed text-steel-600">
-          Revisamos el caso y te enviamos propuesta técnica y comercial. Si la operación lo
-          requiere, coordinamos una visita a faena.
+          {f.exitoParrafo}
         </p>
         <Boton
           type="button"
@@ -149,7 +151,7 @@ export function FormularioContacto() {
           onClick={() => setEstado("inactivo")}
           className="mt-2"
         >
-          Enviar otra solicitud
+          {f.enviarOtra}
         </Boton>
       </div>
     );
@@ -167,7 +169,7 @@ export function FormularioContacto() {
       <div className="grid gap-5 sm:grid-cols-2">
         <Campo
           nombre="nombre"
-          etiqueta="Nombre"
+          etiqueta={f.nombre}
           autoComplete="name"
           valores={valores}
           errores={errores}
@@ -177,10 +179,11 @@ export function FormularioContacto() {
           validarCampo={validarCampo}
           campoId={campoId}
           errorId={errorId}
+          obligatorio={f.obligatorio}
         />
         <Campo
           nombre="empresa"
-          etiqueta="Empresa"
+          etiqueta={f.empresa}
           autoComplete="organization"
           valores={valores}
           errores={errores}
@@ -190,10 +193,11 @@ export function FormularioContacto() {
           validarCampo={validarCampo}
           campoId={campoId}
           errorId={errorId}
+          obligatorio={f.obligatorio}
         />
         <Campo
           nombre="email"
-          etiqueta="Correo corporativo"
+          etiqueta={f.email}
           tipo="email"
           autoComplete="email"
           valores={valores}
@@ -204,14 +208,15 @@ export function FormularioContacto() {
           validarCampo={validarCampo}
           campoId={campoId}
           errorId={errorId}
+          obligatorio={f.obligatorio}
         />
         <Campo
           nombre="telefono"
-          etiqueta="Teléfono"
+          etiqueta={f.telefono}
           tipo="tel"
           autoComplete="tel"
           opcional
-          ayuda="Opcional"
+          ayuda={f.opcional}
           valores={valores}
           errores={errores}
           tocados={tocados}
@@ -220,12 +225,13 @@ export function FormularioContacto() {
           validarCampo={validarCampo}
           campoId={campoId}
           errorId={errorId}
+          obligatorio={f.obligatorio}
         />
       </div>
 
       <div className="mt-5">
         <label htmlFor={campoId("operacion")} className={ETIQUETA}>
-          Operación requerida <Requerido />
+          {f.operacion} <Requerido texto={f.obligatorio} />
         </label>
         <select
           id={campoId("operacion")}
@@ -242,8 +248,8 @@ export function FormularioContacto() {
             valores.operacion ? "text-steel-900" : "text-steel-500"
           }`}
         >
-          <option value="">Selecciona una opción</option>
-          {opcionesOperacion.map((o) => (
+          <option value="">{f.selecciona}</option>
+          {opciones.map((o) => (
             <option key={o.value} value={o.value} className="text-steel-900">
               {o.label}
             </option>
@@ -254,7 +260,7 @@ export function FormularioContacto() {
 
       <div className="mt-5">
         <label htmlFor={campoId("mensaje")} className={ETIQUETA}>
-          Detalle de la faena <Requerido />
+          {f.detalle} <Requerido texto={f.obligatorio} />
         </label>
         <textarea
           id={campoId("mensaje")}
@@ -266,7 +272,7 @@ export function FormularioContacto() {
             setTocados((t) => ({ ...t, mensaje: true }));
             validarCampo("mensaje", valores);
           }}
-          placeholder="Ubicación, tipo de instalación, superficie estimada y plazo."
+          placeholder={f.detallePlaceholder}
           aria-invalid={errores.mensaje ? true : undefined}
           aria-describedby={errores.mensaje ? errorId("mensaje") : undefined}
           className={`${CONTROL} min-h-[8rem] resize-y py-3 ${
@@ -279,7 +285,7 @@ export function FormularioContacto() {
       {/* Trampa anti-spam. Fuera del recorrido de teclado y del árbol de
           accesibilidad: para una persona no existe. */}
       <div aria-hidden="true" className="absolute h-px w-px overflow-hidden opacity-0">
-        <label htmlFor={campoId("sitioWeb")}>No completar este campo</label>
+        <label htmlFor={campoId("sitioWeb")}>{f.trampa}</label>
         <input
           id={campoId("sitioWeb")}
           name="sitioWeb"
@@ -303,12 +309,12 @@ export function FormularioContacto() {
               className="mt-px shrink-0 text-orange-ink"
             />
             <div className="text-[0.875rem] leading-relaxed text-steel-700">
-              <p>{MENSAJES_ERROR[codigoError] ?? MENSAJES_ERROR.envio}</p>
+              <p>{mensajeDeError(f, codigoError)}</p>
               <a
-                href={enlaceCorreoDirecto(valores)}
+                href={enlaceCorreoDirecto(valores, t, opciones)}
                 className="mt-2 inline-block font-semibold text-orange-ink underline underline-offset-2"
               >
-                Enviar por correo a {site.contacto.email}
+                {f.enviarPorCorreo.replace("{email}", site.contacto.email)}
               </a>
             </div>
           </div>
@@ -316,7 +322,7 @@ export function FormularioContacto() {
 
         {Object.keys(errores).length > 0 && estado !== "error" ? (
           <p className="sr-only">
-            El formulario tiene {Object.keys(errores).length} campo(s) con errores.
+            {f.resumenErrores.replace("{n}", String(Object.keys(errores).length))}
           </p>
         ) : null}
       </div>
@@ -336,22 +342,25 @@ export function FormularioContacto() {
               aria-hidden="true"
               className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-steel-900/25 border-t-steel-900"
             />
-            Enviando
+            {f.enviando}
           </>
         ) : (
           <>
-            Enviar solicitud
+            {f.enviar}
             <PaperPlaneTilt size={15} weight="fill" aria-hidden="true" />
           </>
         )}
       </Boton>
 
+      {/* La nota lleva el correo como enlace en medio de la frase, así que se
+          parte por el marcador en vez de concatenar texto suelto: el orden de
+          las palabras alrededor del correo cambia entre idiomas. */}
       <p className="mt-4 text-xs leading-relaxed text-steel-500">
-        Los datos se usan solo para responder esta solicitud. También puedes escribir directo a{" "}
+        {f.nota.split("{email}")[0]}
         <a href={mailHref} className="text-orange-ink underline underline-offset-2">
           {site.contacto.email}
         </a>
-        .
+        {f.nota.split("{email}")[1]}
       </p>
     </form>
   );
@@ -370,15 +379,25 @@ const CONTROL =
 
 const CONTROL_ERROR = "border-orange-ink";
 
-function Requerido() {
+function Requerido({ texto }: { texto: string }) {
   return (
     <>
       <span aria-hidden="true" className="text-orange-ink">
         *
       </span>
-      <span className="sr-only">(obligatorio)</span>
+      <span className="sr-only">{texto}</span>
     </>
   );
+}
+
+/** El mensaje del código que devolvió la API, con el de envío como respaldo. */
+function mensajeDeError(f: Diccionario["formulario"], codigo: string): string {
+  const mapa: Record<string, string> = {
+    "sin-configurar": f.errores.sinConfigurar,
+    envio: f.errores.envio,
+    red: f.errores.red,
+  };
+  return mapa[codigo] ?? f.errores.envio;
 }
 
 function MensajeError({ id, texto }: { id: string; texto?: string }) {
@@ -405,6 +424,7 @@ interface PropsCampo {
   validarCampo: (n: string, d: typeof VACIO) => void;
   campoId: (n: string) => string;
   errorId: (n: string) => string;
+  obligatorio: string;
 }
 
 function Campo({
@@ -422,6 +442,7 @@ function Campo({
   validarCampo,
   campoId,
   errorId,
+  obligatorio,
 }: PropsCampo) {
   const error = errores[nombre];
   const ayudaId = `${campoId(nombre)}-ayuda`;
@@ -429,7 +450,7 @@ function Campo({
   return (
     <div>
       <label htmlFor={campoId(nombre)} className={ETIQUETA}>
-        {etiqueta} {opcional ? null : <Requerido />}
+        {etiqueta} {opcional ? null : <Requerido texto={obligatorio} />}
       </label>
       <input
         id={campoId(nombre)}
@@ -461,18 +482,22 @@ function Campo({
  * Enlace `mailto:` de respaldo con todo lo escrito ya dentro del cuerpo. Es lo
  * que hace que un fallo de envío no le cueste al usuario volver a redactar.
  */
-function enlaceCorreoDirecto(v: typeof VACIO) {
-  const operacion =
-    opcionesOperacion.find((o) => o.value === v.operacion)?.label ?? "por definir";
+function enlaceCorreoDirecto(
+  v: typeof VACIO,
+  t: Diccionario,
+  opciones: { value: string; label: string }[],
+) {
+  const c = t.formulario.correo;
+  const operacion = opciones.find((o) => o.value === v.operacion)?.label ?? c.porDefinir;
   const cuerpo = [
-    `Nombre: ${v.nombre}`,
-    `Empresa: ${v.empresa}`,
-    `Teléfono: ${v.telefono || "no indicado"}`,
-    `Operación requerida: ${operacion}`,
+    `${c.nombre}: ${v.nombre}`,
+    `${c.empresa}: ${v.empresa}`,
+    `${c.telefono}: ${v.telefono || c.noIndicado}`,
+    `${c.operacion}: ${operacion}`,
     "",
     v.mensaje,
   ].join("\n");
   return `mailto:${site.contacto.email}?subject=${encodeURIComponent(
-    `Solicitud de cotización · ${v.empresa || "web"}`,
+    `${c.asunto} · ${v.empresa || c.web}`,
   )}&body=${encodeURIComponent(cuerpo)}`;
 }

@@ -7,6 +7,9 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { mailHref, site, telHref } from "@/content/site";
 import { Contenedor } from "@/components/ui/Contenedor";
+import { SelectorIdioma } from "./SelectorIdioma";
+import { diccionario } from "@/content/i18n";
+import type { Idioma } from "@/lib/idioma";
 
 /**
  * F-01 · Barra superior de contacto.
@@ -20,7 +23,8 @@ import { Contenedor } from "@/components/ui/Contenedor";
  * se mantienen: son los dos que sí se tocan desde un celular. La franja nunca
  * pasa de 36px de alto, así que no empuja el hero fuera de pantalla.
  */
-export function BarraSuperior() {
+export function BarraSuperior({ lang }: { lang: Idioma }) {
+  const t = diccionario(lang);
   return (
     <div className="relative z-50 bg-steel-900 text-steel-300">
       <Contenedor className="flex h-9 items-center justify-between gap-4">
@@ -30,7 +34,7 @@ export function BarraSuperior() {
               href={site.redes.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram de AGS Soluciones, se abre en una pestaña nueva"
+              aria-label={t.ui.instagram}
               className="flex h-9 w-8 items-center justify-center transition-colors duration-200 hover:text-orange"
             >
               <InstagramLogo size={17} weight="regular" aria-hidden="true" />
@@ -41,7 +45,7 @@ export function BarraSuperior() {
               href={site.redes.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn de AGS Soluciones, se abre en una pestaña nueva"
+              aria-label={t.ui.linkedin}
               className="flex h-9 w-8 items-center justify-center transition-colors duration-200 hover:text-orange"
             >
               <LinkedinLogo size={17} weight="regular" aria-hidden="true" />
@@ -50,6 +54,12 @@ export function BarraSuperior() {
         </ul>
 
         <ul className="flex items-center gap-5 text-[0.8125rem]">
+          {/* El selector va acá y no en el navbar: la barra está en todas las
+              páginas y en todos los anchos, así que el cambio de idioma está
+              siempre a la vista sin competir con la navegación. */}
+          <li className="order-last border-l border-white/15 pl-5">
+            <SelectorIdioma />
+          </li>
           <li className="hidden lg:block">
             <span className="flex items-center gap-2">
               <MapPin size={14} aria-hidden="true" className="shrink-0 text-steel-400" />
@@ -63,7 +73,7 @@ export function BarraSuperior() {
             >
               <EnvelopeSimple size={14} aria-hidden="true" className="shrink-0" />
               <span className="hidden sm:inline">{site.contacto.email}</span>
-              <span className="sr-only sm:hidden">Escribir a {site.contacto.email}</span>
+              <span className="sr-only sm:hidden">{site.contacto.email}</span>
             </a>
           </li>
           <li>

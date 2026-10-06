@@ -195,7 +195,8 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
       tl.fromTo(medios, { scale: 1.18 }, { scale: 1, duration: 1.6, ease: "power2.out" }, 0);
     // Temprano y a propósito: en 0,55 el capítulo se pasaba media línea de
     // tiempo fijado mostrando un video sin un solo texto encima.
-    if (texto) tl.from(texto, { y: 40, autoAlpha: 0, duration: 0.45, ease: "power3.out" }, 0.12);
+    if (texto)
+      tl.from(texto, { y: 40, autoAlpha: 0, duration: 0.45, ease: "power3.out" }, 0.12);
     // Pausa: el registro se sostiene un momento con la pantalla completa.
     tl.to({}, { duration: 0.6 });
 
@@ -237,7 +238,13 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
 
     // Las cifras cuentan mientras el dron las escanea. El HTML trae el valor
     // real: al revertir el contexto se devuelve.
-    const formato = new Intl.NumberFormat("es-CL", { maximumFractionDigits: 0 });
+    // El idioma se lee del documento: este módulo lo carga el Director, que no
+    // recibe params. Sin esto, la versión inglesa contaría "1.179" en vez de
+    // "1,179".
+    const formato = new Intl.NumberFormat(
+      document.documentElement.lang.startsWith("en") ? "en-US" : "es-CL",
+      { maximumFractionDigits: 0 },
+    );
     for (const el of todos("[data-cifra]", s)) {
       const valor = Number(el.dataset.cifra);
       if (!Number.isFinite(valor)) continue;
@@ -346,7 +353,9 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
           scrollTrigger: { trigger: flujo, start: "top 82%", end: "top 40%", scrub: 0.6 },
         });
         tl.fromTo(linea, { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0);
-        nodos.forEach((n, i) => tl.to(n, { autoAlpha: 1, duration: 0.15 }, (i + 0.5) / nodos.length));
+        nodos.forEach((n, i) =>
+          tl.to(n, { autoAlpha: 1, duration: 0.15 }, (i + 0.5) / nodos.length),
+        );
       }
     }
 

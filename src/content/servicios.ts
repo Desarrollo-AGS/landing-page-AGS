@@ -1,3 +1,4 @@
+import type { Diccionario } from "@/content/i18n/tipos";
 /**
  * Los siete servicios de AGS. El copy sale de la versión base del sitio
  * (ags-soluciones-web), extraído en su momento de agssoluciones.cl. No se
@@ -170,6 +171,22 @@ export const opcionesOperacion = [
   ...servicios.map((s) => ({ value: s.slug, label: s.tituloCorto })),
   { value: "otra", label: "Otra operación" },
 ];
+
+/**
+ * Las mismas opciones con las etiquetas del idioma activo. Los `value` NO se
+ * traducen: son los slugs que viajan en el formulario y que valida el esquema,
+ * así que una solicitud enviada en inglés se recibe con la misma clave que una
+ * enviada en español.
+ */
+export function opcionesOperacionDe(t: Diccionario): { value: string; label: string }[] {
+  return [
+    ...servicios.map((s) => ({
+      value: s.slug,
+      label: t.servicios[s.slug]?.tituloCorto ?? s.tituloCorto,
+    })),
+    { value: "otra", label: t.formulario.otraOperacion },
+  ];
+}
 
 export function serviciosRelacionados(slug: string, limite = 3): Servicio[] {
   const actual = getServicio(slug);

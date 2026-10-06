@@ -1,12 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { MarcoCaptura } from "@/components/ui/MarcoCaptura";
 import { getServicio } from "@/content/servicios";
 import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
+import { diccionario } from "@/content/i18n";
+import type { Idioma } from "@/lib/idioma";
 import { productos } from "@/content/software";
 
 /**
@@ -35,7 +37,8 @@ import { productos } from "@/content/software";
  * tarjetas caen a una grilla legible en vez de quedarse apiladas y giradas:
  * un `transform` en línea le habría ganado a esa regla.
  */
-export function Software() {
+export function Software({ lang }: { lang: Idioma }) {
+  const t = diccionario(lang);
   const [activa, setActiva] = useState(0);
   const total = productos.length;
   const stageRef = useRef<HTMLDivElement>(null);
@@ -70,14 +73,12 @@ export function Software() {
       <Contenedor>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[42rem]">
-            <Encabezado numero="06" nombre="Del vuelo al dato" tono="claro" />
+            <Encabezado numero="06" nombre={t.inicio.software.capitulo} tono="claro" />
             <h2 id="ini-software" className="mt-5 text-d3 text-steel-900 sm:text-d2">
-              <Lineas lineas={["El vuelo termina", "donde empieza el dato"]} />
+              <Lineas lineas={t.inicio.software.titulo} />
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-600">
-              Nuestras plataformas son la parte del servicio que queda después del vuelo: donde
-              el hallazgo se ubica sobre el activo real y el equipo de mantenimiento trabaja
-              sobre él.
+              {t.inicio.software.parrafo}
             </p>
           </div>
 
@@ -107,9 +108,7 @@ export function Software() {
           if (off < -total / 2) off += total;
           const abs = Math.abs(off);
           const esActiva = off === 0;
-          const enganche = p.servicios
-            .map((s) => getServicio(s)?.tituloCorto)
-            .filter(Boolean);
+          const enganche = p.servicios.map((s) => t.servicios[s]?.tituloCorto).filter(Boolean);
 
           return (
             <article
@@ -126,16 +125,17 @@ export function Software() {
                 {p.nombre}
               </h3>
               <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-steel-600">
-                {p.resuelve}
+                {t.software[p.slug]?.resuelve ?? p.resuelve}
               </p>
 
               {enganche.length ? (
                 <p className="mt-6 border-t border-steel-100 pt-5 text-[0.8125rem] leading-relaxed text-steel-500">
-                  Se engancha a <span className="text-steel-700">{enganche.join(" y ")}</span>.
+                  {t.inicio.software.seEngancha}{" "}
+                  <span className="text-steel-700">{enganche.join(" / ")}</span>.
                 </p>
               ) : (
                 <p className="mt-6 border-t border-steel-100 pt-5 text-[0.8125rem] leading-relaxed text-steel-400">
-                  Servicios asociados pendientes de definición.
+                  {t.inicio.software.sinServicios}
                 </p>
               )}
 
@@ -146,7 +146,7 @@ export function Software() {
                 tabIndex={esActiva ? undefined : -1}
                 className="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-orange-ink"
               >
-                Ver la plataforma
+                {t.inicio.software.verPlataforma}
                 <ArrowRight
                   size={14}
                   weight="bold"
@@ -165,7 +165,7 @@ export function Software() {
           type="button"
           data-carrusel-prev
           onClick={() => mover(-1)}
-          aria-label="Ver la plataforma anterior"
+          aria-label={t.inicio.software.anterior}
           className="ini-carrusel__flecha ini-carrusel__flecha--izq"
         >
           <ArrowLeft size={16} weight="bold" aria-hidden="true" />
@@ -174,7 +174,7 @@ export function Software() {
           type="button"
           data-carrusel-next
           onClick={() => mover(1)}
-          aria-label="Ver la plataforma siguiente"
+          aria-label={t.inicio.software.siguiente}
           className="ini-carrusel__flecha ini-carrusel__flecha--der"
         >
           <ArrowRight size={16} weight="bold" aria-hidden="true" />

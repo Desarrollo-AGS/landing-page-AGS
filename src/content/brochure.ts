@@ -16,7 +16,8 @@
  * CONTENIDO QUE HAY QUE CORREGIR EN EL PDF (pendientes 11 y 15 del README)
  * -------------------------------------------------------------------------
  *   · Página 2: "Fundada en 2015". El sitio publica 2016.
- *   · Página 7: incluye el teléfono +56 9 8199 2658, que quedó obsoleto.
+ *   · Página 7: el teléfono impreso es el vigente (+56 9 8199 2658). Lo que
+ *     hay que revisar es que coincida con `site.ts` cada vez que cambie.
  */
 
 import { mailHref, site, telHref } from "./site";
@@ -77,7 +78,11 @@ export const brochure = {
       "Por qué AGS",
       "Por qué elegir AGS: presencia local, cumplimiento, seguridad operacional e innovación constante.",
     ),
-    pagina(7, "Contacto", "Cierre del brochure: invitación a agendar una prueba y datos de contacto."),
+    pagina(
+      7,
+      "Contacto",
+      "Cierre del brochure: invitación a agendar una prueba y datos de contacto.",
+    ),
   ] satisfies PaginaBrochure[],
 };
 

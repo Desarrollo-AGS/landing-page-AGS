@@ -48,9 +48,9 @@ export const site = {
 } as const;
 
 /** Une una lista en español: "Chile, Perú y Argentina". */
-export function enumerar(items: readonly string[]): string {
+export function enumerar(items: readonly string[], conjuncion = " y "): string {
   if (items.length <= 1) return items[0] ?? "";
-  return `${items.slice(0, -1).join(", ")} y ${items[items.length - 1]}`;
+  return `${items.slice(0, -1).join(", ")}${conjuncion}${items[items.length - 1]}`;
 }
 
 /**

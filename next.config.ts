@@ -16,13 +16,11 @@ const nextConfig: NextConfig = {
       { source: "/casos-exito", destination: "/casos", permanent: true },
       { source: "/casos-exito/:slug", destination: "/casos", permanent: true },
 
-      // Listado de servicios — no tiene equivalente 1:1 en el sitio nuevo,
-      // redirige al preview de servicios en Home.
-      {
-        source: "/servicios",
-        destination: "/#servicios",
-        permanent: true,
-      },
+      // /servicios NO se redirige: la página existe y es la que linkean el
+      // navbar, el footer y el sitemap. El redirect que había acá mandaba al
+      // ancla del inicio porque en su momento no había índice de servicios;
+      // hoy sí, y mantenerlo dejaba la página inalcanzable en español
+      // mientras /en/servicios sí abría.
 
       // /servicio/[slug-antiguo]/ -> /servicios/[slug-nuevo]
       {

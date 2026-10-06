@@ -7,6 +7,8 @@ import { useReducedMotion } from "motion/react";
 import { BotonEnlace } from "@/components/ui/Boton";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Lineas } from "@/components/vistaPrevia/iao/Tipografia";
+import { diccionario } from "@/content/i18n";
+import type { Idioma } from "@/lib/idioma";
 
 /**
  * 00 · Portada. Mismo contenido que el hero de siempre, otra puesta en escena.
@@ -42,7 +44,8 @@ type Conexion = { saveData?: boolean; effectiveType?: string };
 
 const retraso = (ms: number) => ({ "--retraso": `${ms}ms` }) as CSSProperties;
 
-export function Portada() {
+export function Portada({ lang }: { lang: Idioma }) {
+  const t = diccionario(lang);
   const reducido = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [montarVideo, setMontarVideo] = useState(false);
@@ -83,7 +86,8 @@ export function Portada() {
       cancelado = true;
       window.removeEventListener("load", programar);
       if (idOcioso !== undefined) {
-        if (typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idOcioso);
+        if (typeof window.cancelIdleCallback === "function")
+          window.cancelIdleCallback(idOcioso);
         else clearTimeout(idOcioso);
       }
     };
@@ -106,7 +110,7 @@ export function Portada() {
       <div data-portada-fondo className="absolute inset-0">
         <Image
           src="/images/ags-video-corporativo-poster.webp"
-          alt="Vista aérea de cerros del desierto que emergen sobre un mar de nubes"
+          alt={t.inicio.portada.altPoster}
           fill
           priority
           sizes="100vw"
@@ -123,7 +127,7 @@ export function Portada() {
             playsInline
             preload="auto"
             poster="/images/ags-video-corporativo-poster.webp"
-            aria-label="Video corporativo de AGS: vuelos sobre el desierto, faenas industriales, el equipo operando drones en terreno y sus plataformas de software"
+            aria-label={t.inicio.portada.ariaVideo}
             onPlay={() => setReproduciendo(true)}
             onPause={() => setReproduciendo(false)}
             onCanPlay={(e) => {
@@ -151,22 +155,18 @@ export function Portada() {
             max-w a la mitad: el vacío de la derecha es donde vuela el dron. */}
         <div data-portada-texto className="my-auto max-w-[46rem] lg:max-w-[52%]">
           <p className="eyebrow iao-entrada-suave text-orange" style={retraso(60)}>
-            Operaciones aéreas industriales desde 2016
+            {t.inicio.portada.antetitulo}
           </p>
 
           <h1 className="mt-5 text-[2.5rem] font-bold leading-[1.04] tracking-[-0.03em] text-white [text-shadow:0_2px_24px_rgb(0_26_43/0.5)] sm:text-[3.4rem] lg:text-d1">
-            <Lineas
-              lineas={["Convertimos la altura", "en un terreno seguro"]}
-              className="iao-entrada"
-            />
+            <Lineas lineas={t.inicio.portada.titulo} className="iao-entrada" />
           </h1>
 
           <p
             className="iao-entrada-suave mt-6 max-w-[38rem] text-[1.0625rem] leading-relaxed text-white [text-shadow:0_1px_16px_rgb(0_26_43/0.6)] sm:text-lg"
             style={retraso(620)}
           >
-            Inspección termográfica, topografía y limpieza con drones para minería, energía y
-            construcción. Sin andamios, sin detener la planta.
+            {t.inicio.portada.bajada}
           </p>
 
           <div
@@ -174,21 +174,20 @@ export function Portada() {
             style={retraso(780)}
           >
             <BotonEnlace href="/contacto" tamano="lg">
-              Cotizar un servicio
+              {t.inicio.portada.ctaPrimario}
             </BotonEnlace>
             <BotonEnlace href="/servicios" variante="linea-clara" tamano="lg">
-              Ver servicios
+              {t.inicio.portada.ctaSecundario}
             </BotonEnlace>
           </div>
         </div>
-
       </Contenedor>
 
       {montarVideo ? (
         <button
           type="button"
           onClick={alternar}
-          aria-label={reproduciendo ? "Pausar el video de fondo" : "Reproducir el video de fondo"}
+          aria-label={reproduciendo ? t.inicio.portada.pausar : t.inicio.portada.reproducir}
           // Arriba a la derecha, bajo el navbar. Queda lejos del titular (a la
           // izquierda) y del aire donde vuela el dron (centro-derecha, más abajo).
           className="absolute right-5 top-[calc(68px+1.25rem)] z-10 flex h-10 w-10 items-center justify-center border border-white/25 bg-black/35 text-white backdrop-blur-sm transition-colors hover:border-white/60 hover:bg-black/55"

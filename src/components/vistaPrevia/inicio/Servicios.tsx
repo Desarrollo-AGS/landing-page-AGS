@@ -1,9 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { servicios } from "@/content/servicios";
 import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
+import { diccionario } from "@/content/i18n";
+import type { Idioma } from "@/lib/idioma";
 
 /**
  * 02 · Los siete servicios. El capítulo fijado principal.
@@ -23,7 +25,8 @@ import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
  * La foto lleva `data-dron-haz`: es el objetivo del sensor mientras el dron
  * sobrevuela la columna izquierda, que es el aire que este layout le reserva.
  */
-export function Servicios() {
+export function Servicios({ lang }: { lang: Idioma }) {
+  const t = diccionario(lang);
   return (
     <section
       id="capitulo-02"
@@ -36,19 +39,18 @@ export function Servicios() {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-16">
           {/* ---------- Columna izquierda: titular, foto y contador ---------- */}
           <div className="flex flex-col">
-            <Encabezado numero="02" nombre="Los servicios" tono="claro" />
+            <Encabezado numero="02" nombre={t.inicio.servicios.capitulo} tono="claro" />
 
             <h2
               id="ini-servicios"
               data-servicios-titulo
               className="mt-5 text-d3 text-steel-900 sm:text-d2"
             >
-              <Lineas lineas={["Siete operaciones, un mismo", "criterio: nadie sube"]} />
+              <Lineas lineas={t.inicio.servicios.titulo} />
             </h2>
 
             <p className="measure mt-5 text-[1.0625rem] leading-relaxed text-steel-600">
-              Cada servicio reemplaza una tarea que hoy se hace con andamio, canasto o corte de
-              producción. La captura toma horas y la instalación sigue funcionando.
+              {t.inicio.servicios.parrafo}
             </p>
 
             {/* Ancho acotado a propósito: a ancho completo la figura medía ~400px
@@ -62,7 +64,7 @@ export function Servicios() {
               >
                 <Image
                   src="/images/fotogrametria_terreno_2d.jpg"
-                  alt="Ortomosaico de un levantamiento aerofotogramétrico, con grilla de coordenadas UTM, curvas de nivel, puntos de control en terreno y el polígono del área levantada"
+                  alt={t.inicio.servicios.altFoto}
                   fill
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   loading="lazy"
@@ -72,7 +74,7 @@ export function Servicios() {
                 />
               </div>
               <figcaption className="mt-3 text-[0.8125rem] leading-relaxed text-steel-500">
-                Ortomosaico georreferenciado: el entregable del levantamiento.
+                {t.inicio.servicios.pieFoto}
               </figcaption>
             </figure>
           </div>
@@ -114,10 +116,10 @@ export function Servicios() {
                         {String(i + 1).padStart(2, "0")}
                       </p>
                       <h3 className="mt-2 text-[1.1875rem] font-semibold leading-snug tracking-[-0.018em] text-steel-900 lg:text-[1.75rem] lg:tracking-[-0.025em]">
-                        {s.titulo}
+                        {t.servicios[s.slug].titulo}
                       </h3>
                       <p className="measure mt-2 text-[0.9375rem] leading-relaxed text-steel-600">
-                        {s.entregables[0]}
+                        {t.servicios[s.slug].entregables[0]}
                       </p>
                       <ul className="mt-3.5 flex flex-wrap gap-2">
                         {s.industrias.map((ind) => (
@@ -125,7 +127,7 @@ export function Servicios() {
                             key={ind}
                             className="border border-steel-200 px-2 py-0.5 text-[0.6875rem] font-medium tracking-[0.04em] text-steel-500"
                           >
-                            {ind}
+                            {t.industrias[ind] ?? ind}
                           </li>
                         ))}
                       </ul>

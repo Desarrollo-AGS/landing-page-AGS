@@ -11,6 +11,8 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import type { PageFlip } from "page-flip";
 import type { Contratapa, PaginaBrochure } from "@/content/brochure";
+import { diccionario } from "@/content/i18n";
+import { IDIOMA_POR_DEFECTO, type Idioma } from "@/lib/idioma";
 
 /**
  * Librito del brochure, con hojeo realista (StPageFlip).
@@ -29,6 +31,11 @@ import type { Contratapa, PaginaBrochure } from "@/content/brochure";
  * completa y "Ampliar", que abre las páginas visibles a todo el ancho con la
  * imagen de 2400px.
  *
+ * IDIOMA. Los controles, el índice y los textos alternativos salen del
+ * diccionario. Las PÁGINAS no: son imágenes renderizadas del PDF comercial y
+ * están en español. Para una versión inglesa del librito hay que re-exportar
+ * el PDF traducido; el componente no cambia.
+ *
  * REACT Y LA LIBRERÍA
  * -------------------
  * StPageFlip mueve y reestiliza los nodos de las hojas. Si esos nodos fueran
@@ -42,7 +49,7 @@ const MEDIA_REDUCIDO = "(prefers-reduced-motion: reduce)";
 
 const suscribirNada = () => () => {};
 
-function crearHoja(p: PaginaBrochure, i: number): HTMLElement {
+function crearHoja(p: PaginaBrochure, i: number, alt: string): HTMLElement {
   const hoja = document.createElement("div");
   hoja.className = "librito-pagina";
   // Portada y contratapa van en cartón: se voltean rígidas, sin curvarse.
@@ -52,7 +59,7 @@ function crearHoja(p: PaginaBrochure, i: number): HTMLElement {
   img.src = p.src;
   img.srcset = `${p.src} 1200w, ${p.srcGrande} 2400w`;
   img.sizes = "(min-width: 1024px) 50vw, 100vw";
-  img.alt = p.alt;
+  img.alt = alt;
   img.decoding = "async";
   img.draggable = false;
   // Las tres primeras se ven al abrir; el resto se pide al acercarse.
@@ -106,13 +113,16 @@ export function Librito({
   alto,
   paginas,
   contratapa,
+  lang = IDIOMA_POR_DEFECTO,
 }: {
   titulo: string;
   ancho: number;
   alto: number;
   paginas: PaginaBrochure[];
   contratapa: Contratapa;
+  lang?: Idioma;
 }) {
+  const b = diccionario(lang).paginas.brochure;
   const escenarioRef = useRef<HTMLDivElement>(null);
   const libroRef = useRef<HTMLDivElement>(null);
   const flipRef = useRef<PageFlip | null>(null);
@@ -151,7 +161,16 @@ export function Librito({
       .then(({ PageFlip }) => {
         if (cancelado) return;
         const reducido = window.matchMedia(MEDIA_REDUCIDO).matches;
-        const hojas = [...paginas.map(crearHoja), crearContratapa(contratapa)];
+        const hojas = [
+          ...paginas.map((p, i) =>
+            crearHoja(
+              p,
+              i,
+              diccionario(lang).paginas.brochure.paginas[String(i + 1)]?.alt ?? p.alt,
+            ),
+          ),
+          crearContratapa(contratapa),
+        ];
         nodo.append(...hojas);
 
         flip = new PageFlip(nodo, {
@@ -194,7 +213,7 @@ export function Librito({
       flip?.destroy();
       nodo.remove();
     };
-  }, [paginas, contratapa, ancho, alto]);
+  }, [paginas, contratapa, ancho, alto, lang]);
 
   /* ---------------------------------------------------------------- */
   /* Teclado y pantalla completa                                       */
@@ -261,7 +280,10 @@ export function Librito({
             <img src={paginas[0]?.src} alt="" className="librito-reserva__portada" />
           </div>
         ) : null}
-        <div ref={libroRef} className={listo ? "" : "pointer-events-none absolute inset-0 opacity-0"} />
+        <div
+          ref={libroRef}
+          className={listo ? "" : "pointer-events-none absolute inset-0 opacity-0"}
+        />
       </div>
 
       {/* ---------------- Controles ---------------- */}
@@ -271,13 +293,16 @@ export function Librito({
             type="button"
             onClick={() => flipRef.current?.flipPrev()}
             disabled={!listo || alInicio}
-            aria-label="Página anterior"
+            aria-label={b.anterior}
             className={boton}
           >
             <CaretLeft size={16} weight="bold" aria-hidden="true" />
           </button>
-          <p className="num min-w-[7.5rem] text-center text-sm text-steel-300" aria-live="polite">
-            <span className="sr-only">Página </span>
+          <p
+            className="num min-w-[7.5rem] text-center text-sm text-steel-300"
+            aria-live="polite"
+          >
+            <span className="sr-only">{b.pagina} </span>
             <span className="font-semibold text-white">{etiqueta}</span>
             <span className="text-steel-500"> / {total}</span>
           </p>
@@ -285,7 +310,7 @@ export function Librito({
             type="button"
             onClick={() => flipRef.current?.flipNext()}
             disabled={!listo || alFinal}
-            aria-label="Página siguiente"
+            aria-label={b.siguiente}
             className={boton}
           >
             <CaretRight size={16} weight="bold" aria-hidden="true" />
@@ -300,7 +325,7 @@ export function Librito({
             className={boton}
           >
             <MagnifyingGlassPlus size={16} aria-hidden="true" />
-            Ampliar
+            {b.ampliar}
           </button>
           {admiteCompleta ? (
             <button type="button" onClick={alternarCompleta} className={boton}>
@@ -310,10 +335,10 @@ export function Librito({
                 <ArrowsOut size={16} aria-hidden="true" />
               )}
               <span className="hidden sm:inline">
-                {completa ? "Salir de pantalla completa" : "Pantalla completa"}
+                {completa ? b.salirPantallaCompleta : b.pantallaCompleta}
               </span>
               <span className="sr-only sm:hidden">
-                {completa ? "Salir de pantalla completa" : "Pantalla completa"}
+                {completa ? b.salirPantallaCompleta : b.pantallaCompleta}
               </span>
             </button>
           ) : null}
@@ -329,7 +354,9 @@ export function Librito({
               onClick={() => flipRef.current?.flip(i)}
               disabled={!listo}
               aria-current={visibles.includes(i) ? "page" : undefined}
-              aria-label={`Ir a la página ${i + 1}: ${p.titulo}`}
+              aria-label={b.irAPagina
+                .replace("{n}", String(i + 1))
+                .replace("{titulo}", b.paginas[String(i + 1)]?.titulo ?? p.titulo)}
               className={`group block w-28 text-left sm:w-32 ${
                 visibles.includes(i) ? "" : "opacity-55 hover:opacity-100"
               } transition-opacity`}
@@ -346,7 +373,7 @@ export function Librito({
               />
               <span className="mt-2 block truncate text-[0.75rem] text-steel-400">
                 <span className="num text-steel-500">{String(i + 1).padStart(2, "0")}</span>{" "}
-                {p.titulo}
+                {b.paginas[String(i + 1)]?.titulo ?? p.titulo}
               </span>
             </button>
           </li>
@@ -357,7 +384,7 @@ export function Librito({
             onClick={() => flipRef.current?.flip(total - 1)}
             disabled={!listo}
             aria-current={visibles.includes(total - 1) ? "page" : undefined}
-            aria-label={`Ir a la página ${total}: contratapa`}
+            aria-label={b.irAContratapa.replace("{n}", String(total))}
             className={`block w-28 text-left transition-opacity sm:w-32 ${
               visibles.includes(total - 1) ? "" : "opacity-55 hover:opacity-100"
             }`}
@@ -372,7 +399,7 @@ export function Librito({
             </span>
             <span className="mt-2 block truncate text-[0.75rem] text-steel-400">
               <span className="num text-steel-500">{String(total).padStart(2, "0")}</span>{" "}
-              Contratapa
+              {b.contratapa}
             </span>
           </button>
         </li>
@@ -382,7 +409,7 @@ export function Librito({
       <dialog
         ref={dialogoRef}
         onClose={() => setAmpliada(false)}
-        aria-label={`${titulo}, página ${etiqueta} ampliada`}
+        aria-label={b.ampliada.replace("{titulo}", titulo).replace("{pagina}", etiqueta)}
         className="librito-dialogo"
       >
         <form method="dialog" className="sticky top-0 z-10 flex justify-end p-3 sm:p-5">
@@ -391,7 +418,7 @@ export function Librito({
             className="flex h-11 items-center gap-2 border border-white/20 bg-steel-950/80 px-4 text-sm font-medium text-white backdrop-blur-sm hover:border-white/60"
           >
             <X size={16} weight="bold" aria-hidden="true" />
-            Cerrar
+            {b.cerrar}
           </button>
         </form>
         {ampliada ? (

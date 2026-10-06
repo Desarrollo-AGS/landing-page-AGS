@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { enumerar, site } from "@/content/site";
@@ -45,13 +45,23 @@ export function Portada() {
               </Link>
             </li>
             <li className="flex items-center gap-2">
-              <CaretRight size={11} weight="bold" aria-hidden="true" className="text-steel-500" />
+              <CaretRight
+                size={11}
+                weight="bold"
+                aria-hidden="true"
+                className="text-steel-500"
+              />
               <Link href="/nosotros" className="transition-colors hover:text-white">
                 Nosotros
               </Link>
             </li>
             <li className="flex items-center gap-2">
-              <CaretRight size={11} weight="bold" aria-hidden="true" className="text-steel-500" />
+              <CaretRight
+                size={11}
+                weight="bold"
+                aria-hidden="true"
+                className="text-steel-500"
+              />
               <span aria-current="page" className="text-steel-300">
                 Brochure
               </span>
@@ -113,7 +123,10 @@ export function Portada() {
             className="eyebrow flex items-center gap-3 text-white transition-colors hover:text-orange"
           >
             <span lang="en">Scroll to explore</span>
-            <span aria-hidden="true" className="relative block h-8 w-px overflow-hidden bg-white/15">
+            <span
+              aria-hidden="true"
+              className="relative block h-8 w-px overflow-hidden bg-white/15"
+            >
               <span className="iao-sonda absolute inset-0 bg-orange" />
             </span>
           </a>
