@@ -13,7 +13,7 @@ import { metadatosDe } from "@/lib/seo";
 export const metadata: Metadata = metadatosDe({
   titulo: "Software: SmartField y SmartLayout",
   descripcion:
-    "Las plataformas sobre las que AGS entrega el dato de cada campaña: SmartField para inspección georreferenciada y SmartLayout para levantamiento y planificación.",
+    "Las plataformas sobre las que AGS entrega el dato de cada campaña: SmartField para inspección georreferenciada, SmartLayout para levantamiento y planificación, y SmartLix para el monitoreo térmico del riego en pilas de lixiviación.",
   ruta: "/software",
 });
 
