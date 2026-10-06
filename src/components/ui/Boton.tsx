@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 /**

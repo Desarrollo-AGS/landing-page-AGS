@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CaretDown, List, X } from "@phosphor-icons/react/dist/ssr";
@@ -8,7 +8,9 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { Logo } from "@/components/brand/Logo";
 import { BotonEnlace } from "@/components/ui/Boton";
 import { Contenedor } from "@/components/ui/Contenedor";
-import { esRutaActiva, navPrincipal, type ItemNav } from "@/lib/nav";
+import { esRutaActiva, navPrincipalDe, type ItemNav } from "@/lib/nav";
+import { diccionario } from "@/content/i18n";
+import { idiomaDeRuta } from "@/lib/idioma";
 
 /**
  * F-02 · Navbar.
@@ -56,6 +58,9 @@ const CIERRE_MS = 140;
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  // El idioma sale de la URL: este componente es cliente y no recibe params.
+  const t = diccionario(idiomaDeRuta(pathname));
+  const items = navPrincipalDe(t);
   const heroOscuro = RUTAS_HERO_OSCURO.has(pathname);
   const [desplegado, setDesplegado] = useState<string | null>(null);
   const [movilAbierto, setMovilAbierto] = useState(false);
@@ -161,7 +166,7 @@ export function Navbar() {
         {/* Bloque del logotipo: espacio propio a la derecha (área de seguridad). */}
         <Link
           href="/"
-          aria-label="AGS Soluciones, ir al inicio"
+          aria-label={t.ui.irAlInicio}
           className="-ml-1 flex shrink-0 items-center rounded-xs px-1 py-2 pr-4 sm:pr-8 lg:pr-10"
         >
           <Logo
@@ -175,9 +180,9 @@ export function Navbar() {
         </Link>
 
         {/* ---------- Navegación de escritorio ---------- */}
-        <nav aria-label="Principal" className="hidden lg:block">
+        <nav aria-label={t.ui.menuPrincipal} className="hidden lg:block">
           <ul className="flex items-center gap-1">
-            {navPrincipal.map((item) => (
+            {items.map((item) => (
               <ItemEscritorio
                 key={item.label}
                 item={item}
@@ -208,7 +213,7 @@ export function Navbar() {
         <div className="ml-auto flex items-center gap-2 pl-4">
           <div className="hidden sm:block">
             <BotonEnlace href="/contacto" tamano="md">
-              Contáctanos
+              {t.ui.contactanos}
             </BotonEnlace>
           </div>
 
@@ -217,7 +222,7 @@ export function Navbar() {
             onClick={() => setMovilAbierto((v) => !v)}
             aria-expanded={movilAbierto}
             aria-controls="menu-movil"
-            aria-label={movilAbierto ? "Cerrar menú" : "Abrir menú"}
+            aria-label={movilAbierto ? t.ui.cerrarMenu : t.ui.abrirMenu}
             className={`flex h-11 w-11 items-center justify-center rounded-xs transition-colors lg:hidden ${
               transparente ? "text-white hover:bg-white/12" : "text-steel-900 hover:bg-steel-50"
             }`}
@@ -231,7 +236,7 @@ export function Navbar() {
         </div>
       </Contenedor>
 
-      <MenuMovil abierto={movilAbierto} pathname={pathname} />
+      <MenuMovil abierto={movilAbierto} pathname={pathname} items={items} t={t} />
     </header>
   );
 }
@@ -406,7 +411,17 @@ function EnlacePanel({
 /* Menú móvil                                                          */
 /* ------------------------------------------------------------------ */
 
-function MenuMovil({ abierto, pathname }: { abierto: boolean; pathname: string }) {
+function MenuMovil({
+  abierto,
+  pathname,
+  items,
+  t,
+}: {
+  abierto: boolean;
+  pathname: string;
+  items: ItemNav[];
+  t: ReturnType<typeof diccionario>;
+}) {
   const [seccion, setSeccion] = useState<string | null>(null);
 
   /**
@@ -435,9 +450,9 @@ function MenuMovil({ abierto, pathname }: { abierto: boolean; pathname: string }
         }`}
       >
         <Contenedor className="py-4">
-          <nav aria-label="Principal, móvil">
+          <nav aria-label={t.ui.menuPrincipalMovil}>
             <ul className="divide-y divide-steel-100">
-              {navPrincipal.map((item) => {
+              {items.map((item) => {
                 const activo = esRutaActiva(pathname, item.href);
                 if (!item.submenu) {
                   return (
@@ -505,7 +520,7 @@ function MenuMovil({ abierto, pathname }: { abierto: boolean; pathname: string }
           </nav>
 
           <BotonEnlace href="/contacto" tamano="lg" className="mt-6 w-full">
-            Contáctanos
+            {t.ui.contactanos}
           </BotonEnlace>
         </Contenedor>
       </div>

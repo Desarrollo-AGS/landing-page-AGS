@@ -1,4 +1,6 @@
 import type { Caso } from "@/content/casos";
+import { diccionario } from "@/content/i18n";
+import { IDIOMA_POR_DEFECTO, LOCALE_INTL, type Idioma } from "@/lib/idioma";
 
 /**
  * F-10b · Ficha de caso de éxito.
@@ -11,10 +13,22 @@ import type { Caso } from "@/content/casos";
  * Un proyecto que no se mide en MW ni en hectáreas (torres, kilómetros de
  * línea, altitud) muestra su propia cifra en vez de un cero de relleno.
  */
-export function FichaCaso({ caso, tono = "claro" }: { caso: Caso; tono?: "claro" | "oscuro" }) {
+export function FichaCaso({
+  caso,
+  tono = "claro",
+  lang = IDIOMA_POR_DEFECTO,
+}: {
+  caso: Caso;
+  tono?: "claro" | "oscuro";
+  lang?: Idioma;
+}) {
+  const t = diccionario(lang);
+  // Si una ficha todavía no está traducida, se muestra el texto original en vez
+  // de un hueco: un caso sin traducir sigue siendo información útil.
+  const ficha = t.casos.fichas[caso.slug];
   const oscuro = tono === "oscuro";
 
-  const cifras = cifrasDeCaso(caso);
+  const cifras = cifrasDeCaso(caso, lang);
 
   return (
     <article
@@ -29,11 +43,11 @@ export function FichaCaso({ caso, tono = "claro" }: { caso: Caso; tono?: "claro"
           oscuro ? "text-white" : "text-steel-900"
         }`}
       >
-        {caso.planta}
+        {ficha?.planta ?? caso.planta}
       </h3>
 
       <p className={`mt-1.5 text-sm ${oscuro ? "text-steel-400" : "text-steel-500"}`}>
-        {caso.ubicacion}
+        {ficha?.ubicacion ?? caso.ubicacion}
       </p>
 
       <p
@@ -41,7 +55,7 @@ export function FichaCaso({ caso, tono = "claro" }: { caso: Caso; tono?: "claro"
           oscuro ? "text-steel-300" : "text-steel-600"
         }`}
       >
-        {caso.nota}
+        {ficha?.nota ?? caso.nota}
       </p>
 
       <dl
@@ -66,7 +80,7 @@ export function FichaCaso({ caso, tono = "claro" }: { caso: Caso; tono?: "claro"
       </dl>
 
       <p className={`mt-5 text-xs ${oscuro ? "text-steel-500" : "text-steel-500"}`}>
-        {caso.servicio}
+        {t.casos.servicios[caso.slug] ?? caso.servicio}
       </p>
     </article>
   );
@@ -76,17 +90,26 @@ export function FichaCaso({ caso, tono = "claro" }: { caso: Caso; tono?: "claro"
  * Las cifras publicadas de un caso, ya formateadas. Las que el proyecto no
  * declara no aparecen: nunca un cero de relleno.
  */
-export function cifrasDeCaso(caso: Caso): { valor: string; unidad: string }[] {
+export function cifrasDeCaso(
+  caso: Caso,
+  lang: Idioma = IDIOMA_POR_DEFECTO,
+): { valor: string; unidad: string }[] {
+  const t = diccionario(lang);
+  const ficha = t.casos.fichas[caso.slug];
   return [
-    caso.mw !== null ? { valor: formatearCifra(caso.mw), unidad: "MW" } : null,
+    caso.mw !== null ? { valor: formatearCifra(caso.mw, lang), unidad: t.casos.mw } : null,
     caso.hectareas !== null
-      ? { valor: formatearCifra(caso.hectareas), unidad: "hectáreas" }
+      ? { valor: formatearCifra(caso.hectareas, lang), unidad: t.casos.hectareas }
       : null,
-    caso.cifraAlterna ?? null,
+    ficha?.cifraAlterna ?? caso.cifraAlterna ?? null,
   ].filter(Boolean) as { valor: string; unidad: string }[];
 }
 
-/** Separador de miles con coma decimal, que es la convención chilena. */
-export function formatearCifra(n: number): string {
-  return new Intl.NumberFormat("es-CL", { maximumFractionDigits: 1 }).format(n);
+/**
+ * Separador de miles según el idioma activo: 1.179 en español, 1,179 en
+ * inglés. Formatear siempre en es-CL dejaría la versión inglesa con la
+ * puntuación invertida, que para un lector anglosajón son milésimas.
+ */
+export function formatearCifra(n: number, lang: Idioma = IDIOMA_POR_DEFECTO): string {
+  return new Intl.NumberFormat(LOCALE_INTL[lang], { maximumFractionDigits: 1 }).format(n);
 }

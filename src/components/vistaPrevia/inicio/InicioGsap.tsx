@@ -8,6 +8,7 @@ import { Nosotros } from "./Nosotros";
 import { Portada } from "./Portada";
 import { Servicios } from "./Servicios";
 import { Software } from "./Software";
+import type { Idioma } from "@/lib/idioma";
 
 /**
  * EL INICIO, CONTADO COMO RECORRIDO
@@ -39,20 +40,20 @@ import { Software } from "./Software";
  *   · `DronNarrativo` monta UN canvas para toda la página y lo mueve según
  *     `data-dron-escena`, con el guion de `guionVistaPrevia.ts`.
  */
-export function InicioGsap() {
+export function InicioGsap({ lang }: { lang: Idioma }) {
   return (
     <div data-inicio-gsap>
       <DronNarrativo guion="inicio" anchoMinimo={1024} />
       <IndiceCapitulos />
       <Director />
 
-      <Portada />
-      <Clientes />
-      <Servicios />
-      <Faena />
-      <Nosotros />
-      <Casos />
-      <Software />
+      <Portada lang={lang} />
+      <Clientes lang={lang} />
+      <Servicios lang={lang} />
+      <Faena lang={lang} />
+      <Nosotros lang={lang} />
+      <Casos lang={lang} />
+      <Software lang={lang} />
     </div>
   );
 }

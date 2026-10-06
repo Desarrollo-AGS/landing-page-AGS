@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { contactoSchema, erroresPorCampo } from "@/lib/contactoSchema";
+import { contactoSchemaDe, erroresPorCampo } from "@/lib/contactoSchema";
+import { NOMBRE_IDIOMA, esIdioma, IDIOMA_POR_DEFECTO } from "@/lib/idioma";
 import { opcionesOperacion } from "@/content/servicios";
 import { site } from "@/content/site";
 
@@ -16,11 +17,20 @@ import { site } from "@/content/site";
  * Si faltan, la ruta NO finge que envió: responde 503 con un código que el
  * formulario traduce en un mensaje con el correo directo, conservando el
  * detalle que la persona ya escribió para que no pierda su texto.
+ *
+ * IDIOMA. El formulario manda `?lang=` para que los errores de validación
+ * vuelvan en el idioma en que la persona estaba leyendo. El correo interno,
+ * en cambio, se arma SIEMPRE en español: lo lee el equipo en Antofagasta. Lo
+ * que sí viaja es en qué idioma llegó la solicitud, que es el dato que define
+ * en qué idioma hay que responderla.
  */
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
+  const paramIdioma = new URL(request.url).searchParams.get("lang") ?? "";
+  const idioma = esIdioma(paramIdioma) ? paramIdioma : IDIOMA_POR_DEFECTO;
+
   let cuerpo: unknown;
   try {
     cuerpo = await request.json();
@@ -28,7 +38,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, codigo: "json" }, { status: 400 });
   }
 
-  const analisis = contactoSchema.safeParse(cuerpo);
+  const analisis = contactoSchemaDe(idioma).safeParse(cuerpo);
   if (!analisis.success) {
     return NextResponse.json(
       { ok: false, codigo: "validacion", errores: erroresPorCampo(analisis.error) },
@@ -60,6 +70,7 @@ export async function POST(request: Request) {
     `Correo:    ${datos.email}`,
     `Teléfono:  ${datos.telefono || "no indicado"}`,
     `Operación: ${operacion}`,
+    `Idioma:    ${NOMBRE_IDIOMA[idioma]}`,
     "",
     "Detalle de la faena:",
     datos.mensaje,

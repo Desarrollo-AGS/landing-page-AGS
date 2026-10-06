@@ -1,6 +1,8 @@
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
+import { diccionario } from "@/content/i18n";
+import { IDIOMA_POR_DEFECTO, type Idioma } from "@/lib/idioma";
 
 /**
  * Cabecera de página interna. Fondo navy corporativo: separa la página del
@@ -12,20 +14,23 @@ export function CabeceraPagina({
   titulo,
   bajada,
   migas,
+  lang = IDIOMA_POR_DEFECTO,
 }: {
   titulo: string;
   bajada?: string;
   migas?: { label: string; href?: string }[];
+  lang?: Idioma;
 }) {
+  const t = diccionario(lang);
   return (
     <section className="bg-steel-900 pt-14 pb-16 sm:pt-16 sm:pb-20">
       <Contenedor>
         {migas?.length ? (
-          <nav aria-label="Ruta de navegación" className="mb-7">
+          <nav aria-label={t.ui.rutaNavegacion} className="mb-7">
             <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] text-steel-400">
               <li>
                 <Link href="/" className="transition-colors hover:text-white">
-                  Inicio
+                  {t.ui.inicio}
                 </Link>
               </li>
               {migas.map((m, i) => (

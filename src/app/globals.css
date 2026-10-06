@@ -453,6 +453,31 @@
   font-weight: 600;
 }
 
+/* ----------------------------------------------------------------------------
+   Noticias que vienen de una publicación de redes.
+
+   El texto llega con el ritmo del original: frases cortas, cada una en su
+   propio párrafo, y no bloques de prosa corrida. Markdown las convierte en
+   <p> separados, así que acá solo se ajusta el aire entre ellos: el margen de
+   `.prose-ags` (1.25em) los deja tan sueltos que la publicación pierde el
+   pulso con el que fue escrita.
+
+   La PRIMERA frase es la entradilla y va más grande, que es como se lee en el
+   original: es el gancho, no un párrafo más.
+   -------------------------------------------------------------------------- */
+
+.prose-publicacion > p + p {
+  margin-top: 0.9em;
+}
+
+.prose-publicacion > p:first-child {
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  color: var(--color-steel-900);
+  font-weight: 600;
+}
+
 /* ============================================================================
    LIBRITO DEL BROCHURE (/nosotros/brochure)
    ----------------------------------------------------------------------------

@@ -2,6 +2,8 @@ import Image from "next/image";
 import { clientes } from "@/content/clientes";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Encabezado } from "@/components/vistaPrevia/iao/Tipografia";
+import { diccionario } from "@/content/i18n";
+import type { Idioma } from "@/lib/idioma";
 
 /**
  * 01 · Confían en nosotros.
@@ -14,7 +16,8 @@ import { Encabezado } from "@/components/vistaPrevia/iao/Tipografia";
  * Es una franja corta a propósito: separa la portada del primer capítulo fijado
  * y le da al dron el tramo de bajada por la canaleta.
  */
-export function Clientes() {
+export function Clientes({ lang }: { lang: Idioma }) {
+  const t = diccionario(lang);
   return (
     <section
       id="capitulo-01"
@@ -24,9 +27,9 @@ export function Clientes() {
       className="border-b border-steel-100 bg-white py-14 sm:py-16"
     >
       <Contenedor>
-        <Encabezado numero="01" nombre="Confían en nosotros" tono="claro" />
+        <Encabezado numero="01" nombre={t.inicio.clientes.capitulo} tono="claro" />
         <h2 id="ini-clientes" className="sr-only">
-          Confían en nosotros
+          {t.inicio.clientes.capitulo}
         </h2>
       </Contenedor>
 
@@ -35,7 +38,8 @@ export function Clientes() {
         className="marquee relative mt-8 hidden overflow-hidden motion-safe:md:block"
         style={{
           maskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",
-          WebkitMaskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",
         }}
       >
         <div className="marquee-track">

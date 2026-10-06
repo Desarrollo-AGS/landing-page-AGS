@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { plataformas } from "@/content/brochureIao";
@@ -27,17 +27,29 @@ export function Plataformas() {
 
           <div className="grid gap-12 sm:grid-cols-2 sm:gap-10">
             {plataformas.map((p) => (
-              <article key={p.slug} data-revelar className="border-l border-white/10 pl-6 sm:pl-8">
+              <article
+                key={p.slug}
+                data-revelar
+                className="border-l border-white/10 pl-6 sm:pl-8"
+              >
                 <p className="eyebrow text-orange">{p.rol}</p>
                 <h4 className="mt-3 font-display text-[clamp(2rem,3.4vw,3rem)] font-bold leading-none tracking-[-0.03em] text-white">
                   {p.nombre}
                 </h4>
-                <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-200">{p.resumen}</p>
+                <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-200">
+                  {p.resumen}
+                </p>
 
                 <ul className="mt-6 space-y-3">
                   {p.funcionalidades.map((f) => (
-                    <li key={f} className="flex gap-3 text-[0.9375rem] leading-relaxed text-steel-400">
-                      <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-orange" />
+                    <li
+                      key={f}
+                      className="flex gap-3 text-[0.9375rem] leading-relaxed text-steel-400"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-[0.7em] h-px w-4 shrink-0 bg-orange"
+                      />
                       {f}
                     </li>
                   ))}

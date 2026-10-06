@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Revelar } from "@/components/ui/Revelar";
@@ -27,7 +27,11 @@ import { servicios } from "@/content/servicios";
  */
 export function ServiciosIndice() {
   return (
-    <section id="servicios" data-dron-escena="servicios" className="bg-white py-20 sm:py-24 lg:py-28">
+    <section
+      id="servicios"
+      data-dron-escena="servicios"
+      className="bg-white py-20 sm:py-24 lg:py-28"
+    >
       <Contenedor>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-20">
           {/* ---------- Columna fija ---------- */}

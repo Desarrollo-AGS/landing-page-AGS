@@ -1,10 +1,19 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Enlace as Link } from "@/components/ui/Enlace";
 import { Newspaper } from "@phosphor-icons/react/dist/ssr";
 import { formatearFecha, type Noticia } from "@/content/noticias";
+import { diccionario } from "@/content/i18n";
+import { IDIOMA_POR_DEFECTO, type Idioma } from "@/lib/idioma";
 
 /** Tarjeta del índice de noticias y del bloque del home (F-09). */
-export function TarjetaNoticia({ noticia }: { noticia: Noticia }) {
+export function TarjetaNoticia({
+  noticia,
+  lang = IDIOMA_POR_DEFECTO,
+}: {
+  noticia: Noticia;
+  lang?: Idioma;
+}) {
+  const t = diccionario(lang);
   return (
     <article className="h-full">
       <Link
@@ -40,7 +49,7 @@ export function TarjetaNoticia({ noticia }: { noticia: Noticia }) {
             dateTime={noticia.fecha}
             className="num text-xs font-medium uppercase tracking-[0.08em] text-steel-500"
           >
-            {formatearFecha(noticia.fecha)}
+            {formatearFecha(noticia.fecha, lang)}
           </time>
           <h3 className="mt-3 text-lg font-semibold leading-snug tracking-[-0.015em] text-steel-900">
             {noticia.titulo}
@@ -49,7 +58,7 @@ export function TarjetaNoticia({ noticia }: { noticia: Noticia }) {
             {noticia.resumen}
           </p>
           <span className="mt-5 text-sm font-semibold text-orange-ink group-hover:underline">
-            Leer la noticia
+            {t.noticias.leer}
           </span>
         </div>
       </Link>
