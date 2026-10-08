@@ -30,8 +30,7 @@ export const en: Diccionario = {
       nosotros: "About",
       servicios: "Services",
       software: "Software",
-      casos: "Case studies",
-      comunidad: "Community",
+      casos: "Projects",
       noticias: "News",
       descNosotros: "Who we are, how we operate and under what framework.",
       descServicios: "Seven aerial operations for energy, mining and construction.",
@@ -43,7 +42,7 @@ export const en: Diccionario = {
       nuestraHistoria: "Our story",
       brochure: "Brochure",
       certificaciones: "Permits and certifications",
-      casosDeExito: "Case studies",
+      casosDeExito: "Projects",
     },
     footer: {
       intro:
@@ -206,6 +205,7 @@ export const en: Diccionario = {
     titulo: "What's new",
     verTodas: "See all news",
     leer: "Read the article",
+    tags: { noticia: "News", comunidad: "Community" },
     fuenteEtiqueta: "Source",
     verOriginal: "See the original post on {medio}",
     publicadoPor: "Published by {autor}",
@@ -225,7 +225,7 @@ export const en: Diccionario = {
           "Seven industrial aerial operations: thermal inspection of photovoltaic plants, power lines, surveying and aerial photogrammetry, façade cleaning, industrial inspection, irrigation control on leach pads and audiovisual production.",
       },
       "/casos": {
-        titulo: "Case studies: projects delivered",
+        titulo: "Projects delivered and case studies",
         descripcion:
           "{proyectos} projects delivered for {clientes} clients in mining and energy: photovoltaic plants, power lines and topographic surveys across Chile.",
       },
@@ -248,11 +248,6 @@ export const en: Diccionario = {
         titulo: "Permits, standards and certifications",
         descripcion:
           "The regulatory framework AGS Soluciones flies under in Chile, in line with the DGAC's DAN 151 in its current edition.",
-      },
-      "/comunidad": {
-        titulo: "Community: our ties to Antofagasta",
-        descripcion:
-          "Technical talks at the AIS school and sponsorship of the Coyotes Antofagasta rugby club. How AGS Soluciones connects with the community where it operates.",
       },
       "/noticias": {
         titulo: "News and updates",
@@ -577,23 +572,6 @@ export const en: Diccionario = {
       "The AGS Soluciones team receiving an award at the Minera Escondida (BHP) supplier meeting",
   },
 
-  comunidad: {
-    "colegio-ais": {
-      titulo: "Talks at the AIS school",
-      bajada: "Antofagasta",
-      descripcion:
-        "The AGS team in the classroom, showing how an industrial drone is flown and what it is used for in the region's mining and energy operations. The point is for students in Antofagasta to see up close a technical career that exists in their own city.",
-      imagenAlt: "The AGS team during a technical talk at the AIS school in Antofagasta",
-    },
-    "coyotes-antofagasta": {
-      titulo: "Coyotes Antofagasta sponsorship",
-      bajada: "Rugby",
-      descripcion:
-        "AGS sponsors the Coyotes Antofagasta rugby club. Amateur sport in the region runs on local support, and for AGS this is a direct way of giving something back to the city where it operates.",
-      imagenAlt: "The Coyotes Antofagasta rugby club, sponsored by AGS",
-    },
-  },
-
   certificaciones: {
     edicion: "Edition 4",
     vigenteDesde: "March 2026",
@@ -605,12 +583,11 @@ export const en: Diccionario = {
   paginas: {
     migas: {
       "/servicios": "Services",
-      "/casos": "Case studies",
+      "/casos": "Projects",
       "/software": "Software",
       "/nosotros": "About",
       "/nosotros/brochure": "Brochure",
       "/nosotros/certificaciones": "Certifications",
-      "/comunidad": "Community",
       "/noticias": "News",
       "/contacto": "Contact",
     },
@@ -678,10 +655,10 @@ export const en: Diccionario = {
 
     noticias: {
       titulo: "News",
-      bajada: "Campaigns, new services and company activity.",
+      bajada: "Campaigns, new services, company activity and our ties to Antofagasta.",
       vacioTitulo: "No news published yet",
       vacioTexto:
-        "When we publish the first one it will appear here and on the home page too. In the meantime, the projects we have delivered are in the case studies section.",
+        "When we publish the first one it will appear here and on the home page too. In the meantime, the work we have already delivered is in the projects section.",
     },
     noticiaDetalle: { volver: "Back to news" },
 
@@ -689,12 +666,6 @@ export const en: Diccionario = {
       titulo: "Tell us what needs inspecting",
       bajada:
         "We review the case and send a technical and commercial proposal. If the operation calls for it, we arrange a site visit.",
-    },
-
-    comunidad: {
-      titulo: "Antofagasta is where we work and where we live",
-      bajada:
-        "The company started here. Part of what we do goes back to the city, in the classroom and on the pitch.",
     },
 
     nosotros: {

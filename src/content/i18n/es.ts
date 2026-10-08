@@ -22,8 +22,7 @@ export const es: Diccionario = {
       nosotros: "Nosotros",
       servicios: "Servicios",
       software: "Software",
-      casos: "Casos",
-      comunidad: "Comunidad",
+      casos: "Proyectos",
       noticias: "Noticias",
       descNosotros: "Quiénes somos, cómo operamos y bajo qué marco.",
       descServicios: "Siete operaciones aéreas para energía, minería y construcción.",
@@ -35,7 +34,7 @@ export const es: Diccionario = {
       nuestraHistoria: "Nuestra historia",
       brochure: "Brochure",
       certificaciones: "Permisos y certificaciones",
-      casosDeExito: "Casos de éxito",
+      casosDeExito: "Proyectos",
     },
     footer: {
       intro:
@@ -198,6 +197,7 @@ export const es: Diccionario = {
     titulo: "Novedades",
     verTodas: "Ver todas las noticias",
     leer: "Leer la noticia",
+    tags: { noticia: "Noticia", comunidad: "Comunidad" },
     fuenteEtiqueta: "Fuente",
     verOriginal: "Ver la publicación original en {medio}",
     publicadoPor: "Publicado por {autor}",
@@ -217,7 +217,7 @@ export const es: Diccionario = {
           "Siete operaciones aéreas industriales: inspección termográfica de plantas fotovoltaicas, líneas eléctricas, topografía y aerofotogrametría, limpieza de fachadas, inspección industrial, control de riego en pilas de lixiviación y producción audiovisual.",
       },
       "/casos": {
-        titulo: "Casos de éxito: proyectos ejecutados",
+        titulo: "Proyectos ejecutados y casos de éxito",
         descripcion:
           "{proyectos} proyectos ejecutados para {clientes} clientes en minería y energía: plantas fotovoltaicas, líneas eléctricas y levantamientos topográficos en Chile.",
       },
@@ -240,11 +240,6 @@ export const es: Diccionario = {
         titulo: "Permisos, normas y certificaciones",
         descripcion:
           "Marco regulatorio bajo el que AGS Soluciones opera drones en Chile, conforme a la DAN 151 de la DGAC en su edición vigente.",
-      },
-      "/comunidad": {
-        titulo: "Comunidad: nuestro vínculo con Antofagasta",
-        descripcion:
-          "Charlas técnicas en el colegio AIS y patrocinio del club de rugby Coyotes Antofagasta. El vínculo de AGS Soluciones con la comunidad donde opera.",
       },
       "/noticias": {
         titulo: "Noticias y novedades",
@@ -575,23 +570,6 @@ export const es: Diccionario = {
       "Equipo de AGS Soluciones recibiendo un reconocimiento en el encuentro de proveedores de Minera Escondida, BHP",
   },
 
-  comunidad: {
-    "colegio-ais": {
-      titulo: "Charlas en el colegio AIS",
-      bajada: "Antofagasta",
-      descripcion:
-        "Equipo de AGS en aula, mostrando cómo se opera un dron industrial y para qué se usa en la minería y la energía de la región. El objetivo es que estudiantes de Antofagasta vean de cerca una salida técnica que existe en su propia ciudad.",
-      imagenAlt: "Equipo de AGS durante una charla técnica en el colegio AIS de Antofagasta",
-    },
-    "coyotes-antofagasta": {
-      titulo: "Patrocinio Coyotes Antofagasta",
-      bajada: "Rugby",
-      descripcion:
-        "AGS patrocina al club de rugby Coyotes Antofagasta. El deporte amateur de la región se sostiene con apoyo local, y para AGS es una forma directa de devolver algo a la ciudad donde opera.",
-      imagenAlt: "Club de rugby Coyotes Antofagasta patrocinado por AGS",
-    },
-  },
-
   certificaciones: {
     edicion: "Edición 4",
     vigenteDesde: "marzo de 2026",
@@ -603,12 +581,11 @@ export const es: Diccionario = {
   paginas: {
     migas: {
       "/servicios": "Servicios",
-      "/casos": "Casos de éxito",
+      "/casos": "Proyectos",
       "/software": "Software",
       "/nosotros": "Nosotros",
       "/nosotros/brochure": "Brochure",
       "/nosotros/certificaciones": "Certificaciones",
-      "/comunidad": "Comunidad",
       "/noticias": "Noticias",
       "/contacto": "Contacto",
     },
@@ -676,10 +653,11 @@ export const es: Diccionario = {
 
     noticias: {
       titulo: "Noticias",
-      bajada: "Campañas, servicios nuevos y actividad de la empresa.",
+      bajada:
+        "Campañas, servicios nuevos, actividad de la empresa y nuestro vínculo con Antofagasta.",
       vacioTitulo: "Todavía no hay noticias publicadas",
       vacioTexto:
-        "Cuando publiquemos la primera, aparecerá acá y también en la portada. Mientras tanto, los proyectos ejecutados están en la sección de casos.",
+        "Cuando publiquemos la primera, aparecerá acá y también en la portada. Mientras tanto, los trabajos ya realizados están en la sección de proyectos.",
     },
     noticiaDetalle: { volver: "Volver a noticias" },
 
@@ -687,12 +665,6 @@ export const es: Diccionario = {
       titulo: "Cuéntanos qué hay que inspeccionar",
       bajada:
         "Revisamos el caso y enviamos propuesta técnica y comercial. Si la operación lo requiere, coordinamos una visita a faena.",
-    },
-
-    comunidad: {
-      titulo: "Antofagasta es donde operamos y donde vivimos",
-      bajada:
-        "La empresa nació acá. Parte de lo que hacemos vuelve a la ciudad, en el aula y en la cancha.",
     },
 
     nosotros: {

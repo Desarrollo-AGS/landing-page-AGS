@@ -19,10 +19,10 @@ export const capitulos = [
   { n: "00", nombre: "Inicio" },
   { n: "01", nombre: "Clientes" },
   { n: "02", nombre: "Servicios" },
-  { n: "03", nombre: "Faena" },
-  { n: "04", nombre: "Nosotros" },
-  { n: "05", nombre: "Casos" },
-  { n: "06", nombre: "Software" },
+  { n: "03", nombre: "Software" },
+  { n: "04", nombre: "Faena" },
+  { n: "05", nombre: "Nosotros" },
+  { n: "06", nombre: "Proyectos" },
 ] as const;
 
 export function IndiceCapitulos() {

@@ -129,14 +129,28 @@ const servicios: FabricaAccion = (capa): Accion => {
       { x: cx - w / 2, y: cy - h / 2, width: w, height: h, fill: "#ffffff" },
       grupo,
     );
-    gsap.fromTo(destello, { opacity: 0.4 }, { opacity: 0, duration: 0.3, onComplete: () => destello.remove() });
+    gsap.fromTo(
+      destello,
+      { opacity: 0.4 },
+      { opacity: 0, duration: 0.3, onComplete: () => destello.remove() },
+    );
 
     for (const [k, punto] of puntosDe(indice, rect.width, rect.height).entries()) {
-      const circulo = nodo("circle", { cx: punto.x, cy: punto.y, r: 1.6, fill: "#ffffff" }, grupo);
+      const circulo = nodo(
+        "circle",
+        { cx: punto.x, cy: punto.y, r: 1.6, fill: "#ffffff" },
+        grupo,
+      );
       gsap.fromTo(
         circulo,
         { opacity: 0, attr: { r: 4 } },
-        { opacity: 0.9, attr: { r: 1.6 }, duration: 0.45, delay: 0.06 + k * 0.05, ease: "back.out(2)" },
+        {
+          opacity: 0.9,
+          attr: { r: 1.6 },
+          duration: 0.45,
+          delay: 0.06 + k * 0.05,
+          ease: "back.out(2)",
+        },
       );
     }
     grupos.push(grupo);
@@ -158,14 +172,21 @@ const servicios: FabricaAccion = (capa): Accion => {
       rect = foto.getBoundingClientRect();
       const primero = RUTA[0];
 
-      // Entrada: llega desde la franja de clientes y se instala sobre la
-      // primera pasada. El punto de partida es el que deja el guion allá.
+      // Entrada: SUBE desde el borde inferior hasta la primera pasada. El
+      // punto de partida es el que deja el guion al final de clientes
+      // (0,36 · 1,08), y tiene que seguir calzando con él: si se cambia allá,
+      // se cambia acá, o el empalme da un tirón.
+      //
+      // Entra por abajo y no de lado a propósito. El titular del capítulo y la
+      // foto comparten columna, así que cualquier aproximación horizontal a
+      // esa altura cruza el texto; subiendo por debajo, lo único que el dron
+      // atraviesa es la propia fotografía.
       if (c.progreso < ENTRADA) {
         const u = suave(c.progreso / ENTRADA);
         limpiar();
         return {
-          x: entre(c.vista.w * 0.24, rect.left + primero.x * rect.width, u),
-          y: entre(c.vista.h * 0.5, rect.top + primero.y * rect.height - 80, u),
+          x: entre(c.vista.w * 0.36, rect.left + primero.x * rect.width, u),
+          y: entre(c.vista.h * 1.08, rect.top + primero.y * rect.height - 80, u),
           s: entre(0.4, 0.36, u),
           sensor: u * 0.6,
           objetivo: null,

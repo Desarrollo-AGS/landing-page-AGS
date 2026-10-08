@@ -59,6 +59,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // Comunidad dejó de ser una sección propia: sus iniciativas son notas
+      // de /noticias con el tag "comunidad". La URL estaba indexada y se
+      // redirige al índice, que es donde vive ese contenido ahora.
+      { source: "/comunidad", destination: "/noticias", permanent: true },
+      { source: "/en/comunidad", destination: "/en/noticias", permanent: true },
+
       // /proyectos/ — URL indexada del sitio viejo (hoy devuelve 500).
       {
         source: "/proyectos",

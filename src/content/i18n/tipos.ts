@@ -39,7 +39,6 @@ export interface Diccionario {
       servicios: string;
       software: string;
       casos: string;
-      comunidad: string;
       noticias: string;
       descNosotros: string;
       descServicios: string;
@@ -194,6 +193,11 @@ export interface Diccionario {
     titulo: string;
     verTodas: string;
     leer: string;
+    /**
+     * Etiqueta visible de cada tag, por slug. Noticias y comunidad son la
+     * misma sección y se distinguen acá.
+     */
+    tags: Record<string, string>;
     fuenteEtiqueta: string;
     /** `{medio}` se reemplaza por dónde se publicó el original. */
     verOriginal: string;
@@ -270,12 +274,6 @@ export interface Diccionario {
     altEquipo: string;
   };
 
-  /** Texto de cada iniciativa de comunidad, por slug. */
-  comunidad: Record<
-    string,
-    { titulo: string; bajada: string; descripcion: string; imagenAlt: string }
-  >;
-
   /** El marco regulatorio bajo el que se vuela en Chile. */
   certificaciones: {
     edicion: string;
@@ -334,7 +332,6 @@ export interface Diccionario {
     noticiaDetalle: { volver: string };
 
     contacto: { titulo: string; bajada: string };
-    comunidad: { titulo: string; bajada: string };
 
     nosotros: {
       /** `{anios}` se reemplaza por los años desde la fundación. */

@@ -27,7 +27,6 @@ const FIJAS = [
   { ruta: "/nosotros", priority: 0.8, changeFrequency: "yearly" },
   { ruta: "/nosotros/brochure", priority: 0.8, changeFrequency: "monthly" },
   { ruta: "/nosotros/certificaciones", priority: 0.7, changeFrequency: "monthly" },
-  { ruta: "/comunidad", priority: 0.6, changeFrequency: "yearly" },
   { ruta: "/noticias", priority: 0.7, changeFrequency: "weekly" },
   { ruta: "/contacto", priority: 0.9, changeFrequency: "yearly" },
 ] as const satisfies readonly {
@@ -90,7 +89,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...noticias.flatMap((n) => {
       const ruta = `/noticias/${n.slug}`;
       const entrada = {
-        lastModified: new Date(n.fecha),
+        // Sin fecha propia, la del build: es lo que hay, y mentirle al sitemap
+        // con una fecha inventada no mejora nada.
+        lastModified: n.fecha ? new Date(n.fecha) : hoy,
         changeFrequency: "yearly" as const,
         priority: 0.6,
       };

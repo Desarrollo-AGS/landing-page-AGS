@@ -29,8 +29,8 @@ export function Casos({ lang }: { lang: Idioma }) {
   const t = diccionario(lang);
   return (
     <section
-      id="capitulo-05"
-      data-capitulo="05"
+      id="capitulo-06"
+      data-capitulo="06"
       data-dron-escena="casos"
       aria-labelledby="ini-casos"
       className="bg-steel-950 py-20 sm:py-24 lg:py-28"
@@ -38,7 +38,7 @@ export function Casos({ lang }: { lang: Idioma }) {
       <Contenedor>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[36rem]">
-            <Encabezado numero="05" nombre={t.inicio.casos.capitulo} />
+            <Encabezado numero="06" nombre={t.inicio.casos.capitulo} />
             <h2 id="ini-casos" className="mt-5 text-d3 text-white sm:text-d2">
               <Lineas lineas={[t.inicio.casos.titulo]} />
             </h2>

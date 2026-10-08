@@ -25,8 +25,8 @@ export function Nosotros({ lang }: { lang: Idioma }) {
 
   return (
     <section
-      id="capitulo-04"
-      data-capitulo="04"
+      id="capitulo-05"
+      data-capitulo="05"
       data-dron-escena="nosotros"
       aria-labelledby="ini-nosotros"
       className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28"
@@ -50,7 +50,7 @@ export function Nosotros({ lang }: { lang: Idioma }) {
           </div>
 
           <div>
-            <Encabezado numero="04" nombre={t.inicio.nosotros.capitulo} tono="claro" />
+            <Encabezado numero="05" nombre={t.inicio.nosotros.capitulo} tono="claro" />
             <h2 id="ini-nosotros" className="mt-5 text-d3 text-steel-900 sm:text-d2">
               <Lineas
                 lineas={[
