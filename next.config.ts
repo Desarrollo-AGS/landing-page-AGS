@@ -5,6 +5,19 @@ const nextConfig: NextConfig = {
   // Hay otros package-lock.json en carpetas hermanas del escritorio. Sin esto,
   // Turbopack elige la raíz equivocada y avisa en cada build.
   turbopack: { root: import.meta.dirname },
+  // El rastreador de archivos de Next lee `path.join(process.cwd(), "public",
+  // foto.src)` en `src/content/noticias.ts` y, como el último tramo es una
+  // variable, no puede saber QUÉ archivo se abre: se cura en salud e incluye
+  // TODO `public/` en la función de servidor. Son 245 MB de fotografías y
+  // video que Netlify ya sirve desde su CDN, y que hacían que la subida de
+  // `___netlify-server-handler` se cayera con "request body too large".
+  //
+  // Nada del servidor necesita esos archivos en ejecución: las 52 páginas se
+  // generan en el build, que es el único momento en que `sharp` mide las
+  // fotos, y ahí `public/` está en disco. Se excluyen de la traza, no del sitio.
+  outputFileTracingExcludes: {
+    "**/*": ["./public/**"],
+  },
   images: {
     // AVIF primero: pesa ~30% menos que WebP en fotografía de terreno (cielo y
     // estructura metálica, mucho degradado suave). WebP queda como respaldo.
