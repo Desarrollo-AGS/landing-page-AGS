@@ -13,9 +13,13 @@ import type { Idioma } from "@/lib/idioma";
 /**
  * EL INICIO, CONTADO COMO RECORRIDO
  * ---------------------------------
- * Mismo contenido y mismo orden de secciones que la portada de hoy —qué hacen,
- * a quién, qué operaciones, cómo se ve en terreno, quiénes son, la prueba, qué
- * queda después del vuelo— con la puesta en escena del brochure.
+ * El contenido de la portada de hoy con la puesta en escena del brochure:
+ * qué hacen, a quién, qué operaciones, qué queda después del vuelo, cómo se ve
+ * en terreno, quiénes son y la prueba.
+ *
+ * El software entra en el capítulo 03, pegado a servicios: la plataforma no es
+ * un producto aparte sino la parte del servicio que queda cuando el vuelo
+ * termina, y leerla justo después de las operaciones es lo que lo deja claro.
  *
  * QUÉ CAMBIA, EXACTAMENTE
  * -----------------------
@@ -50,10 +54,10 @@ export function InicioGsap({ lang }: { lang: Idioma }) {
       <Portada lang={lang} />
       <Clientes lang={lang} />
       <Servicios lang={lang} />
+      <Software lang={lang} />
       <Faena lang={lang} />
       <Nosotros lang={lang} />
       <Casos lang={lang} />
-      <Software lang={lang} />
     </div>
   );
 }

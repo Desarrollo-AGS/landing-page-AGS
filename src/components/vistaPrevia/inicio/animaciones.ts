@@ -152,7 +152,7 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
   /* ---------------------------------------------------------------- */
 
   function faena(escritorio: boolean) {
-    const s = capitulo("03");
+    const s = capitulo("04");
     const banda = s ? uno("[data-faena-banda]", s) : null;
     if (!s || !banda) return;
     const medios = todos(":scope > img, :scope > video", banda);
@@ -208,7 +208,7 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
   /* ---------------------------------------------------------------- */
 
   function nosotros() {
-    const s = capitulo("04");
+    const s = capitulo("05");
     if (!s) return;
     const img = uno("[data-nosotros-foto] img", s);
     // Se recorta la imagen y no su marco: el marco lleva el chaflán de marca
@@ -233,7 +233,7 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
   /* ---------------------------------------------------------------- */
 
   function casos(escritorio: boolean, restaurar: (() => void)[]) {
-    const s = capitulo("05");
+    const s = capitulo("06");
     if (!s) return;
 
     // Las cifras cuentan mientras el dron las escanea. El HTML trae el valor
@@ -337,7 +337,7 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
   /* ---------------------------------------------------------------- */
 
   function software(escritorio: boolean) {
-    const s = capitulo("06");
+    const s = capitulo("03");
     if (!s) return;
     const tarjetas = todos("[data-software-tarjeta]", s);
 

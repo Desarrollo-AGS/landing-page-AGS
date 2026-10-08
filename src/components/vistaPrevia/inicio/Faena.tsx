@@ -60,8 +60,8 @@ export function Faena({ lang }: { lang: Idioma }) {
   return (
     <section
       ref={seccionRef}
-      id="capitulo-03"
-      data-capitulo="03"
+      id="capitulo-04"
+      data-capitulo="04"
       data-dron-escena="faena"
       aria-labelledby="ini-faena"
       className="bg-steel-950"
@@ -97,7 +97,7 @@ export function Faena({ lang }: { lang: Idioma }) {
 
         <Contenedor className="relative flex min-h-[26rem] items-end py-14 lg:min-h-[36rem] lg:py-20">
           <div data-faena-texto className="max-w-[36rem]">
-            <Encabezado numero="03" nombre={t.inicio.faena.capitulo} />
+            <Encabezado numero="04" nombre={t.inicio.faena.capitulo} />
             <p className="mt-4 inline-flex items-center gap-2 text-[0.8125rem] font-medium text-orange">
               <Play size={13} weight="fill" aria-hidden="true" />
               {t.inicio.faena.registroReal}

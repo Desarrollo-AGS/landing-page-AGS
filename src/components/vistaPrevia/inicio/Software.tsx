@@ -65,15 +65,16 @@ export function Software({ lang }: { lang: Idioma }) {
 
   return (
     <section
-      id="capitulo-06"
-      data-capitulo="06"
+      id="capitulo-03"
+      data-capitulo="03"
+      data-dron-escena="software"
       aria-labelledby="ini-software"
       className="relative overflow-hidden bg-steel-50 py-20 sm:py-24 lg:py-28"
     >
       <Contenedor>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[42rem]">
-            <Encabezado numero="06" nombre={t.inicio.software.capitulo} tono="claro" />
+            <Encabezado numero="03" nombre={t.inicio.software.capitulo} tono="claro" />
             <h2 id="ini-software" className="mt-5 text-d3 text-steel-900 sm:text-d2">
               <Lineas lineas={t.inicio.software.titulo} />
             </h2>

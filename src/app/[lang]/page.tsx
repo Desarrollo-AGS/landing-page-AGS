@@ -33,12 +33,16 @@ export async function generateMetadata({
  *   Portada     qué hacen
  *   Clientes    a quién le han hecho esto antes
  *   Servicios   qué operaciones cubren
+ *   Software    qué queda después del vuelo
  *   Faena       cómo se ve en terreno de verdad
  *   Nosotros    quiénes son
- *   Casos       la prueba con cifras
- *   Software    qué queda después del vuelo
+ *   Proyectos   la prueba con cifras
  *   Noticias    si la empresa está viva
  *   Contacto    cómo se parte
+ *
+ * El software va pegado a servicios y no al final: la plataforma no es un
+ * producto aparte, es la parte del servicio que queda cuando el vuelo termina,
+ * y leerla ahí es lo que lo deja claro.
  *
  * Las siete primeras son un recorrido con capítulos fijados, coreografía GSAP y
  * el dron 3D acompañando (ver `InicioGsap`). Noticias y contacto son la cola de
