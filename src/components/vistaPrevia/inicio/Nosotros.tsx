@@ -52,11 +52,17 @@ export function Nosotros({ lang }: { lang: Idioma }) {
           <div>
             <Encabezado numero="05" nombre={t.inicio.nosotros.capitulo} tono="claro" />
             <h2 id="ini-nosotros" className="mt-5 text-d3 text-steel-900 sm:text-d2">
+              {/* El reemplazo va sobre LAS DOS líneas, no solo la primera: en
+                  qué línea cae `{anios}` depende del orden de palabras de cada
+                  idioma. En español y en inglés es la primera; en chino el
+                  número va al final y el marcador salía sin reemplazar. */}
               <Lineas
-                lineas={[
-                  t.inicio.nosotros.titulo[0].replace("{anios}", String(anios)),
-                  t.inicio.nosotros.titulo[1],
-                ]}
+                lineas={
+                  t.inicio.nosotros.titulo.map((l) => l.replace("{anios}", String(anios))) as [
+                    string,
+                    string,
+                  ]
+                }
               />
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-600">
@@ -66,6 +72,7 @@ export function Nosotros({ lang }: { lang: Idioma }) {
                 enumerar(
                   site.operacion.slice(1).map((pa) => t.ui.paises[pa]),
                   t.ui.conjuncion,
+                  t.ui.separador,
                 ),
               )}
             </p>

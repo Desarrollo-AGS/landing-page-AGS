@@ -60,6 +60,7 @@ export default async function PaginaNosotros({ params }: Props) {
           enumerar(
             site.operacion.map((pa) => t.ui.paises[pa]),
             t.ui.conjuncion,
+            t.ui.separador,
           ),
         )}
         migas={[{ label: t.paginas.migas["/nosotros"] }]}

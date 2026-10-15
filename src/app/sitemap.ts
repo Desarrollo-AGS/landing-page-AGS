@@ -3,7 +3,7 @@ import { site } from "@/content/site";
 import { servicios } from "@/content/servicios";
 import { productos } from "@/content/software";
 import { getNoticias, getSlugsTraducidos } from "@/content/noticias";
-import { ETIQUETA_HTML, IDIOMAS, IDIOMA_POR_DEFECTO, rutaDe } from "@/lib/idioma";
+import { ETIQUETA_HTML, IDIOMAS, IDIOMA_POR_DEFECTO, type Idioma, rutaDe } from "@/lib/idioma";
 
 /**
  * Sitemap generado, no escrito a mano: se arma desde los mismos arreglos que
@@ -43,7 +43,7 @@ function alternatesDe(ruta: string) {
   };
 }
 
-/** La misma ruta en los dos idiomas, cada una apuntando a la otra. */
+/** La misma ruta en todos los idiomas, cada una apuntando a las demás. */
 function porIdioma(
   ruta: string,
   extra: Omit<MetadataRoute.Sitemap[number], "url" | "alternates">,
@@ -64,10 +64,17 @@ function porIdioma(
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const hoy = new Date();
   const noticias = await getNoticias();
-  // Una nota se publica en inglés solo si tiene traducción propia. Listar la
-  // versión inglesa de una nota en español sería ofrecerle a Google dos URLs
-  // con el mismo texto.
-  const traducidas = new Set(await getSlugsTraducidos("en"));
+  // Una nota se publica en otro idioma SOLO si tiene traducción propia, y cada
+  // idioma se mira por separado: una nota puede estar traducida al inglés y no
+  // al chino. Listar una URL traducida que en realidad sirve el texto español
+  // sería ofrecerle a Google dos direcciones con el mismo contenido.
+  const traducidas = new Map<Idioma, Set<string>>(
+    await Promise.all(
+      IDIOMAS.filter((l) => l !== IDIOMA_POR_DEFECTO).map(
+        async (l) => [l, new Set(await getSlugsTraducidos(l))] as const,
+      ),
+    ),
+  );
 
   return [
     ...FIJAS.flatMap(({ ruta, ...resto }) => porIdioma(ruta, { ...resto, lastModified: hoy })),
@@ -94,9 +101,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "yearly" as const,
         priority: 0.6,
       };
-      return traducidas.has(n.slug)
-        ? porIdioma(ruta, entrada)
-        : [{ url: `${site.url}${rutaDe(IDIOMA_POR_DEFECTO, ruta)}`, ...entrada }];
+      const idiomas = IDIOMAS.filter(
+        (l) => l === IDIOMA_POR_DEFECTO || traducidas.get(l)?.has(n.slug),
+      );
+      return idiomas.map((l) => ({
+        url: `${site.url}${rutaDe(l, ruta)}`,
+        // Los alternates de una nota listan solo los idiomas en que de verdad
+        // existe, no los tres por defecto.
+        alternates: {
+          languages: Object.fromEntries(
+            idiomas.map((o) => [ETIQUETA_HTML[o], `${site.url}${rutaDe(o, ruta)}`]),
+          ),
+        },
+        ...entrada,
+        priority:
+          l === IDIOMA_POR_DEFECTO ? entrada.priority : Math.round(entrada.priority * 90) / 100,
+      }));
     }),
   ];
 }

@@ -14,6 +14,7 @@ export const es: Diccionario = {
     avisoProvisional: "Texto provisional, pendiente de validación por AGS.",
     rutaNavegacion: "Ruta de navegación",
     conjuncion: " y ",
+    separador: ", ",
     paises: { Chile: "Chile", Perú: "Perú", Argentina: "Argentina" },
     instagram: "Instagram de AGS Soluciones, se abre en una pestaña nueva",
     linkedin: "LinkedIn de AGS Soluciones, se abre en una pestaña nueva",

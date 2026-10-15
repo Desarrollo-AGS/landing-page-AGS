@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
+import { Inter, Inter_Tight, Noto_Sans_TC } from "next/font/google";
 import { BarraSuperior } from "@/components/layout/BarraSuperior";
 import { BotonWhatsApp } from "@/components/layout/BotonWhatsApp";
 import { Footer } from "@/components/layout/Footer";
@@ -36,6 +36,18 @@ const interTight = Inter_Tight({
 });
 
 /**
+ * Inter e Inter Tight no traen glifos CJK: en chino el navegador caería a la
+ * fuente de sistema, que en Windows es un serif pesado y rompe la página.
+ * Noto Sans TC es el compañero sans de Inter para tradicional y se carga SOLO
+ * en el layout chino, para no añadir una fuente CJK a las otras dos versiones.
+ */
+const notoTC = Noto_Sans_TC({
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cjk",
+  display: "swap",
+});
+
+/**
  * El title por defecto y su plantilla salen del diccionario: si el layout
  * fijara el español, la versión inglesa heredaría un title en español en
  * cualquier página que no declare el suyo.
@@ -68,7 +80,7 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-/** Las dos versiones se generan estáticas: nada se resuelve en cada visita. */
+/** Las tres versiones se generan estáticas: nada se resuelve en cada visita. */
 export function generateStaticParams() {
   return IDIOMAS.map((lang) => ({ lang }));
 }
@@ -92,7 +104,9 @@ export default async function RootLayout({
     <html
       lang={ETIQUETA_HTML[lang]}
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${interTight.variable}`}
+      className={`${inter.variable} ${interTight.variable} ${
+        lang === "zh" ? `${notoTC.variable} font-cjk` : ""
+      }`}
     >
       <body className="flex min-h-screen flex-col">
         {/* Salto al contenido: primer tabulador de la página. Sin él, navegar

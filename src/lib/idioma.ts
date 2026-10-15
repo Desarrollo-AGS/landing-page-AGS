@@ -15,18 +15,39 @@
  * dos idiomas.
  */
 
-export const IDIOMAS = ["es", "en"] as const;
+export const IDIOMAS = ["es", "en", "zh"] as const;
 export type Idioma = (typeof IDIOMAS)[number];
 
 export const IDIOMA_POR_DEFECTO: Idioma = "es";
 
 /** Etiqueta del selector. Sin banderas: una bandera es un país, no un idioma. */
-export const NOMBRE_IDIOMA: Record<Idioma, string> = { es: "Español", en: "English" };
-export const CODIGO_IDIOMA: Record<Idioma, string> = { es: "ES", en: "EN" };
+export const NOMBRE_IDIOMA: Record<Idioma, string> = {
+  es: "Español",
+  en: "English",
+  zh: "繁體中文",
+};
 
-/** `lang` del documento y `locale` de Open Graph. */
-export const ETIQUETA_HTML: Record<Idioma, string> = { es: "es-CL", en: "en" };
-export const LOCALE_OG: Record<Idioma, string> = { es: "es_CL", en: "en_US" };
+/**
+ * Sigla del selector. El chino va en su propia escritura y no como "ZH": quien
+ * lo busca reconoce 繁中 de un vistazo y no tiene por qué saber el código ISO.
+ */
+export const CODIGO_IDIOMA: Record<Idioma, string> = { es: "ES", en: "EN", zh: "繁中" };
+
+/**
+ * `lang` del documento y `hreflang` del sitemap.
+ *
+ * El chino va como `zh-Hant`, con el subtag de ESCRITURA y no de país. Es la
+ * etiqueta que Google documenta para distinguir tradicional de simplificado:
+ * `zh` a secas no dice cuál de las dos es, y `zh-TW` la ata a Taiwán y deja
+ * fuera a Hong Kong y Macao, que leen la misma escritura.
+ */
+export const ETIQUETA_HTML: Record<Idioma, string> = { es: "es-CL", en: "en", zh: "zh-Hant" };
+
+/**
+ * `og:locale` NO acepta subtag de escritura: su formato es idioma_PAÍS. Para
+ * tradicional, el valor que entienden las plataformas es `zh_TW`.
+ */
+export const LOCALE_OG: Record<Idioma, string> = { es: "es_CL", en: "en_US", zh: "zh_TW" };
 
 export function esIdioma(valor: string): valor is Idioma {
   return (IDIOMAS as readonly string[]).includes(valor);
@@ -70,4 +91,8 @@ export function idiomaDeRuta(pathname: string): Idioma {
  * (1.179) y en inglés con coma (1,179). Formatear todo en es-CL dejaría los
  * números de la versión inglesa con la puntuación equivocada.
  */
-export const LOCALE_INTL: Record<Idioma, string> = { es: "es-CL", en: "en-US" };
+export const LOCALE_INTL: Record<Idioma, string> = {
+  es: "es-CL",
+  en: "en-US",
+  zh: "zh-Hant-TW",
+};

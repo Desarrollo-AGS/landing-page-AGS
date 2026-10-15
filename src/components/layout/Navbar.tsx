@@ -10,7 +10,7 @@ import { BotonEnlace } from "@/components/ui/Boton";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { esRutaActiva, navPrincipalDe, type ItemNav } from "@/lib/nav";
 import { diccionario } from "@/content/i18n";
-import { idiomaDeRuta, sinPrefijo } from "@/lib/idioma";
+import { idiomaDeRuta, rutaDe, sinPrefijo } from "@/lib/idioma";
 
 /**
  * F-02 · Navbar.
@@ -64,7 +64,8 @@ export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   // El idioma sale de la URL: este componente es cliente y no recibe params.
-  const t = diccionario(idiomaDeRuta(pathname));
+  const lang = idiomaDeRuta(pathname);
+  const t = diccionario(lang);
   const items = navPrincipalDe(t);
   // La ruta sin idioma es la que se compara contra rutas escritas a mano: la
   // lista de heros oscuros y los `href` del menú, que son todos canónicos.
@@ -211,7 +212,11 @@ export function Navbar() {
                   // hoy Software): ahí el clic hace lo mismo que el teclado,
                   // abrir y cerrar, en vez de navegar a una página que no existe.
                   if (porPuntero && !item.soloMenu) {
-                    router.push(item.href);
+                    // `rutaDe` es obligatorio: los `href` del menú son
+                    // canónicos y sin idioma, y `router.push` no pasa por
+                    // `Enlace`, que es quien normalmente los prefija. Sin esto,
+                    // pulsar "About" desde /en o /zh devolvía al español.
+                    router.push(rutaDe(lang, item.href));
                     return;
                   }
                   setDesplegado((prev) => (prev === item.label ? null : item.label));

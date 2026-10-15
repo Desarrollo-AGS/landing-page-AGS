@@ -31,6 +31,8 @@ export interface Diccionario {
     rutaNavegacion: string;
     /** La "y" de una enumeración. En inglés es "and", con otros espacios. */
     conjuncion: string;
+    /** Separador entre los elementos de una lista. El chino usa 、, no coma. */
+    separador: string;
     /** Los países de operación. "Perú" lleva tilde solo en español. */
     paises: Record<string, string>;
     instagram: string;

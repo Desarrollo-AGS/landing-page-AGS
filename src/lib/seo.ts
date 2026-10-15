@@ -14,9 +14,11 @@ import {
  * Metadatos por página (criterio transversal de SEO del brief): ninguna página
  * hereda el title ni la description del home.
  *
- * DOS IDIOMAS, UNA PÁGINA
- * -----------------------
- * Cada página existe en español (`/casos`) y en inglés (`/en/casos`). Para que
+ * TRES IDIOMAS, UNA PÁGINA
+ * ------------------------
+ * Cada página existe en español (`/casos`), en inglés (`/en/casos`) y en chino
+ * tradicional (`/zh/casos`). Los `hreflang` salen de `IDIOMAS`, así que un
+ * idioma nuevo entra sin tocar esta función. Para que
  * no compitan entre ellas en los resultados de búsqueda, cada versión declara:
  *
  *   · su propia CANÓNICA, la suya y no la de la otra;

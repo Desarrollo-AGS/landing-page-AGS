@@ -191,6 +191,22 @@
   font-variant-numeric: tabular-nums;
 }
 
+@utility font-cjk {
+  /* El respaldo de fuente es POR GLIFO, así que Inter va PRIMERO y Noto Sans TC
+     detrás: el latino —cifras, siglas, SmartField, AGS— conserva la tipografía
+     de marca, y solo los caracteres chinos, que Inter no tiene, caen en Noto.
+     Al revés, los números y los nombres de producto saldrían con métrica CJK.
+
+     Se redefinen las dos VARIABLES, no solo `font-family`: `body` declara
+     `font-family: var(--font-sans)` y los titulares `var(--font-display)`, así
+     que una familia puesta en `<html>` la pisaban los dos. Cambiando las
+     variables, el respaldo llega a todo lo que las usa. */
+  --font-display:
+    var(--font-inter-tight), "Inter Tight", var(--font-cjk), ui-sans-serif, sans-serif;
+  --font-sans: var(--font-inter), Inter, var(--font-cjk), ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
+}
+
 @utility measure {
   max-width: 64ch;
 }
@@ -326,7 +342,6 @@
 [data-dron-haz][data-dron-escaneando]::after {
   opacity: 1;
 }
-
 
 /* ============================================================================
    ESTADOS DE PUNTERO
@@ -634,7 +649,6 @@
     scroll-behavior: auto !important;
   }
 }
-
 
 /* ============================================================================
    AGS — INDUSTRIAL AIR OPERATIONS (/nosotros/brochure)
@@ -1074,8 +1088,6 @@
   height: 100%;
 }
 
-
-
 /* El índice de servicios ocupa el alto del capítulo fijado. Sin esto la
    columna derecha se quedaba con el servicio pegado arriba y un vacío enorme
    debajo: parecía un error de maquetación, no una puesta en escena. */
@@ -1145,11 +1157,8 @@
   margin: 0;
   transform-style: preserve-3d;
   /* El orden importa: primero se centra, después se separa, se hunde y gira. */
-  transform:
-    translate(-50%, -50%)
-    translateX(calc(var(--off) * 58%))
-    translateZ(calc(var(--abs) * -180px))
-    rotateY(calc(var(--off) * -32deg));
+  transform: translate(-50%, -50%) translateX(calc(var(--off) * 58%))
+    translateZ(calc(var(--abs) * -180px)) rotateY(calc(var(--off) * -32deg));
   opacity: calc(1 - var(--abs) * 0.4);
   z-index: calc(10 - var(--abs));
   box-shadow: 0 18px 50px -26px rgb(0 26 43 / 0.35);

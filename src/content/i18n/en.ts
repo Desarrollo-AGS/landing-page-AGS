@@ -22,6 +22,7 @@ export const en: Diccionario = {
     avisoProvisional: "Provisional text, pending validation by AGS.",
     rutaNavegacion: "Breadcrumb",
     conjuncion: " and ",
+    separador: ", ",
     paises: { Chile: "Chile", Perú: "Peru", Argentina: "Argentina" },
     instagram: "AGS Soluciones on Instagram, opens in a new tab",
     linkedin: "AGS Soluciones on LinkedIn, opens in a new tab",

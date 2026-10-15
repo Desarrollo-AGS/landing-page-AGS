@@ -47,10 +47,21 @@ export const site = {
   operacion: ["Chile", "Perú", "Argentina"],
 } as const;
 
-/** Une una lista en español: "Chile, Perú y Argentina". */
-export function enumerar(items: readonly string[], conjuncion = " y "): string {
+/**
+ * Une una lista: "Chile, Perú y Argentina", "Chile, Peru and Argentina",
+ * "智利、秘魯與阿根廷".
+ *
+ * El separador es un parámetro y no una coma fija porque el chino no enumera
+ * con la coma occidental: lleva 、, y una lista con ", " en medio se lee como
+ * un error tipográfico.
+ */
+export function enumerar(
+  items: readonly string[],
+  conjuncion = " y ",
+  separador = ", ",
+): string {
   if (items.length <= 1) return items[0] ?? "";
-  return `${items.slice(0, -1).join(", ")}${conjuncion}${items[items.length - 1]}`;
+  return `${items.slice(0, -1).join(separador)}${conjuncion}${items[items.length - 1]}`;
 }
 
 /**
