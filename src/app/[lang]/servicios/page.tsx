@@ -45,7 +45,7 @@ export default async function PaginaServicios({ params }: Props) {
             <div className="chamfer relative aspect-[21/9] overflow-hidden bg-steel-100">
               <Image
                 src="/images/dron-fachada.webp"
-                alt={t.servicios["inspeccion-instalaciones-industriales"].imagenAlt}
+                alt={t.servicios["limpieza-fachadas-maquinarias"].imagenAlt}
                 fill
                 priority
                 sizes="(min-width: 1320px) 1320px, 100vw"

@@ -8,6 +8,8 @@
  * un slug traducido rompería las URLs ya indexadas.
  */
 
+import type { ClaveTrayectoria } from "@/content/trayectoria";
+
 export interface ParTexto {
   titulo: string;
   detalle: string;
@@ -44,7 +46,6 @@ export interface Diccionario {
       descServicios: string;
       descSoftware: string;
       verTodosServicios: string;
-      verPlataforma: string;
       quienesSomos: string;
       misionVision: string;
       nuestraHistoria: string;
@@ -104,18 +105,18 @@ export interface Diccionario {
       capitulo: string;
       titulo: string;
       parrafo: string;
-      proyectos: string;
-      mwInspeccionados: string;
-      hectareas: string;
-      /** `{n}` se reemplaza por el total de proyectos publicados. */
+      /**
+       * Etiqueta y unidad de cada cifra de trayectoria. El número vive en
+       * `content/trayectoria.ts`; acá va solo lo que se traduce. Sin `unidad`
+       * cuando la etiqueta ya la nombra ("Hectáreas de topografía").
+       */
+      trayectoria: Record<ClaveTrayectoria, { etiqueta: string; unidad?: string }>;
       cta: string;
     };
     software: {
       capitulo: string;
       titulo: [string, string];
       parrafo: string;
-      seEngancha: string;
-      sinServicios: string;
       verPlataforma: string;
       anterior: string;
       siguiente: string;
@@ -259,7 +260,23 @@ export interface Diccionario {
   };
 
   /** Qué resuelve cada plataforma. El nombre del producto no se traduce. */
-  software: Record<string, { resuelve: string; descripcion: string; capturaAlt: string }>;
+  software: Record<
+    string,
+    {
+      resuelve: string;
+      descripcion: string;
+      capturaAlt: string;
+      /** Tres ideas sueltas bajo el párrafo, numeradas 01/02/03. */
+      claves?: string[];
+      /** Textos de la composición de dispositivos (ver `content/software.ts`). */
+      dispositivos?: {
+        escritorioAlt: string;
+        movilAlt: string;
+        qrAlt: string;
+        qrPie: string;
+      };
+    }
+  >;
 
   nosotros: {
     /** Primera oración de `quienesSomos`. La reusa el inicio. */
@@ -297,8 +314,6 @@ export interface Diccionario {
       tituloSeo: string;
       queSeEntrega: string;
       industrias: string;
-      cobertura: string;
-      fotoReferencia: string;
       proyectosConEste: string;
       otrosServicios: string;
     };
@@ -317,16 +332,9 @@ export interface Diccionario {
     };
 
     software: {
-      titulo: string;
-      bajada: string;
-      pasos: [ParTexto, ParTexto, ParTexto];
-      /** `{servicios}` se reemplaza por los servicios a los que se engancha. */
-      seEngancha: string;
-      verFicha: string;
       /** `{producto}` se reemplaza por el nombre de la plataforma. */
       irAlSitio: string;
     };
-    softwareDetalle: { aQueServicio: string };
 
     noticias: { titulo: string; bajada: string; vacioTitulo: string; vacioTexto: string };
     noticiaDetalle: { volver: string };

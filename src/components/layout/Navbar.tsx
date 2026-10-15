@@ -10,7 +10,7 @@ import { BotonEnlace } from "@/components/ui/Boton";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { esRutaActiva, navPrincipalDe, type ItemNav } from "@/lib/nav";
 import { diccionario } from "@/content/i18n";
-import { idiomaDeRuta } from "@/lib/idioma";
+import { idiomaDeRuta, sinPrefijo } from "@/lib/idioma";
 
 /**
  * F-02 · Navbar.
@@ -50,6 +50,11 @@ import { idiomaDeRuta } from "@/lib/idioma";
  * tiene que estar resuelto ya en el primer render. Buscando un marcador con un
  * efecto, el navbar pintaría blanco y saltaría a transparente recién tras la
  * hidratación, y ese parpadeo se ve en cada carga del inicio.
+ *
+ * Son rutas CANÓNICAS, sin prefijo de idioma: se comparan contra
+ * `sinPrefijo(pathname)`, nunca contra `pathname` a secas. El inglés vive en
+ * `/en/...`, así que el inicio inglés es `/en` y comparar directo lo dejaba
+ * fuera de esta lista: el navbar salía blanco sobre el hero en video.
  */
 const RUTAS_HERO_OSCURO = new Set(["/"]);
 
@@ -61,7 +66,12 @@ export function Navbar() {
   // El idioma sale de la URL: este componente es cliente y no recibe params.
   const t = diccionario(idiomaDeRuta(pathname));
   const items = navPrincipalDe(t);
-  const heroOscuro = RUTAS_HERO_OSCURO.has(pathname);
+  // La ruta sin idioma es la que se compara contra rutas escritas a mano: la
+  // lista de heros oscuros y los `href` del menú, que son todos canónicos.
+  // `pathname` crudo se reserva para detectar la navegación, más abajo, donde
+  // cambiar de idioma SÍ cuenta como navegar.
+  const ruta = sinPrefijo(pathname);
+  const heroOscuro = RUTAS_HERO_OSCURO.has(ruta);
   const [desplegado, setDesplegado] = useState<string | null>(null);
   const [movilAbierto, setMovilAbierto] = useState(false);
   const [despegado, setDespegado] = useState(false);
@@ -186,7 +196,7 @@ export function Navbar() {
               <ItemEscritorio
                 key={item.label}
                 item={item}
-                activo={esRutaActiva(pathname, item.href)}
+                activo={esRutaActiva(ruta, item.href)}
                 abierto={desplegado === item.label}
                 transparente={transparente}
                 onAbrir={() => abrir(item.label)}
@@ -196,7 +206,11 @@ export function Navbar() {
                   // Clic con mouse: el panel ya está abierto por hover, así que
                   // el clic solo puede significar "llévame al índice de esta
                   // sección". Con teclado, en cambio, abre y cierra el panel.
-                  if (porPuntero) {
+                  //
+                  // Salvo que el ítem no tenga índice al que llevar (`soloMenu`,
+                  // hoy Software): ahí el clic hace lo mismo que el teclado,
+                  // abrir y cerrar, en vez de navegar a una página que no existe.
+                  if (porPuntero && !item.soloMenu) {
                     router.push(item.href);
                     return;
                   }
@@ -236,7 +250,7 @@ export function Navbar() {
         </div>
       </Contenedor>
 
-      <MenuMovil abierto={movilAbierto} pathname={pathname} items={items} t={t} />
+      <MenuMovil abierto={movilAbierto} ruta={ruta} items={items} t={t} />
     </header>
   );
 }
@@ -413,12 +427,13 @@ function EnlacePanel({
 
 function MenuMovil({
   abierto,
-  pathname,
+  ruta,
   items,
   t,
 }: {
   abierto: boolean;
-  pathname: string;
+  /** Ya sin prefijo de idioma: se compara contra los `href` canónicos del menú. */
+  ruta: string;
   items: ItemNav[];
   t: ReturnType<typeof diccionario>;
 }) {
@@ -453,7 +468,7 @@ function MenuMovil({
           <nav aria-label={t.ui.menuPrincipalMovil}>
             <ul className="divide-y divide-steel-100">
               {items.map((item) => {
-                const activo = esRutaActiva(pathname, item.href);
+                const activo = esRutaActiva(ruta, item.href);
                 if (!item.submenu) {
                   return (
                     <li key={item.label}>

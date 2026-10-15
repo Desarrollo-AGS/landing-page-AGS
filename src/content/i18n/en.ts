@@ -36,7 +36,6 @@ export const en: Diccionario = {
       descServicios: "Seven aerial operations for energy, mining and construction.",
       descSoftware: "The platforms on which we deliver the data from each service.",
       verTodosServicios: "View all services",
-      verPlataforma: "View the full platform",
       quienesSomos: "About us",
       misionVision: "Mission and vision",
       nuestraHistoria: "Our story",
@@ -117,18 +116,19 @@ export const en: Diccionario = {
       titulo: "Projects already delivered",
       parrafo:
         "A row of logos earns trust at a glance. This is what sits behind it: plants, locations and surveyed areas.",
-      proyectos: "Projects",
-      mwInspeccionados: "MW inspected",
-      hectareas: "Hectares",
-      cta: "View all {n} projects",
+      trayectoria: {
+        experiencia: { etiqueta: "Experience in drone operations", unidad: "Years" },
+        lavado: { etiqueta: "Of surfaces washed by drone", unidad: "m²" },
+        topografia: { etiqueta: "Hectares of topographic survey" },
+        termografia: { etiqueta: "Of thermographic inspections at PV plants", unidad: "GW" },
+      },
+      cta: "View all projects",
     },
     software: {
       capitulo: "From flight to data",
       titulo: ["The flight ends", "where the data begins"],
       parrafo:
         "Our platforms are the part of the service that remains after the flight: where each finding is placed on the real asset and the maintenance team works on it.",
-      seEngancha: "Connects to",
-      sinServicios: "Associated services still to be defined.",
       verPlataforma: "View platform",
       anterior: "View the previous platform",
       siguiente: "View the next platform",
@@ -229,11 +229,6 @@ export const en: Diccionario = {
         descripcion:
           "{proyectos} projects delivered for {clientes} clients in mining and energy: photovoltaic plants, power lines and topographic surveys across Chile.",
       },
-      "/software": {
-        titulo: "Software: SmartField and SmartLayout",
-        descripcion:
-          "The platforms AGS delivers each campaign's data on: SmartField for georeferenced inspection, SmartLayout for surveying and planning, and SmartLix for thermal monitoring of irrigation on leach pads.",
-      },
       "/nosotros": {
         titulo: "About us: who we are, mission, vision and history",
         descripcion:
@@ -276,7 +271,8 @@ export const en: Diccionario = {
         "Geospatial digital twin with the exact location of every finding",
         "Comparable history across inspection campaigns",
       ],
-      imagenAlt: "AGS industrial drone in flight over a facility in the Antofagasta Region",
+      imagenAlt:
+        "AGS drone in flight over the rows of a photovoltaic plant, with the sun rising behind the panels",
     },
     "inspeccion-lineas-electricas": {
       titulo: "Power Line Inspection",
@@ -289,7 +285,8 @@ export const en: Diccionario = {
         "LiDAR point cloud with vegetation and interference risks",
         "Report with recommendations prioritised by criticality",
       ],
-      imagenAlt: "AGS industrial drone in flight over a facility in the Antofagasta Region",
+      imagenAlt:
+        "AGS drone inspecting the insulators of a high-voltage tower, with the line running down the valley",
     },
     "topografia-aerofotogrametria": {
       titulo: "Drone Surveying. Aerial Photogrammetry",
@@ -302,7 +299,8 @@ export const en: Diccionario = {
         "Contour lines and stockpile volumes to centimetre accuracy",
         "Delivered in hours, not days or weeks",
       ],
-      imagenAlt: "AGS industrial drone in flight over a facility in the Antofagasta Region",
+      imagenAlt:
+        "AGS drone flying over an open-pit quarry, with its benches and haul ramps in view",
     },
     "limpieza-fachadas-maquinarias": {
       titulo: "Façade and Equipment Cleaning with Drones",
@@ -329,7 +327,7 @@ export const en: Diccionario = {
         "Less downtime for the facility",
       ],
       imagenAlt:
-        "AGS drone operating next to an active industrial plant, with the process line running",
+        "AGS drone with propeller guards inspecting corrosion on a metal tank at close range inside an industrial plant",
     },
     "control-riego-pilas-lixiviacion": {
       titulo: "Irrigation Distribution Control on Leach Pads",
@@ -342,7 +340,8 @@ export const en: Diccionario = {
         "Efficiency analysis and integration with existing control systems",
         "Water and chemical savings from correcting poorly irrigated zones",
       ],
-      imagenAlt: "AGS industrial drone in flight over a facility in the Antofagasta Region",
+      imagenAlt:
+        "AGS drone over a leach pad, with the irrigation lines and the pad benches at sunset",
     },
     "produccion-audiovisual": {
       titulo: "Audiovisual Production",
@@ -356,7 +355,8 @@ export const en: Diccionario = {
         "Aerial footage in remote or restricted-access areas",
         "High-resolution material ready for marketing",
       ],
-      imagenAlt: "AGS industrial drone in flight over a facility in the Antofagasta Region",
+      imagenAlt:
+        "AGS operator flying a drone, controller in hand, facing a mine site at sunset",
     },
   },
 
@@ -505,11 +505,24 @@ export const en: Diccionario = {
     },
     smartlayout: {
       resuelve:
-        "Turns the aerial survey into a measurable layout for planning on the real site.",
+        "Design, control and publish your site's operational layouts from a single place.",
       descripcion:
-        "SmartLayout takes the three-dimensional model and the orthomosaic produced by the survey and makes them available as a planning base. It is the digital counterpart of the surveying and aerial photogrammetry service: the same flight that produces the point cloud feeds the view the client designs and measures on.",
+        "Layouts are drawn in layers directly over georeferenced orthophotos of the operation. Every change goes through review and approval before it is published, and is recorded with its author, reviewer and reason. The version in force is distributed by QR code and consulted from the phone on site, even locating the user by GPS to show them the layout for where they are standing.",
+      claves: [
+        "A single official source, in force on site",
+        "Full history and comparison between versions",
+        "Mining, industrial plants, energy and ports",
+      ],
       capturaAlt:
         "The SmartLayout editor: a layer panel for segregation, traffic, emergencies, machinery and hazards over an operational layout drawn on top of a site orthophoto",
+      dispositivos: {
+        escritorioAlt:
+          "SmartLayout on desktop: the editor with its layer panel and the operational layout drawn over the orthophoto, with its legend and document footer",
+        movilAlt:
+          "SmartLayout on the phone: the layout in force for the primary crushing area and the collapsible layer panel",
+        qrAlt: "QR code that opens the layout version in force on a mobile device",
+        qrPie: "Scan · see the version in force",
+      },
     },
     smartlix: {
       resuelve:
@@ -584,7 +597,6 @@ export const en: Diccionario = {
     migas: {
       "/servicios": "Services",
       "/casos": "Projects",
-      "/software": "Software",
       "/nosotros": "About",
       "/nosotros/brochure": "Brochure",
       "/nosotros/certificaciones": "Certifications",
@@ -603,9 +615,6 @@ export const en: Diccionario = {
       tituloSeo: "{servicio} with drones",
       queSeEntrega: "What you get",
       industrias: "Industries",
-      cobertura: "Coverage",
-      fotoReferencia:
-        "Reference photograph. A specific image for this service is pending delivery by AGS.",
       proyectosConEste: "Projects delivered with this service",
       otrosServicios: "Other services",
     },
@@ -627,31 +636,8 @@ export const en: Diccionario = {
     },
 
     software: {
-      titulo: "The platform is part of the service",
-      bajada:
-        "The flight captures. The platform is where that data ends up located on the real asset and available to the team that has to act on it.",
-      pasos: [
-        {
-          titulo: "Capture",
-          detalle:
-            "The drone collects thermal imagery, visual imagery or a point cloud over the installation, in hours.",
-        },
-        {
-          titulo: "Process",
-          detalle:
-            "The material is processed with analysis software and reviewed by a specialist from the service.",
-        },
-        {
-          titulo: "Deliver",
-          detalle:
-            "The result lands in the platform, located on the asset and ready to work with.",
-        },
-      ],
-      seEngancha: "Pairs with {servicios}.",
-      verFicha: "See the platform",
       irAlSitio: "Go to the {producto} site",
     },
-    softwareDetalle: { aQueServicio: "Which service it pairs with" },
 
     noticias: {
       titulo: "News",

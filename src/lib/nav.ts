@@ -15,6 +15,15 @@ export interface Enlace {
 }
 
 export interface ItemNav extends Enlace {
+  /**
+   * El ítem NO navega: el clic solo abre y cierra su panel.
+   *
+   * Su `href` se conserva igual, porque sigue siendo la base contra la que se
+   * decide si la sección está activa (`esRutaActiva`): estando en
+   * `/software/smartlix`, el ítem "Software" tiene que verse marcado aunque
+   * `/software` ya no sea una página.
+   */
+  soloMenu?: boolean;
   /** Un submenú convierte el ítem en disparador de dropdown. */
   submenu?: {
     destacados?: Enlace[];
@@ -60,10 +69,12 @@ export function navPrincipalDe(t: Diccionario): ItemNav[] {
     {
       label: t.ui.nav.software,
       href: "/software",
+      // Sin índice de software: los productos son el destino, no una página
+      // que los agrupe. El ítem del menú solo despliega los tres.
+      soloMenu: true,
       submenu: {
         descripcion: t.ui.nav.descSoftware,
         resto: productos.map((p) => ({ label: p.nombre, href: `/software/${p.slug}` })),
-        indice: { label: t.ui.nav.verPlataforma, href: "/software" },
       },
     },
     {

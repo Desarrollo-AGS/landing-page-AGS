@@ -78,6 +78,16 @@ const nextConfig: NextConfig = {
       { source: "/comunidad", destination: "/noticias", permanent: true },
       { source: "/en/comunidad", destination: "/en/noticias", permanent: true },
 
+      // El índice /software dejó de existir: las plataformas son productos
+      // individuales y se entra a cada una por su ficha. La URL llegó a estar
+      // publicada en el menú y en el sitemap, así que no se deja en 404.
+      //
+      // Si alguna vez vuelve a haber índice, ESTA ENTRADA HAY QUE BORRARLA: un
+      // redirect permanente sobre una página que sí existe la vuelve
+      // inalcanzable, que es exactamente lo que pasaba con /servicios.
+      { source: "/software", destination: "/#capitulo-03", permanent: true },
+      { source: "/en/software", destination: "/en/#capitulo-03", permanent: true },
+
       // /proyectos/ — URL indexada del sitio viejo (hoy devuelve 500).
       {
         source: "/proyectos",

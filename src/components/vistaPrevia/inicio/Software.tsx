@@ -109,7 +109,6 @@ export function Software({ lang }: { lang: Idioma }) {
           if (off < -total / 2) off += total;
           const abs = Math.abs(off);
           const esActiva = off === 0;
-          const enganche = p.servicios.map((s) => t.servicios[s]?.tituloCorto).filter(Boolean);
 
           return (
             <article
@@ -128,17 +127,6 @@ export function Software({ lang }: { lang: Idioma }) {
               <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-steel-600">
                 {t.software[p.slug]?.resuelve ?? p.resuelve}
               </p>
-
-              {enganche.length ? (
-                <p className="mt-6 border-t border-steel-100 pt-5 text-[0.8125rem] leading-relaxed text-steel-500">
-                  {t.inicio.software.seEngancha}{" "}
-                  <span className="text-steel-700">{enganche.join(" / ")}</span>.
-                </p>
-              ) : (
-                <p className="mt-6 border-t border-steel-100 pt-5 text-[0.8125rem] leading-relaxed text-steel-400">
-                  {t.inicio.software.sinServicios}
-                </p>
-              )}
 
               <Link
                 href={`/software/${p.slug}`}

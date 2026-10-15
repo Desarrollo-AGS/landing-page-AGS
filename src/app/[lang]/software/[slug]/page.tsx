@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Enlace as Link } from "@/components/ui/Enlace";
 import { notFound } from "next/navigation";
-import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { CabeceraPagina } from "@/components/ui/CabeceraPagina";
+import { Migas } from "@/components/ui/Migas";
+import { BotonEnlace } from "@/components/ui/Boton";
+import { VistaDispositivos } from "@/components/software/VistaDispositivos";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Revelar } from "@/components/ui/Revelar";
 import { MarcoCaptura } from "@/components/ui/MarcoCaptura";
 import { ContactoBloque } from "@/components/home/ContactoBloque";
 import { getProducto, productos } from "@/content/software";
-import { getServicio } from "@/content/servicios";
 import { metadatosDe } from "@/lib/seo";
 import { diccionario } from "@/content/i18n";
 import { IDIOMA_POR_DEFECTO, esIdioma } from "@/lib/idioma";
@@ -42,75 +43,109 @@ export default async function PaginaProducto({ params }: Props) {
   const t = diccionario(idioma);
   const texto = t.software[slug];
 
-  const enganchados = producto.servicios
-    .map((s) => getServicio(s))
-    .filter((s): s is NonNullable<typeof s> => Boolean(s));
-
   return (
     <>
-      <CabeceraPagina
-        titulo={producto.nombre}
-        bajada={texto.resuelve}
-        migas={[
-          { label: t.paginas.migas["/software"], href: "/software" },
-          { label: producto.nombre },
-        ]}
-        lang={idioma}
-      />
+      {producto.dispositivos && texto.dispositivos ? (
+        /* ---------------------------------------------------------------- *
+         * Portada de plataforma.
+         *
+         * Reemplaza a `CabeceraPagina` en vez de sumarse a ella: el nombre y
+         * la frase de entrada son los mismos, y repetirlos arriba dejaría dos
+         * encabezados. Conserva lo que esa cabecera aporta —fondo navy, migas,
+         * filete naranja, el mismo h1— y le suma la columna de dispositivos.
+         * ---------------------------------------------------------------- */
+        <section className="bg-steel-900 pt-14 pb-16 sm:pt-16 sm:pb-20">
+          <Contenedor>
+            <Migas items={[{ label: producto.nombre }]} lang={idioma} className="mb-9" />
 
-      <section className="bg-white py-16 sm:py-20">
-        <Contenedor>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-16">
-            <Revelar>
-              <MarcoCaptura
-                src={producto.captura}
-                alt={texto.capturaAlt}
-                nombre={producto.nombre}
-              />
-            </Revelar>
+            <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:gap-16">
+              <Revelar>
+                <span className="rule-accent mb-6" aria-hidden="true" />
+                <h1 className="text-d3 text-white sm:text-d2">{producto.nombre}</h1>
 
-            <Revelar delay={0.08}>
-              <p className="text-[1.0625rem] leading-relaxed text-steel-700">
-                {texto.descripcion}
-              </p>
+                <p className="measure mt-5 text-[1.125rem] font-semibold leading-snug text-white">
+                  {texto.resuelve}
+                </p>
+                <p className="measure mt-5 text-[1.0625rem] leading-relaxed text-steel-400">
+                  {texto.descripcion}
+                </p>
 
-              <h2 className="mt-10 text-lg font-semibold text-steel-900">
-                {t.paginas.softwareDetalle.aQueServicio}
-              </h2>
-              <ul className="mt-5 border-t border-steel-100">
-                {enganchados.map((s) => (
-                  <li key={s.slug} className="border-b border-steel-100">
-                    <Link
-                      href={`/servicios/${s.slug}`}
-                      className="group flex items-center justify-between gap-6 py-4 transition-colors hover:text-steel-900"
-                    >
-                      <span className="text-[0.9375rem] font-medium text-steel-700 group-hover:text-steel-900">
-                        {t.servicios[s.slug].tituloCorto}
-                      </span>
-                      <ArrowRight
-                        size={15}
-                        weight="bold"
-                        aria-hidden="true"
-                        className="shrink-0 text-steel-300 transition-[color,transform] duration-200 group-hover:translate-x-0.5 group-hover:text-orange"
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                {texto.claves?.length ? (
+                  <ol className="mt-9 border-t border-white/10">
+                    {texto.claves.map((c, i) => (
+                      <li
+                        key={c}
+                        className="flex items-baseline gap-4 border-b border-white/10 py-3.5"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="num text-[0.75rem] font-semibold text-orange"
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-[0.9375rem] leading-snug text-steel-200">
+                          {c}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                ) : null}
 
-              <a
-                href={producto.sitio}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-9 inline-flex items-center gap-1.5 text-[0.9375rem] font-semibold text-orange-ink underline-offset-4 hover:underline"
-              >
-                {t.paginas.software.irAlSitio.replace("{producto}", producto.nombre)}
-                <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
-              </a>
-            </Revelar>
-          </div>
-        </Contenedor>
-      </section>
+                <BotonEnlace href={producto.sitio} externo tamano="lg" className="mt-9">
+                  {t.paginas.software.irAlSitio.replace("{producto}", producto.nombre)}
+                  <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+                </BotonEnlace>
+              </Revelar>
+
+              <Revelar delay={0.08}>
+                <VistaDispositivos
+                  dispositivos={producto.dispositivos}
+                  textos={texto.dispositivos}
+                />
+              </Revelar>
+            </div>
+          </Contenedor>
+        </section>
+      ) : (
+        <>
+          <CabeceraPagina
+            titulo={producto.nombre}
+            bajada={texto.resuelve}
+            migas={[{ label: producto.nombre }]}
+            lang={idioma}
+          />
+
+          <section className="bg-white py-16 sm:py-20">
+            <Contenedor>
+              <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-16">
+                <Revelar>
+                  <MarcoCaptura
+                    src={producto.captura}
+                    alt={texto.capturaAlt}
+                    nombre={producto.nombre}
+                  />
+                </Revelar>
+
+                <Revelar delay={0.08}>
+                  <p className="text-[1.0625rem] leading-relaxed text-steel-700">
+                    {texto.descripcion}
+                  </p>
+
+                  <a
+                    href={producto.sitio}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-9 inline-flex items-center gap-1.5 text-[0.9375rem] font-semibold text-orange-ink underline-offset-4 hover:underline"
+                  >
+                    {t.paginas.software.irAlSitio.replace("{producto}", producto.nombre)}
+                    <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
+                  </a>
+                </Revelar>
+              </div>
+            </Contenedor>
+          </section>
+        </>
+      )}
 
       <ContactoBloque lang={idioma} />
     </>

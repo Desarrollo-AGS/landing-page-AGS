@@ -23,10 +23,21 @@ export interface Servicio {
   imagen: string;
   imagenAlt: string;
   /**
-   * true mientras la foto sea genérica y no una toma real del servicio.
-   * Sirve para saber qué material hay que pedirle a AGS sin revisar el HTML.
+   * true cuando la imagen es una ilustración hecha para el servicio y no el
+   * registro de una operación real.
+   *
+   * NO SE RENDERIZA: es la ficha interna de qué material es propio y cuál no,
+   * para saber qué toma real falta pedirle a AGS sin tener que abrir cada
+   * imagen. Antes esto se llamaba `imagenPendiente` y sí salía en pantalla,
+   * como un pie bajo la fotografía.
    */
-  imagenPendiente: boolean;
+  imagenIlustrativa: boolean;
+  /**
+   * `object-position` del marco 4:3, cuando centrar no sirve. Las imágenes son
+   * más anchas que el marco, así que se recorta por los costados; si algo que
+   * importa vive pegado a un borde, acá se dice por dónde anclar.
+   */
+  imagenEncuadre?: string;
   /** Aparece en el submenú "Servicios destacados" del navbar. */
   destacado?: boolean;
 }
@@ -45,10 +56,10 @@ export const servicios: Servicio[] = [
       "Gemelo digital geoespacial con la ubicación exacta de cada hallazgo",
       "Histórico comparable entre campañas de inspección",
     ],
-    imagen: "/images/dron-en-vuelo.webp",
+    imagen: "/images/inspeccion-fotovoltaica-dron-planta-solar.webp",
     imagenAlt:
-      "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
-    imagenPendiente: true,
+      "Dron de AGS en vuelo sobre las mesas de una planta fotovoltaica, con el sol saliendo detrás de los paneles",
+    imagenIlustrativa: true,
     destacado: true,
   },
   {
@@ -64,10 +75,10 @@ export const servicios: Servicio[] = [
       "Nube de puntos LiDAR con riesgos de vegetación e interferencia",
       "Informe con recomendaciones priorizadas por criticidad",
     ],
-    imagen: "/images/dron-en-vuelo.webp",
+    imagen: "/images/inspeccion-lineas-electricas-dron-torre-alta-tension.webp",
     imagenAlt:
-      "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
-    imagenPendiente: true,
+      "Dron de AGS inspeccionando los aisladores de una torre de alta tensión, con la línea extendiéndose por el valle",
+    imagenIlustrativa: true,
     destacado: true,
   },
   {
@@ -83,10 +94,10 @@ export const servicios: Servicio[] = [
       "Curvas de nivel y cubicación de stock con precisión centimétrica",
       "Entrega en horas, no en días o semanas",
     ],
-    imagen: "/images/dron-en-vuelo.webp",
+    imagen: "/images/topografia-aerofotogrametria-dron-cantera.webp",
     imagenAlt:
-      "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
-    imagenPendiente: true,
+      "Dron de AGS sobrevolando una cantera a cielo abierto, con sus bancos y rampas de acarreo a la vista",
+    imagenIlustrativa: true,
     destacado: true,
   },
   {
@@ -105,7 +116,7 @@ export const servicios: Servicio[] = [
     imagen: "/images/faena-limpieza-fachada.webp",
     imagenAlt:
       "Dron de AGS aplicando agua a presión sobre la fachada metálica de una faena minera",
-    imagenPendiente: false,
+    imagenIlustrativa: false,
   },
   {
     slug: "inspeccion-instalaciones-industriales",
@@ -120,10 +131,10 @@ export const servicios: Servicio[] = [
       "Registro de alta resolución de daños, desgarre y corrosión",
       "Reducción del tiempo de inactividad de la instalación",
     ],
-    imagen: "/images/dron-fachada.webp",
+    imagen: "/images/inspeccion-instalaciones-industriales-dron-corrosion.webp",
     imagenAlt:
-      "Dron de AGS operando junto a una planta industrial activa, con la línea de proceso en funcionamiento",
-    imagenPendiente: false,
+      "Dron de AGS con protecciones de hélice inspeccionando de cerca la corrosión de un estanque metálico dentro de una planta industrial",
+    imagenIlustrativa: true,
   },
   {
     slug: "control-riego-pilas-lixiviacion",
@@ -138,10 +149,10 @@ export const servicios: Servicio[] = [
       "Análisis de eficiencia e integración con los sistemas de control existentes",
       "Ahorro de agua y químicos por corrección de zonas mal regadas",
     ],
-    imagen: "/images/dron-en-vuelo.webp",
+    imagen: "/images/control-riego-pilas-lixiviacion-dron.webp",
     imagenAlt:
-      "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
-    imagenPendiente: true,
+      "Dron de AGS sobre una pila de lixiviación, con las líneas de riego y los bancos de la pila al atardecer",
+    imagenIlustrativa: true,
   },
   {
     slug: "produccion-audiovisual",
@@ -157,10 +168,11 @@ export const servicios: Servicio[] = [
       "Tomas aéreas en zonas remotas o de acceso restringido",
       "Material en alta resolución listo para marketing",
     ],
-    imagen: "/images/dron-en-vuelo.webp",
+    imagen: "/images/produccion-audiovisual-operador-dron-faena.webp",
+    imagenEncuadre: "left center",
     imagenAlt:
-      "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
-    imagenPendiente: true,
+      "Operador de AGS pilotando un dron con el control en la mano, frente a una faena minera al atardecer",
+    imagenIlustrativa: true,
   },
 ];
 

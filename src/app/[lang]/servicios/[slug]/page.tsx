@@ -11,7 +11,7 @@ import { ContactoBloque } from "@/components/home/ContactoBloque";
 import { casos } from "@/content/casos";
 import { getServicio, servicios, serviciosRelacionados } from "@/content/servicios";
 import { metadatosDe } from "@/lib/seo";
-import { enumerar, site } from "@/content/site";
+import { site } from "@/content/site";
 import { diccionario } from "@/content/i18n";
 import { IDIOMA_POR_DEFECTO, esIdioma } from "@/lib/idioma";
 
@@ -97,13 +97,9 @@ export default async function PaginaServicio({ params }: Props) {
                   priority
                   sizes="(min-width: 1024px) 55vw, 100vw"
                   className="object-cover"
+                  style={{ objectPosition: servicio.imagenEncuadre ?? "center" }}
                 />
               </div>
-              {servicio.imagenPendiente ? (
-                <p className="mt-3 text-xs text-steel-500">
-                  {t.paginas.servicioDetalle.fotoReferencia}
-                </p>
-              ) : null}
             </Revelar>
 
             <Revelar delay={0.08}>
@@ -135,17 +131,6 @@ export default async function PaginaServicio({ params }: Props) {
                   </dt>
                   <dd className="mt-1.5 text-[0.9375rem] font-medium text-steel-900">
                     {servicio.industrias.map((i) => t.industrias[i]).join(", ")}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs text-steel-500">
-                    {t.paginas.servicioDetalle.cobertura}
-                  </dt>
-                  <dd className="mt-1.5 text-[0.9375rem] font-medium text-steel-900">
-                    {enumerar(
-                      site.operacion.map((pa) => t.ui.paises[pa]),
-                      t.ui.conjuncion,
-                    )}
                   </dd>
                 </div>
               </dl>

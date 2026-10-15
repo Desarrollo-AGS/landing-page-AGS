@@ -28,7 +28,6 @@ export const es: Diccionario = {
       descServicios: "Siete operaciones aéreas para energía, minería y construcción.",
       descSoftware: "Las plataformas sobre las que entregamos el dato del servicio.",
       verTodosServicios: "Ver todos los servicios",
-      verPlataforma: "Ver la plataforma completa",
       quienesSomos: "Quiénes somos",
       misionVision: "Misión y visión",
       nuestraHistoria: "Nuestra historia",
@@ -110,18 +109,19 @@ export const es: Diccionario = {
       titulo: "Proyectos ya ejecutados",
       parrafo:
         "La franja de logos genera confianza a primera vista. Esto es lo que hay detrás: plantas, ubicaciones y superficies medidas.",
-      proyectos: "Proyectos",
-      mwInspeccionados: "MW inspeccionados",
-      hectareas: "Hectáreas",
-      cta: "Ver los {n} proyectos",
+      trayectoria: {
+        experiencia: { etiqueta: "Experiencia en operaciones con drones", unidad: "Años" },
+        lavado: { etiqueta: "De superficies lavadas mediante drones", unidad: "m²" },
+        topografia: { etiqueta: "Hectáreas de topografía" },
+        termografia: { etiqueta: "De inspecciones termográficas en PFV", unidad: "GW" },
+      },
+      cta: "Ver todos los proyectos",
     },
     software: {
       capitulo: "Del vuelo al dato",
       titulo: ["El vuelo termina", "donde empieza el dato"],
       parrafo:
         "Nuestras plataformas son la parte del servicio que queda después del vuelo: donde el hallazgo se ubica sobre el activo real y el equipo de mantenimiento trabaja sobre él.",
-      seEngancha: "Se engancha a",
-      sinServicios: "Servicios asociados pendientes de definición.",
       verPlataforma: "Ver la plataforma",
       anterior: "Ver la plataforma anterior",
       siguiente: "Ver la plataforma siguiente",
@@ -221,11 +221,6 @@ export const es: Diccionario = {
         descripcion:
           "{proyectos} proyectos ejecutados para {clientes} clientes en minería y energía: plantas fotovoltaicas, líneas eléctricas y levantamientos topográficos en Chile.",
       },
-      "/software": {
-        titulo: "Software: SmartField y SmartLayout",
-        descripcion:
-          "Las plataformas sobre las que AGS entrega el dato de cada campaña: SmartField para inspección georreferenciada, SmartLayout para levantamiento y planificación, y SmartLix para el monitoreo térmico del riego en pilas de lixiviación.",
-      },
       "/nosotros": {
         titulo: "Nosotros: quiénes somos, misión, visión e historia",
         descripcion:
@@ -269,7 +264,7 @@ export const es: Diccionario = {
         "Histórico comparable entre campañas de inspección",
       ],
       imagenAlt:
-        "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
+        "Dron de AGS en vuelo sobre las mesas de una planta fotovoltaica, con el sol saliendo detrás de los paneles",
     },
     "inspeccion-lineas-electricas": {
       titulo: "Inspección de Líneas Eléctricas",
@@ -283,7 +278,7 @@ export const es: Diccionario = {
         "Informe con recomendaciones priorizadas por criticidad",
       ],
       imagenAlt:
-        "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
+        "Dron de AGS inspeccionando los aisladores de una torre de alta tensión, con la línea extendiéndose por el valle",
     },
     "topografia-aerofotogrametria": {
       titulo: "Topografía con Drones. Aerofotogrametría",
@@ -297,7 +292,7 @@ export const es: Diccionario = {
         "Entrega en horas, no en días o semanas",
       ],
       imagenAlt:
-        "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
+        "Dron de AGS sobrevolando una cantera a cielo abierto, con sus bancos y rampas de acarreo a la vista",
     },
     "limpieza-fachadas-maquinarias": {
       titulo: "Limpieza de Fachadas y Maquinarias con Drones",
@@ -325,7 +320,7 @@ export const es: Diccionario = {
         "Reducción del tiempo de inactividad de la instalación",
       ],
       imagenAlt:
-        "Dron de AGS operando junto a una planta industrial activa, con la línea de proceso en funcionamiento",
+        "Dron de AGS con protecciones de hélice inspeccionando de cerca la corrosión de un estanque metálico dentro de una planta industrial",
     },
     "control-riego-pilas-lixiviacion": {
       titulo: "Control de Distribución de Riego en Pilas de Lixiviación",
@@ -339,7 +334,7 @@ export const es: Diccionario = {
         "Ahorro de agua y químicos por corrección de zonas mal regadas",
       ],
       imagenAlt:
-        "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
+        "Dron de AGS sobre una pila de lixiviación, con las líneas de riego y los bancos de la pila al atardecer",
     },
     "produccion-audiovisual": {
       titulo: "Producción Audiovisual",
@@ -354,7 +349,7 @@ export const es: Diccionario = {
         "Material en alta resolución listo para marketing",
       ],
       imagenAlt:
-        "Dron industrial de AGS en vuelo sobre una instalación en la Región de Antofagasta",
+        "Operador de AGS pilotando un dron con el control en la mano, frente a una faena minera al atardecer",
     },
   },
 
@@ -503,11 +498,24 @@ export const es: Diccionario = {
     },
     smartlayout: {
       resuelve:
-        "Convierte el levantamiento aéreo en un layout medible para planificar sobre el terreno real.",
+        "Diseña, controla y publica los layouts operacionales de tu faena desde un solo lugar.",
       descripcion:
-        "SmartLayout toma el modelo tridimensional y el ortomosaico generados en el levantamiento y los deja disponibles como base de planificación. Es la contraparte digital del servicio de topografía y aerofotogrametría: el mismo vuelo que produce la nube de puntos alimenta la vista sobre la que el cliente proyecta y mide.",
+        "Los layouts se dibujan por capas directamente sobre ortofotos georreferenciadas de la operación. Cada cambio pasa por revisión y aprobación antes de publicarse, y queda registrado con su autor, revisor y motivo. La versión vigente se distribuye mediante código QR y se consulta desde el teléfono en terreno, incluso ubicando al usuario por GPS para mostrarle el layout del lugar donde está.",
+      claves: [
+        "Una única fuente oficial, vigente en terreno",
+        "Historial completo y comparación entre versiones",
+        "Minería, plantas industriales, energía y puertos",
+      ],
       capturaAlt:
         "Editor de SmartLayout: panel de capas de segregación, tránsito, emergencias, maquinaria y riesgos sobre un layout operacional dibujado encima de una ortofoto de faena",
+      dispositivos: {
+        escritorioAlt:
+          "SmartLayout en escritorio: el editor con el panel de capas y el layout operacional dibujado sobre la ortofoto, con su leyenda y el pie de documento",
+        movilAlt:
+          "SmartLayout en el teléfono: la versión vigente del layout de Chancado primario y el panel de capas plegable",
+        qrAlt: "Código QR que abre la versión vigente del layout en un dispositivo móvil",
+        qrPie: "Escanea · ve la versión vigente",
+      },
     },
     smartlix: {
       resuelve:
@@ -582,7 +590,6 @@ export const es: Diccionario = {
     migas: {
       "/servicios": "Servicios",
       "/casos": "Proyectos",
-      "/software": "Software",
       "/nosotros": "Nosotros",
       "/nosotros/brochure": "Brochure",
       "/nosotros/certificaciones": "Certificaciones",
@@ -601,9 +608,6 @@ export const es: Diccionario = {
       tituloSeo: "{servicio} con drones",
       queSeEntrega: "Qué se entrega",
       industrias: "Industrias",
-      cobertura: "Cobertura",
-      fotoReferencia:
-        "Fotografía de referencia. Imagen específica de este servicio pendiente de entrega por AGS.",
       proyectosConEste: "Proyectos ejecutados con este servicio",
       otrosServicios: "Otros servicios",
     },
@@ -625,31 +629,8 @@ export const es: Diccionario = {
     },
 
     software: {
-      titulo: "La plataforma es parte del servicio",
-      bajada:
-        "El vuelo captura. La plataforma es donde ese dato queda ubicado sobre el activo real y disponible para el equipo que tiene que actuar.",
-      pasos: [
-        {
-          titulo: "Capturar",
-          detalle:
-            "El dron levanta imagen térmica, visual o nube de puntos sobre la instalación, en horas.",
-        },
-        {
-          titulo: "Procesar",
-          detalle:
-            "El material se procesa con software de análisis y lo revisa un especialista del servicio.",
-        },
-        {
-          titulo: "Entregar",
-          detalle:
-            "El resultado queda en la plataforma, ubicado sobre el activo y listo para trabajar.",
-        },
-      ],
-      seEngancha: "Se engancha a {servicios}.",
-      verFicha: "Ver ficha",
       irAlSitio: "Ir al sitio de {producto}",
     },
-    softwareDetalle: { aQueServicio: "A qué servicio se engancha" },
 
     noticias: {
       titulo: "Noticias",

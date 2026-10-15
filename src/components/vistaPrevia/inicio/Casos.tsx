@@ -1,17 +1,22 @@
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { casosDestacados, totales } from "@/content/casos";
+import { casosDestacados } from "@/content/casos";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { FichaCaso, formatearCifra } from "@/components/ui/FichaCaso";
 import { BotonEnlace } from "@/components/ui/Boton";
 import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
+import { trayectoria } from "@/content/trayectoria";
 import { diccionario } from "@/content/i18n";
 import type { Idioma } from "@/lib/idioma";
 
 /**
  * 05 · Proyectos ya ejecutados.
  *
- * Las cifras siguen calculándose desde la cartera publicada en `content/casos`,
- * no escritas a mano, igual que en el bloque actual.
+ * LAS CIFRAS YA NO SE CALCULAN
+ * ----------------------------
+ * Antes se sumaban desde la cartera publicada (`totales`), y por eso medían los
+ * proyectos que están en el sitio, no la trayectoria de AGS: lo que no se
+ * publica no sumaba. Ahora salen de `content/trayectoria.ts`, que las trae
+ * escritas porque no se derivan de nada del repositorio.
  *
  * QUÉ CAMBIA
  * ----------
@@ -49,35 +54,28 @@ export function Casos({ lang }: { lang: Idioma }) {
 
           <dl
             data-dron-haz
-            className="grid shrink-0 grid-cols-3 gap-x-5 gap-y-2 border-l-2 border-orange pl-5 sm:gap-x-10 sm:pl-6"
+            className="grid shrink-0 grid-cols-2 gap-x-5 gap-y-6 border-l-2 border-orange pl-5 sm:gap-x-10 sm:pl-6"
           >
-            {[
-              {
-                k: t.inicio.casos.proyectos,
-                v: String(totales.proyectos),
-                n: totales.proyectos,
-              },
-              {
-                k: t.inicio.casos.mwInspeccionados,
-                v: formatearCifra(totales.mw, lang),
-                n: totales.mw,
-              },
-              {
-                k: t.inicio.casos.hectareas,
-                v: formatearCifra(totales.hectareas, lang),
-                n: totales.hectareas,
-              },
-            ].map(({ k, v, n }) => (
-              <div key={k}>
-                <dd
-                  data-cifra={n}
-                  className="num text-[1.5rem] font-semibold leading-none tracking-[-0.028em] text-white sm:text-[2rem]"
-                >
-                  {v}
-                </dd>
-                <dt className="mt-2 text-xs leading-snug text-steel-500">{k}</dt>
-              </div>
-            ))}
+            {trayectoria.map(({ clave, valor }) => {
+              const { etiqueta, unidad } = t.inicio.casos.trayectoria[clave];
+              return (
+                <div key={clave}>
+                  <dd className="num flex items-baseline gap-1 text-[1.5rem] font-semibold leading-none tracking-[-0.028em] text-white sm:text-[2rem]">
+                    <span aria-hidden="true" className="text-orange">
+                      +
+                    </span>
+                    {/* El contador reescribe el textContent de este elemento en
+                        cada cuadro, así que el "+" y la unidad van FUERA: dentro
+                        los borraría al empezar a contar. */}
+                    <span data-cifra={valor}>{formatearCifra(valor, lang)}</span>
+                    {unidad ? (
+                      <span className="text-[0.75em] font-medium text-steel-400">{unidad}</span>
+                    ) : null}
+                  </dd>
+                  <dt className="mt-2 text-xs leading-snug text-steel-500">{etiqueta}</dt>
+                </div>
+              );
+            })}
           </dl>
         </div>
       </Contenedor>
@@ -128,7 +126,7 @@ export function Casos({ lang }: { lang: Idioma }) {
 
       <Contenedor className="mt-10">
         <BotonEnlace href="/casos" variante="linea-clara" tamano="lg">
-          {t.inicio.casos.cta.replace("{n}", String(totales.proyectos))}
+          {t.inicio.casos.cta}
           <ArrowRight size={15} weight="bold" aria-hidden="true" />
         </BotonEnlace>
       </Contenedor>

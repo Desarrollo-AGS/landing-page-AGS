@@ -23,7 +23,6 @@ const FIJAS = [
   { ruta: "/", priority: 1, changeFrequency: "monthly" },
   { ruta: "/servicios", priority: 0.9, changeFrequency: "monthly" },
   { ruta: "/casos", priority: 0.9, changeFrequency: "monthly" },
-  { ruta: "/software", priority: 0.8, changeFrequency: "monthly" },
   { ruta: "/nosotros", priority: 0.8, changeFrequency: "yearly" },
   { ruta: "/nosotros/brochure", priority: 0.8, changeFrequency: "monthly" },
   { ruta: "/nosotros/certificaciones", priority: 0.7, changeFrequency: "monthly" },

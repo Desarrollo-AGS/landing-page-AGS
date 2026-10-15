@@ -172,9 +172,28 @@ export const guionVistaPrevia: Guion = {
     // Al ser más grande baja un poco su altura de crucero (0,17-0,20 en vez de
     // 0,14), para no acercarse al navbar.
     casos: [
+      // Escanea las cifras mientras suben desde abajo: el dron está arriba y el
+      // haz cae sobre ellas. Ese es el único tramo en que se tocan a propósito.
       { p: 0, x: 0.8, y: 0.32, s: 0.32, o: 1, sensor: 1 },
-      { p: 0.08, x: 0.81, y: 0.31, s: 0.46, o: 1, sensor: 1 },
-      { p: 0.22, x: 0.86, y: 0.19, s: 0.42, o: 1, sensor: 0 },
+      { p: 0.07, x: 0.81, y: 0.3, s: 0.46, o: 1, sensor: 1 },
+      // SUBE ANTES QUE ELLAS Y SE VA POR ARRIBA.
+      //
+      // El bloque de indicadores ocupa toda la mitad derecha (x 0,59 a 0,94) y
+      // desde que son cuatro en dos filas mide 0,13 de alto de ventana. Al
+      // scrollear sube entero a través de la banda donde el dron se quedaba
+      // quieto, así que le pasaba por encima a "+40.000 m²" y a "+8 GW".
+      //
+      // No hay por dónde esquivarlo de lado: a la derecha quedan 0,06 de ancho
+      // y el dron necesita 0,17, y a la izquierda está el titular. Lo que sí
+      // hay es salida por arriba, y además es la que se lee bien: termina el
+      // escaneo y se va, en vez de quedarse esperando a que el texto lo
+      // alcance. Tiene que subir MÁS RÁPIDO que las cifras, de ahí lo corto
+      // del tramo.
+      { p: 0.16, x: 0.86, y: -0.16, s: 0.42, o: 1, sensor: 0 },
+      // Fuera de cuadro hasta que el bloque termina de salir (≈0,25).
+      { p: 0.3, x: 0.88, y: -0.18, s: 0.42, o: 1, sensor: 0 },
+      // Vuelve a entrar ya sobre la pista de proyectos, y sigue igual que antes.
+      { p: 0.38, x: 0.86, y: 0.17, s: 0.4, o: 1, sensor: 0 },
       { p: 0.6, x: 0.5, y: 0.17, s: 0.4, o: 1, sensor: 0 },
       { p: 0.88, x: 0.12, y: 0.19, s: 0.4, o: 1, sensor: 0 },
       { p: 0.97, x: -0.18, y: 0.2, s: 0.4, o: 1, sensor: 0 },

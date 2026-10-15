@@ -25,6 +25,29 @@ import type { Idioma } from "@/lib/idioma";
  * La foto lleva `data-dron-haz`: es el objetivo del sensor mientras el dron
  * sobrevuela la columna izquierda, que es el aire que este layout le reserva.
  */
+
+/**
+ * Encuadre del ortomosaico, en coordenadas de la imagen (de 0 a 1).
+ *
+ * La fotografía es un mock-up de entregable y lleva rotulación propia pegada a
+ * los cuatro bordes: la ficha del proyecto arriba a la izquierda, la escala y
+ * el norte arriba a la derecha, la leyenda abajo a la izquierda y los puntos de
+ * control repartidos. El de abajo a la derecha está rotulado `TGCP-04` —los
+ * otros tres son `GCP-0n`, así que es una errata del propio mock-up—, y por eso
+ * el encuadre corta por la derecha en 0,84: ahí queda fuera, junto con la barra
+ * de escala y la rosa de los vientos, que empiezan en 0,845.
+ *
+ * La banda vertical (0,175 a 0,805) está elegida para no PARTIR ningún rótulo:
+ * entra el rajo completo, las cuatro etiquetas UTM del margen izquierdo y el
+ * punto de control de abajo a la izquierda; quedan enteros fuera la ficha, la
+ * leyenda y los otros dos puntos. Un rótulo cortado por la mitad se lee como un
+ * defecto; un contorno cortado, como lo que es, un recorte.
+ *
+ * La ventana es 4:3, la misma proporción del marco, así que lo que se declara
+ * acá es exactamente lo que se ve: el navegador no agrega recorte propio.
+ */
+const ENCUADRE = { x: 0, y: 0.175, ancho: 0.84 };
+
 export function Servicios({ lang }: { lang: Idioma }) {
   const t = diccionario(lang);
   return (
@@ -65,12 +88,20 @@ export function Servicios({ lang }: { lang: Idioma }) {
                 <Image
                   src="/images/fotogrametria_terreno_2d.jpg"
                   alt={t.inicio.servicios.altFoto}
-                  fill
-                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  width={1024}
+                  height={1024}
+                  sizes="(min-width: 1024px) 31rem, 100vw"
                   loading="lazy"
-                  // La imagen es cuadrada y el marco 4:3: se centra para que el
-                  // recorte caiga en el encabezado y la leyenda, no en el terreno.
-                  className="object-cover object-center"
+                  className="absolute h-auto max-w-none"
+                  // Se dibuja más ancha que el marco y se corre hasta que la
+                  // ventana de ENCUADRE calza con él. `left` y `width` van en
+                  // porcentaje del ANCHO del marco; `top`, de su ALTO, que es
+                  // tres cuartos del ancho: de ahí el 0,75.
+                  style={{
+                    width: `${100 / ENCUADRE.ancho}%`,
+                    left: `${(-100 * ENCUADRE.x) / ENCUADRE.ancho}%`,
+                    top: `${(-100 * ENCUADRE.y) / (ENCUADRE.ancho * 0.75)}%`,
+                  }}
                 />
               </div>
               <figcaption className="mt-3 text-[0.8125rem] leading-relaxed text-steel-500">

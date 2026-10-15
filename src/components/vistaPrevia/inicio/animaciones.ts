@@ -91,7 +91,6 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
     const s = capitulo("02");
     if (!s) return;
     const items = todos("[data-servicio]", s);
-    const foto = uno("[data-servicios-foto] img", s);
     const barra = uno("[data-servicios-barra]", s);
     const etapa = uno("[data-servicios-etapa]", s);
     if (!items.length) return;
@@ -129,8 +128,13 @@ export function crearAnimacionesVistaPrevia(raiz: HTMLElement): () => void {
     });
 
     if (barra) tl.fromTo(barra, { scaleX: 0 }, { scaleX: 1, duration: items.length }, 0);
-    // La foto respira durante todo el capítulo: es lo que el dron inspecciona.
-    if (foto) tl.fromTo(foto, { scale: 1.12 }, { scale: 1, duration: items.length }, 0);
+
+    // La foto NO se anima. Tenía un zoom de 1,12 a 1 durante todo el capítulo,
+    // que competía con lo único que debe moverse acá: el relevo de los siete
+    // servicios y el dron levantándola en siete pasadas. Su encuadre es fijo y
+    // vive en `Servicios.tsx` (ENCUADRE); si volviera a escalarse, el recorte
+    // cambiaría con el scroll y el rótulo que ese encuadre deja fuera podría
+    // reaparecer.
 
     // Relevo con cruce corto, y los dos moviéndose en sentidos opuestos.
     //

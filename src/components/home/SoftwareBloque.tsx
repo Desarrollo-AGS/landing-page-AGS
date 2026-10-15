@@ -4,7 +4,6 @@ import { Contenedor } from "@/components/ui/Contenedor";
 import { Revelar } from "@/components/ui/Revelar";
 import { MarcoCaptura } from "@/components/ui/MarcoCaptura";
 import { productos } from "@/content/software";
-import { getServicio } from "@/content/servicios";
 
 /**
  * F-07 · Software en el home.
@@ -34,10 +33,6 @@ export function SoftwareBloque() {
 
         <ul className="mt-14 grid gap-4 lg:grid-cols-2">
           {productos.map((p, i) => {
-            const enganche = p.servicios
-              .map((s) => getServicio(s)?.tituloCorto)
-              .filter(Boolean);
-
             return (
               <Revelar as="li" key={p.slug} delay={i * 0.08} className="h-full h-full">
                 <Link
@@ -52,11 +47,6 @@ export function SoftwareBloque() {
                   </h3>
                   <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-steel-600">
                     {p.resuelve}
-                  </p>
-
-                  <p className="mt-6 border-t border-steel-100 pt-5 text-[0.8125rem] leading-relaxed text-steel-500">
-                    Se engancha a <span className="text-steel-700">{enganche.join(" y ")}</span>
-                    .
                   </p>
 
                   <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-orange-ink">
