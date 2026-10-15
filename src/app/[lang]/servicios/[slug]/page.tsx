@@ -10,7 +10,7 @@ import { FichaCaso } from "@/components/ui/FichaCaso";
 import { ContactoBloque } from "@/components/home/ContactoBloque";
 import { casos } from "@/content/casos";
 import { getServicio, servicios, serviciosRelacionados } from "@/content/servicios";
-import { metadatosDe } from "@/lib/seo";
+import { metadatosDe, recortarDescripcion } from "@/lib/seo";
 import { site } from "@/content/site";
 import { diccionario } from "@/content/i18n";
 import { IDIOMA_POR_DEFECTO, esIdioma } from "@/lib/idioma";
@@ -40,7 +40,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : t.paginas.servicioDetalle.tituloSeo.replace("{servicio}", texto.titulo),
     // Se recorta la descripción real del servicio en vez de escribir una
     // distinta: así el snippet de Google coincide con lo que se lee al entrar.
-    descripcion: `${texto.resumen} ${texto.descripcion.slice(0, 150)}...`,
+    // El recorte lo hace `recortarDescripcion`, que conoce el presupuesto de
+    // cada idioma; cortar a 150 fijos se pasaba de largo al sumarle el resumen.
+    descripcion: recortarDescripcion(`${texto.resumen} ${texto.descripcion}`, idioma),
     ruta: `/servicios/${servicio.slug}`,
     lang: idioma,
     imagen: servicio.imagen,

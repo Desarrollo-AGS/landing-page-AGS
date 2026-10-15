@@ -208,22 +208,22 @@ export const es: Diccionario = {
   seo: {
     paginas: {
       "/": {
-        titulo: "Servicios de drones en Antofagasta para minería, energía y construcción",
+        titulo: "Drones industriales en Antofagasta",
         descripcion:
-          "AGS Soluciones opera drones industriales en Chile, Perú y Argentina: inspección termográfica de plantas fotovoltaicas, líneas eléctricas, topografía y aerofotogrametría, limpieza de fachadas e inspección de instalaciones.",
+          "Inspección termográfica de plantas fotovoltaicas, líneas eléctricas, topografía y limpieza de fachadas con drones. Operamos en Chile, Perú y Argentina.",
       },
       "/servicios": {
-        titulo: "Servicios con drones para minería, energía y construcción",
+        titulo: "Servicios con drones: minería y energía",
         descripcion:
-          "Siete operaciones aéreas industriales: inspección termográfica de plantas fotovoltaicas, líneas eléctricas, topografía y aerofotogrametría, limpieza de fachadas, inspección industrial, control de riego en pilas de lixiviación y producción audiovisual.",
+          "Siete operaciones aéreas: termografía fotovoltaica, líneas eléctricas, topografía, limpieza de fachadas, inspección industrial y riego en pilas.",
       },
       "/casos": {
         titulo: "Proyectos ejecutados y casos de éxito",
         descripcion:
-          "Casos de éxito en minería y energía: inspección termográfica de plantas fotovoltaicas, revisión de líneas eléctricas y levantamientos topográficos ejecutados en Chile.",
+          "Casos de éxito en minería y energía: termografía en plantas fotovoltaicas, revisión de líneas eléctricas y levantamientos topográficos en Chile.",
       },
       "/nosotros": {
-        titulo: "Nosotros: quiénes somos, misión, visión e historia",
+        titulo: "Quiénes somos, misión e historia",
         descripcion:
           "AGS Soluciones opera drones industriales desde {anio} en Antofagasta, con servicios en Chile, Perú y Argentina para minería, energía y construcción.",
       },
@@ -245,7 +245,7 @@ export const es: Diccionario = {
       "/contacto": {
         titulo: "Contacto y cotización",
         descripcion:
-          "Cotiza un servicio con drones en Antofagasta. Teléfono {telefono}, correo {email}.",
+          "Cotiza un servicio con drones en Antofagasta: te respondemos con propuesta técnica y comercial. Teléfono {telefono}, correo {email}.",
       },
     },
     servicioTitulo: "{servicio} con drones",

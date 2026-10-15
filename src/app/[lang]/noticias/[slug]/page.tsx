@@ -38,6 +38,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // Sin fecha no se declara una: `publishedTime` vacío es mejor que uno
     // inventado, que es lo que Google verificaría contra el contenido.
     publicado: n.fecha ?? undefined,
+    // Una nota sin traducir se sirve en este idioma con el texto español. La
+    // página lo avisa al lector; el canonical se lo dice a Google.
+    canonicalPropio: n.traducida,
   });
 }
 

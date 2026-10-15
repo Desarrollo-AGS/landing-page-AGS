@@ -39,6 +39,31 @@ export const DESCRIPCION_BASE =
 /** Imagen de compartido por defecto. Ver nota en `app/opengraph-image.tsx`. */
 const OG_POR_DEFECTO = "/opengraph-image";
 
+/**
+ * Largo útil de una `meta description`, por idioma.
+ *
+ * Google no corta por caracteres sino por ANCHO: un ideograma ocupa el doble
+ * que una letra latina, así que una descripción china de 160 caracteres se
+ * corta por la mitad. De ahí los dos presupuestos.
+ */
+const LARGO_DESCRIPCION: Record<Idioma, number> = { es: 155, en: 155, zh: 78 };
+
+/** Cortes naturales donde terminar un recorte sin partir una palabra. */
+const CORTES = [" ", "，", "、", "。", "；", "："];
+
+/**
+ * Recorta una descripción al largo del idioma, retrocediendo hasta el último
+ * corte natural para no dejar una palabra —o un ideograma suelto— a medias.
+ * Si ya cabe, la devuelve intacta: nada de puntos suspensivos de adorno.
+ */
+export function recortarDescripcion(texto: string, lang: Idioma): string {
+  const max = LARGO_DESCRIPCION[lang];
+  if (texto.length <= max) return texto;
+  const duro = texto.slice(0, max - 1);
+  const corte = Math.max(...CORTES.map((c) => duro.lastIndexOf(c)));
+  return `${(corte > max * 0.7 ? duro.slice(0, corte) : duro).trimEnd()}…`;
+}
+
 export function metadatosDe({
   titulo,
   descripcion,
@@ -47,6 +72,7 @@ export function metadatosDe({
   imagen,
   tipo = "website",
   publicado,
+  canonicalPropio = true,
 }: {
   titulo: string;
   descripcion: string;
@@ -56,6 +82,13 @@ export function metadatosDe({
   imagen?: string | null;
   tipo?: "website" | "article";
   publicado?: string;
+  /**
+   * `false` cuando esta URL sirve el texto de OTRO idioma —una nota aún sin
+   * traducir— y por tanto no debe declararse canónica de sí misma: lo correcto
+   * es apuntar al original. Dos URLs con el mismo texto diciendo cada una "yo
+   * soy la buena" es exactamente lo que Google trata como duplicado.
+   */
+  canonicalPropio?: boolean;
 }): Metadata {
   const rutaConIdioma = rutaDe(lang, ruta);
   const url = `${site.url}${rutaConIdioma}`;
@@ -71,7 +104,7 @@ export function metadatosDe({
     title: titulo,
     description: descripcion,
     alternates: {
-      canonical: rutaConIdioma,
+      canonical: canonicalPropio ? rutaConIdioma : rutaDe(IDIOMA_POR_DEFECTO, ruta),
       languages: {
         ...idiomas,
         // Para quien busca desde un idioma que no publicamos: al español, que

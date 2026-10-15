@@ -216,14 +216,14 @@ export const en: Diccionario = {
   seo: {
     paginas: {
       "/": {
-        titulo: "Industrial drone services in Antofagasta for mining, energy and construction",
+        titulo: "Industrial drones in Antofagasta",
         descripcion:
-          "AGS Soluciones operates industrial drones in Chile, Peru and Argentina: thermal inspection of photovoltaic plants, power lines, surveying and aerial photogrammetry, façade cleaning and inspection of industrial installations.",
+          "Thermal inspection of photovoltaic plants, power lines, surveying and façade cleaning with drones. We operate in Chile, Peru and Argentina.",
       },
       "/servicios": {
-        titulo: "Drone services for mining, energy and construction",
+        titulo: "Drone services: mining and energy",
         descripcion:
-          "Seven industrial aerial operations: thermal inspection of photovoltaic plants, power lines, surveying and aerial photogrammetry, façade cleaning, industrial inspection, irrigation control on leach pads and audiovisual production.",
+          "Seven aerial operations: photovoltaic thermography, power lines, surveying, façade cleaning, industrial inspection and leach pad irrigation.",
       },
       "/casos": {
         titulo: "Projects delivered and case studies",
@@ -231,7 +231,7 @@ export const en: Diccionario = {
           "Success stories in mining and energy: thermal inspection of photovoltaic plants, power line surveys and topographic surveys delivered across Chile.",
       },
       "/nosotros": {
-        titulo: "About us: who we are, mission, vision and history",
+        titulo: "About AGS: who we are and our history",
         descripcion:
           "AGS Soluciones has operated industrial drones from Antofagasta since {anio}, serving mining, energy and construction in Chile, Peru and Argentina.",
       },
@@ -253,7 +253,7 @@ export const en: Diccionario = {
       "/contacto": {
         titulo: "Contact and quotes",
         descripcion:
-          "Request a quote for a drone service in Antofagasta. Phone {telefono}, email {email}.",
+          "Quote a drone service in Antofagasta: we reply with a technical and commercial proposal. Phone {telefono}, email {email}.",
       },
     },
     servicioTitulo: "{servicio} with drones",

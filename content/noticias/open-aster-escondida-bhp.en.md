@@ -1,5 +1,5 @@
 ---
-titulo: "AGS, one of the 25 companies selected for Open Aster"
+titulo: "AGS, among the 25 selected for Open Aster"
 resumen: "More than 600 applications from 6 countries and 25 companies selected. AGS is one of them, and will take its solutions into the field to prove their impact."
 portadaAlt: "The companies selected for Open Aster on stage, holding their awards, with the Escondida | BHP screen behind them"
 galeria:

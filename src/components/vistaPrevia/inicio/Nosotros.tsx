@@ -40,7 +40,7 @@ export function Nosotros({ lang }: { lang: Idioma }) {
             className="chamfer relative aspect-[2/1] overflow-hidden bg-steel-100"
           >
             <Image
-              src="/images/AGS-Nosotros.jpg"
+              src="/images/ags-equipo-terreno.webp"
               alt={t.inicio.nosotros.altFoto}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

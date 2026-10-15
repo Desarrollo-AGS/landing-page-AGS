@@ -10,7 +10,7 @@ import { Revelar } from "@/components/ui/Revelar";
 import { MarcoCaptura } from "@/components/ui/MarcoCaptura";
 import { ContactoBloque } from "@/components/home/ContactoBloque";
 import { getProducto, productos } from "@/content/software";
-import { metadatosDe } from "@/lib/seo";
+import { metadatosDe, recortarDescripcion } from "@/lib/seo";
 import { diccionario } from "@/content/i18n";
 import { IDIOMA_POR_DEFECTO, esIdioma } from "@/lib/idioma";
 
@@ -28,7 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = diccionario(idioma);
   return metadatosDe({
     titulo: t.seo.softwareTitulo.replace("{producto}", p.nombre),
-    descripcion: t.software[slug].resuelve,
+    // `resuelve` sola ronda los 100 caracteres y desaprovecha el snippet:
+    // se le suma la descripción y se recorta al presupuesto del idioma.
+    descripcion: recortarDescripcion(
+      `${t.software[slug].resuelve} ${t.software[slug].descripcion}`,
+      idioma,
+    ),
     ruta: `/software/${p.slug}`,
     lang: idioma,
     imagen: p.captura,
