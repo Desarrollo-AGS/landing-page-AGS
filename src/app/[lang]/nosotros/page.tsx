@@ -8,7 +8,7 @@ import { Revelar } from "@/components/ui/Revelar";
 import { AvisoProvisional } from "@/components/ui/AvisoProvisional";
 import { BotonEnlace } from "@/components/ui/Boton";
 import { ContactoBloque } from "@/components/home/ContactoBloque";
-import { anioFundacion, historia, mision, vision } from "@/content/nosotros";
+import { anioFundacion, historia } from "@/content/nosotros";
 import { enumerar, site } from "@/content/site";
 import { metadatosDe } from "@/lib/seo";
 import { diccionario } from "@/content/i18n";
@@ -115,7 +115,7 @@ export default async function PaginaNosotros({ params }: Props) {
             <Revelar delay={0.08}>
               <div className="chamfer relative aspect-[4/3] overflow-hidden bg-steel-100">
                 <Image
-                  src="/images/equipo-reconocimiento-bhp.webp"
+                  src="/images/ags-equipo-quienes-somos.webp"
                   alt={t.nosotros.altEquipo}
                   fill
                   priority
@@ -129,34 +129,98 @@ export default async function PaginaNosotros({ params }: Props) {
       </section>
 
       {/* ---------------- Misión y visión ---------------- */}
+      {/* ---------------- Misión y visión ----------------
+          ASIMÉTRICA A PROPÓSITO. Misión y visión no son lo mismo: una es lo que
+          AGS hace hoy y la otra es a dónde va. Dos tarjetas iguales lado a lado
+          las igualaban y el lector las leía como dos párrafos seguidos. Acá la
+          misión toma siete columnas sobre blanco y la visión cinco sobre navy.
+
+          Los resultados que cada texto ya enuncia salen a un riel: estaban
+          enterrados dentro de frases de cincuenta palabras y ahí no se podían
+          recorrer con la vista. No agregan nada que el texto no diga. */}
       <section id="mision" className="scroll-mt-32 bg-steel-50 py-16 sm:py-20">
         <Contenedor>
-          <div className="grid gap-10 lg:grid-cols-2">
-            <Revelar>
+          <div className="grid gap-6 lg:grid-cols-12">
+            {/* ---------- Misión ---------- */}
+            <Revelar className="lg:col-span-7">
               <article className="chamfer flex h-full flex-col bg-white p-8 sm:p-10">
-                <h2 className="text-d4 text-steel-900">{pag.mision}</h2>
-                <p className="mt-5 flex-1 text-[1.0625rem] leading-relaxed text-steel-700">
+                <div className="flex items-baseline justify-between gap-6">
+                  <h2 className="text-d4 text-steel-900">{pag.mision}</h2>
+                  <p className="eyebrow shrink-0 text-steel-500">{pag.misionAhora}</p>
+                </div>
+
+                <p className="mt-6 text-[1.0625rem] leading-relaxed text-steel-700">
                   {t.nosotros.mision}
                 </p>
-                {!mision.verificado ? <AvisoProvisional lang={idioma} /> : null}
+
+                <ul className="mt-9 border-t border-steel-100">
+                  {pag.misionResultados.map((r, i) => (
+                    <li
+                      key={r}
+                      className="flex items-baseline gap-5 border-b border-steel-100 py-4 last:border-b-0"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="num text-[0.75rem] font-semibold tracking-[0.04em] text-orange"
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[0.9375rem] font-medium text-steel-900">{r}</span>
+                    </li>
+                  ))}
+                </ul>
               </article>
             </Revelar>
 
-            <Revelar delay={0.08}>
-              <article className="chamfer flex h-full flex-col bg-white p-8 sm:p-10">
-                <h2 className="text-d4 text-steel-900">{pag.vision}</h2>
-                <p className="mt-5 flex-1 text-[1.0625rem] leading-relaxed text-steel-700">
+            {/* ---------- Visión ---------- */}
+            <Revelar delay={0.08} className="lg:col-span-5">
+              <article className="chamfer flex h-full flex-col bg-steel-900 p-8 sm:p-10">
+                <div className="flex items-baseline justify-between gap-5">
+                  <h2 className="text-d4 text-white">{pag.vision}</h2>
+                  <p className="eyebrow shrink-0 text-orange">{pag.visionHacia}</p>
+                </div>
+
+                <p className="mt-6 flex-1 text-[1.0625rem] leading-relaxed text-steel-300">
                   {t.nosotros.vision}
                 </p>
-                {!vision.verificado ? <AvisoProvisional lang={idioma} /> : null}
+
+                <ul className="mt-9 flex flex-wrap gap-2">
+                  {pag.visionRasgos.map((r) => (
+                    <li
+                      key={r}
+                      className="border border-white/20 px-3 py-1.5 text-[0.75rem] font-medium text-white"
+                    >
+                      {r}
+                    </li>
+                  ))}
+                </ul>
               </article>
             </Revelar>
           </div>
 
+          {/* ---------- El método ----------
+              Banda con filete SUPERIOR, no lateral: el borde a la izquierda es
+              el patrón más genérico que existe y no dice nada de lo que
+              contiene. Los dos pasos resumen de un vistazo lo que el párrafo
+              explica: quién captura y quién lo avala. */}
           <Revelar delay={0.12}>
-            <div className="mt-10 border-l-2 border-orange bg-white p-8 sm:p-10">
-              <h2 className="text-lg font-semibold text-steel-900">{pag.metodologiaTitulo}</h2>
-              <p className="measure mt-4 text-[1.0625rem] leading-relaxed text-steel-700">
+            <div className="mt-6 grid gap-8 border-t-2 border-orange bg-white p-8 sm:p-10 lg:grid-cols-12 lg:gap-6">
+              <div className="lg:col-span-4">
+                <h2 className="text-lg font-semibold leading-snug tracking-[-0.015em] text-steel-900">
+                  {pag.metodologiaTitulo}
+                </h2>
+                <p className="mt-5 flex items-center gap-2.5">
+                  <span className="eyebrow text-steel-900">{pag.metodologiaPasos[0]}</span>
+                  <ArrowRight
+                    size={16}
+                    weight="bold"
+                    aria-hidden="true"
+                    className="text-orange"
+                  />
+                  <span className="eyebrow text-steel-900">{pag.metodologiaPasos[1]}</span>
+                </p>
+              </div>
+              <p className="text-[1.0625rem] leading-relaxed text-steel-700 lg:col-span-8">
                 {t.nosotros.metodologia}
               </p>
             </div>

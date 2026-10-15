@@ -11,7 +11,7 @@
  *     aprobado ni se publique por accidente.
  */
 
-export const anioFundacion = 2016;
+export const anioFundacion = 2015;
 
 export const quienesSomos = {
   verificado: true,
@@ -30,7 +30,7 @@ export const mision = {
 };
 
 export const vision = {
-  verificado: false,
+  verificado: true,
   texto:
     "Ser consolidados como la empresa líder y el socio tecnológico 'end-to-end' referente en Chile para la inspección, mantenimiento y analítica de datos en industrias, destacando por la innovación continua, la automatización de procesos y el impacto positivo en la seguridad operacional.",
 };
@@ -38,21 +38,24 @@ export const vision = {
 export const metodologia = {
   verificado: true,
   texto:
-    "Todos nuestros procesos de análisis y procesamiento de información se realizan utilizando avanzados softwares de inteligencia artificial. Estos resultados están respaldados y avalados por profesionales especializados en cada servicio, garantizando la precisión y la seguridad de los resultados entregados a nuestros clientes.",
+    "Todos nuestros procesos de análisis y procesamiento de información se realizan con tecnología de drones de última generación y software especializado. Estos resultados están respaldados y avalados por profesionales especializados en cada servicio, garantizando la precisión y la seguridad de los resultados entregados a nuestros clientes.",
 };
 
 export const ventajas = [
   {
-    titulo: "Baja probabilidad de accidentes",
-    detalle: "Nadie sube. Se elimina la exposición del personal al riesgo de caída.",
+    titulo: "Trayectoria y experiencia",
+    detalle:
+      "Más de 9 años aportando soluciones tecnológicas a los sectores minero, energético e industrial.",
   },
   {
-    titulo: "Continuidad de la operación",
-    detalle: "Se trabaja sobre estructuras activas, sin cortes prolongados de producción.",
+    titulo: "Innovación aplicada",
+    detalle:
+      "Combinamos tecnología aérea, inteligencia artificial y software propio para resolver desafíos reales.",
   },
   {
-    titulo: "Eficiencia, rapidez y menor costo",
-    detalle: "La captura toma horas donde el método tradicional toma días o semanas.",
+    titulo: "Compromiso con la excelencia",
+    detalle:
+      "Abordamos cada proyecto con rigurosidad técnica, atención al detalle y un enfoque orientado a resultados confiables.",
   },
 ];
 
@@ -75,31 +78,31 @@ export interface Hito {
 
 export const historia: Hito[] = [
   {
-    anio: "2016",
+    anio: "2015",
     titulo: "Se funda AGS Soluciones",
     detalle:
-      "La empresa nace en Antofagasta para cubrir la demanda industrial de tecnología de drones en minería y energía.",
+      "AGS Soluciones Industriales Aéreas nace en Antofagasta, en el centro de la minería del norte de Chile, para llevar la tecnología de drones al terreno industrial.",
     verificado: true,
   },
   {
-    anio: "2020",
-    titulo: "Primeras campañas termográficas a gran escala",
+    anio: "2019",
+    titulo: "Una nueva etapa: soluciones integrales",
     detalle:
-      "Inspección de plantas fotovoltaicas sobre cientos de hectáreas para operadores de generación en el norte de Chile.",
-    verificado: false,
-  },
-  {
-    anio: "2023",
-    titulo: "Expansión a Perú y Argentina",
-    detalle:
-      "El abanico de servicios se extiende fuera de Chile, manteniendo la base de operaciones en Antofagasta.",
+      "La empresa da paso a una nueva etapa y se enfoca en ofrecer soluciones integrales para los sectores de energía y minería mediante el uso de tecnologías aéreas no tripuladas.",
     verificado: true,
   },
   {
     anio: "2025",
-    titulo: "Plataformas propias de entrega de datos",
+    titulo: "Premio Empresa Innovación",
     detalle:
-      "SmartField y SmartLayout pasan a soportar la entrega del dato de las campañas de inspección y levantamiento.",
-    verificado: false,
+      "AGS es premiada en la categoría Empresa Innovación del programa Proveedores & Futuro, impulsado por Escondida | BHP.",
+    verificado: true,
+  },
+  {
+    anio: "2026",
+    titulo: "Seleccionados en Open Aster",
+    detalle:
+      "AGS queda entre las 25 empresas elegidas en la octava generación de Open Aster, de Escondida | BHP, de más de 600 postulaciones y seis países, para llevar sus soluciones a terreno.",
+    verificado: true,
   },
 ];

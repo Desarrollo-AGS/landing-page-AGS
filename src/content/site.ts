@@ -13,7 +13,7 @@ export const site = {
   nombre: "AGS Soluciones",
   nombreLargo: "AGS Soluciones Industriales Aéreas",
   url: "https://agssoluciones.cl",
-  fundacion: 2016,
+  fundacion: 2015,
 
   contacto: {
     email: "servicios@agssoluciones.cl",

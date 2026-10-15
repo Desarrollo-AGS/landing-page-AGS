@@ -56,7 +56,7 @@ export const en: Diccionario = {
 
   inicio: {
     portada: {
-      antetitulo: "Industrial air operations since 2016",
+      antetitulo: "Industrial air operations since 2015",
       titulo: ["We turn height", "into safe ground"],
       bajada:
         "Thermal inspection, surveying and cleaning with drones for mining, energy and construction. No scaffolding, no production shutdown.",
@@ -227,7 +227,7 @@ export const en: Diccionario = {
       "/casos": {
         titulo: "Projects delivered and case studies",
         descripcion:
-          "{proyectos} projects delivered for {clientes} clients in mining and energy: photovoltaic plants, power lines and topographic surveys across Chile.",
+          "Success stories in mining and energy: thermal inspection of photovoltaic plants, power line surveys and topographic surveys delivered across Chile.",
       },
       "/nosotros": {
         titulo: "About us: who we are, mission, vision and history",
@@ -313,7 +313,8 @@ export const en: Diccionario = {
         "Photographic record before and after the intervention",
         "Reach over surfaces that cranes and scaffolding do not cover",
       ],
-      imagenAlt: "AGS drone applying pressurised water to the metal façade of a mining site",
+      imagenAlt:
+        "An AGS drone washing the façade of an industrial building with a pressurised water jet, its supply hose hanging beneath the airframe",
     },
     "inspeccion-instalaciones-industriales": {
       titulo: "Industrial Facility Inspection",
@@ -497,11 +498,22 @@ export const en: Diccionario = {
   software: {
     smartfield: {
       resuelve:
-        "Centralises the field data captured in each campaign and makes it locatable on the real asset.",
+        "A geospatial platform for the intelligent management of inspections and findings in mining operations.",
       descripcion:
-        "SmartField is the platform AGS delivers inspection campaign results on. The anomalies found in the field end up classified, prioritised and pinned to their exact position inside the installation, so the client's maintenance team works on the finding itself rather than on a loose report.",
+        "It brings together high-resolution orthophotos, territorial visualisation and the follow-up of observations in a single environment. Every finding is backed by its image, location, date, criticality and owner, and moves through geozones until it is closed.",
+      claves: [
+        "Map of findings over georeferenced orthophotos",
+        "Assignment by geozone and follow-up through to closure",
+        "Indicator panel and reports for owner and contractor",
+      ],
       capturaAlt:
-        "The SmartField interface: Map, Findings, Dashboard and Administration menus beside an aerial view of the work area",
+        "The SmartField interface: a Map, Findings, Dashboard and Administration menu next to an aerial view of the work area",
+      dispositivos: {
+        escritorioAlt:
+          "SmartField on desktop: the site map over an orthophoto, with the side menu for Map, Findings, Dashboard and Administration and the facility selector",
+        movilAlt:
+          "SmartField on the phone: the same site map full screen, with the view selector and the bar for map, findings, indicators and profile",
+      },
     },
     smartlayout: {
       resuelve:
@@ -525,12 +537,20 @@ export const en: Diccionario = {
       },
     },
     smartlix: {
-      resuelve:
-        "Turns every flight over the leach pad into a measurable irrigation status, module by module.",
+      resuelve: "Monitor, analyse and optimise leach pad irrigation from a single platform.",
       descripcion:
-        "SmartLix takes the pair of orthophotos from each flight — RGB and thermal, from the same date — and aligns them on the pad's real module grid. Every cell ends up classified into configurable temperature bands, so the operation reads the irrigation status across the whole pad and compares one flight with another on the same thermal scale.",
+        "SmartLix brings together the view of irrigation zones and modules, thermal analysis, orthophotos and 3D models to support faster, more precise operational decisions on site.",
+      claves: [
+        "Thermal maps and zone-by-zone control",
+        "2D viewer, 3D viewer and module tracking",
+        "Support chatbot and operational traceability",
+      ],
       capturaAlt:
         "The SmartLix interface: thermal monitoring of a leach pad, with the module grid coloured by temperature and the scale in degrees",
+      dispositivos: {
+        escritorioAlt:
+          "SmartLix on desktop: thermal monitoring of the north zone of a leach pad, with the module grid coloured by temperature, the thermal palette and the selector between RGB, thermal and combined views",
+      },
     },
   },
 
@@ -544,45 +564,48 @@ export const en: Diccionario = {
     vision:
       "To be established as the leading company and the benchmark end-to-end technology partner in Chile for industrial inspection, maintenance and data analytics, recognised for continuous innovation, process automation and a positive impact on operational safety.",
     metodologia:
-      "All our analysis and data processing runs on advanced artificial intelligence software. Those results are backed and endorsed by specialists in each service, which is what guarantees the precision and reliability of what we hand to our clients.",
+      "All our analysis and data processing runs on latest-generation drone technology and specialist software. Those results are backed and endorsed by professionals who specialise in each service, guaranteeing the accuracy and the safety of what we deliver to our clients.",
     ventajas: [
       {
-        titulo: "Lower accident risk",
-        detalle: "Nobody climbs. Personnel are no longer exposed to the risk of falling.",
+        titulo: "Track record and experience",
+        detalle:
+          "More than 9 years bringing technology solutions to the mining, energy and industrial sectors.",
       },
       {
-        titulo: "Operational continuity",
-        detalle: "Work is done on live structures, with no extended production stoppages.",
+        titulo: "Applied innovation",
+        detalle:
+          "We combine aerial technology, artificial intelligence and our own software to solve real challenges.",
       },
       {
-        titulo: "Efficiency, speed and lower cost",
-        detalle: "Capture takes hours where the traditional method takes days or weeks.",
+        titulo: "Commitment to excellence",
+        detalle:
+          "We approach every project with technical rigour, attention to detail and a focus on dependable results.",
       },
     ],
     historia: {
-      "2016": {
+      "2015": {
         titulo: "AGS Soluciones is founded",
         detalle:
-          "The company starts in Antofagasta to meet industrial demand for drone technology in mining and energy.",
+          "AGS Soluciones Industriales Aéreas is founded in Antofagasta, at the centre of mining in northern Chile, to bring drone technology onto industrial ground.",
       },
-      "2020": {
-        titulo: "First large-scale thermography campaigns",
+      "2019": {
+        titulo: "A new stage: complete solutions",
         detalle:
-          "Inspection of photovoltaic plants across hundreds of hectares for power generators in northern Chile.",
-      },
-      "2023": {
-        titulo: "Expansion into Peru and Argentina",
-        detalle:
-          "The range of services extends beyond Chile, with the operating base staying in Antofagasta.",
+          "The company moves into a new stage and focuses on delivering complete solutions for the energy and mining sectors through unmanned aerial technology.",
       },
       "2025": {
-        titulo: "In-house data delivery platforms",
+        titulo: "Innovation Company award",
         detalle:
-          "SmartField and SmartLayout take over the delivery of data from inspection and survey campaigns.",
+          "AGS wins the Innovation Company category of Proveedores & Futuro, the programme run by Escondida | BHP.",
+      },
+      "2026": {
+        titulo: "Selected for Open Aster",
+        detalle:
+          "AGS is among the 25 companies chosen for the eighth cohort of Open Aster, by Escondida | BHP, from more than 600 applications across six countries, to take its solutions into the field.",
       },
     },
     altEquipo:
-      "The AGS Soluciones team receiving an award at the Minera Escondida (BHP) supplier meeting",
+      "Three members of the AGS Soluciones team holding the Open Aster award from Escondida, BHP, at the awards ceremony",
   },
 
   certificaciones: {
@@ -605,11 +628,16 @@ export const en: Diccionario = {
     },
 
     servicios: {
-      titulo: "Seven industrial aerial operations",
+      titulo: "Aerial technology for a smarter industry",
       bajada:
-        "Each one replaces a task that today needs scaffolding, a man basket or a production stoppage.",
-      pieFoto: "Operation on a live site, Antofagasta Region.",
-      verDetalle: "See details",
+        "We turn operational challenges into precise, efficient solutions using drones, advanced sensors and specialist technology for mining, energy and industry.",
+      todos: "All",
+      filtrarPor: "Filter services by industry",
+      contador: "{n} services for your operation",
+      contadorUno: "{n} service for your operation",
+      porSector: "Specialist solutions by sector",
+      conocerServicio: "See the service",
+      sinResultados: "No services for that industry.",
     },
     servicioDetalle: {
       tituloSeo: "{servicio} with drones",
@@ -620,19 +648,15 @@ export const en: Diccionario = {
     },
 
     casos: {
-      titulo: "Projects already delivered",
+      titulo: "Success Stories",
       bajada:
         "Plants, locations and areas measured. The figures are the ones published for each project.",
-      proyectos: "Projects",
-      clientes: "Clients",
-      mwInspeccionados: "MW inspected",
-      hectareasLevantadas: "Hectares surveyed",
+      confian: "Trusted by",
       grupos: {
         "inspecciones-fotovoltaicas": "Thermography at photovoltaic plants",
         "topografia-aerofotogrametria": "Surveying, photogrammetry and 3D modelling",
         "inspeccion-lineas-electricas": "Power line inspection",
       },
-      nProyectos: "{n} projects",
     },
 
     software: {
@@ -668,7 +692,16 @@ export const en: Diccionario = {
       quienesSomos: "Who we are",
       mision: "Mission",
       vision: "Vision",
+      misionAhora: "What we do",
+      visionHacia: "Where we are going",
+      misionResultados: [
+        "Operational continuity optimised",
+        "Risk to people reduced",
+        "Field data turned into decisions",
+      ],
+      visionRasgos: ["Continuous innovation", "Process automation", "Operational safety"],
       metodologiaTitulo: "How we process the data",
+      metodologiaPasos: ["Drone capture", "Specialist"],
       historiaTitulo: "Our history",
       brochureEtiqueta: "Brochure",
       brochurePresentacion: "Commercial presentation",
@@ -732,6 +765,16 @@ export const en: Diccionario = {
     certificaciones: {
       titulo: "Permits, standards and certifications",
       bajada: "The framework AGS operates under, and the paperwork behind every flight.",
+      aocAntetitulo: "Operating permit",
+      aocTitulo: "We operate with an AOC recognised by the DGAC",
+      aocParrafo:
+        "AGS Soluciones holds an Air Operator Certificate (AOC) and appears in the public register of RPA companies kept by Chile's Dirección General de Aeronáutica Civil. It is the permit that allows a company to carry out commercial aerial operations with remotely piloted aircraft in Chile.",
+      aocVerificar: "Check it on the DGAC register",
+      aocInsigniaAlt:
+        "DGAC Chile badge certifying AGS Soluciones as an AOC-certified air operator",
+      aocLogoAlt: "Logo of Chile's Dirección General de Aeronáutica Civil",
+      aocFotoAlt:
+        "An AGS Soluciones industrial drone on site, with its registration number and the company mark on the airframe",
       normaTitulo: "The standard in force",
       normaParrafo:
         "Every drone operation in Chile is governed by DGAC regulation. Any supplier flying on site has to prove compliance with it.",
@@ -740,12 +783,6 @@ export const en: Diccionario = {
       docTitulo: "AGS documentation",
       tabla: ["Document", "Issuing authority", "Number", "Valid until"],
       indefinida: "No expiry",
-      pendienteTitulo: "List in preparation",
-      pendienteParrafo:
-        "We are consolidating the permits, authorisations and certifications currently in force, each with its issuing authority and expiry date, so we can publish them here in verifiable form.",
-      pendienteCanal:
-        "If you need the documentation for a tender or a contractor accreditation, we send it to you directly.",
-      pendienteCta: "Request documentation from {email}",
     },
 
     noEncontrado: {

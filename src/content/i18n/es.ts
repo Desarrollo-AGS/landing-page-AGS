@@ -48,7 +48,7 @@ export const es: Diccionario = {
 
   inicio: {
     portada: {
-      antetitulo: "Operaciones aéreas industriales desde 2016",
+      antetitulo: "Operaciones aéreas industriales desde 2015",
       titulo: ["Convertimos la altura", "en un terreno seguro"],
       bajada:
         "Inspección termográfica, topografía y limpieza con drones para minería, energía y construcción. Sin andamios, sin detener la planta.",
@@ -219,7 +219,7 @@ export const es: Diccionario = {
       "/casos": {
         titulo: "Proyectos ejecutados y casos de éxito",
         descripcion:
-          "{proyectos} proyectos ejecutados para {clientes} clientes en minería y energía: plantas fotovoltaicas, líneas eléctricas y levantamientos topográficos en Chile.",
+          "Casos de éxito en minería y energía: inspección termográfica de plantas fotovoltaicas, revisión de líneas eléctricas y levantamientos topográficos ejecutados en Chile.",
       },
       "/nosotros": {
         titulo: "Nosotros: quiénes somos, misión, visión e historia",
@@ -306,7 +306,7 @@ export const es: Diccionario = {
         "Alcance sobre superficies que la grúa y el andamio no cubren",
       ],
       imagenAlt:
-        "Dron de AGS aplicando agua a presión sobre la fachada metálica de una faena minera",
+        "Dron de AGS lavando con agua a presión la fachada de una nave industrial, con la manguera de alimentación colgando bajo el aparato",
     },
     "inspeccion-instalaciones-industriales": {
       titulo: "Inspección de Instalaciones Industriales",
@@ -490,11 +490,22 @@ export const es: Diccionario = {
   software: {
     smartfield: {
       resuelve:
-        "Centraliza el dato de terreno capturado en cada campaña y lo deja ubicable sobre el activo real.",
+        "Una plataforma geoespacial para la gestión inteligente de inspecciones y hallazgos en operaciones mineras.",
       descripcion:
-        "SmartField es la plataforma sobre la que AGS entrega el resultado de las campañas de inspección. Las anomalías detectadas en terreno quedan clasificadas, priorizadas y asignadas a su ubicación exacta dentro de la instalación, de modo que el equipo de mantenimiento del cliente trabaje sobre el hallazgo y no sobre un informe suelto.",
+        "Integra ortofotos de alta resolución, visualización territorial y seguimiento de observaciones en un entorno único. Cada hallazgo queda respaldado con su imagen, ubicación, fecha, criticidad y responsable, y avanza por geozonas hasta su cierre.",
+      claves: [
+        "Mapa de hallazgos sobre ortofotos georreferenciadas",
+        "Asignación por geozonas y seguimiento hasta el cierre",
+        "Panel de indicadores y reportes para mandante y contratista",
+      ],
       capturaAlt:
         "Interfaz de SmartField: menú de Mapa, Hallazgos, Dashboard y Administración junto a una vista aérea del área de trabajo",
+      dispositivos: {
+        escritorioAlt:
+          "SmartField en escritorio: el mapa de la instalación sobre ortofoto, con el menú lateral de Mapa, Hallazgos, Dashboard y Administración y el selector de instalaciones",
+        movilAlt:
+          "SmartField en el teléfono: el mismo mapa de la instalación en pantalla completa, con el selector de vista y la barra de mapa, hallazgos, indicadores y perfil",
+      },
     },
     smartlayout: {
       resuelve:
@@ -519,11 +530,20 @@ export const es: Diccionario = {
     },
     smartlix: {
       resuelve:
-        "Convierte cada vuelo sobre la pila de lixiviación en un estado de riego medible por módulo.",
+        "Supervisa, analiza y optimiza el riego de pilas de lixiviación desde una sola plataforma.",
       descripcion:
-        "SmartLix toma el par de ortofotos de cada vuelo —RGB y térmica de la misma fecha— y las alinea sobre la grilla real de módulos de la pila. Cada celda queda clasificada por bandas de temperatura configurables, de modo que la operación lee el estado del riego sobre la pila completa y compara un vuelo con otro bajo la misma escala térmica.",
+        "SmartLix centraliza la visualización de zonas y módulos de riego, análisis térmico, ortofotos y modelos 3D para apoyar decisiones operacionales más rápidas y precisas en terreno.",
+      claves: [
+        "Mapas térmicos y control por zonas",
+        "Visor 2D, visor 3D y seguimiento de módulos",
+        "Chatbot de apoyo y trazabilidad operacional",
+      ],
       capturaAlt:
         "Interfaz de SmartLix: monitoreo térmico de una pila de lixiviación, con la grilla de módulos coloreada por temperatura y la escala en grados",
+      dispositivos: {
+        escritorioAlt:
+          "SmartLix en escritorio: monitoreo térmico de la Zona Norte de una pila de lixiviación, con la grilla de módulos coloreada por temperatura, la paleta térmica y el selector entre vista RGB, térmica y combinada",
+      },
     },
   },
 
@@ -537,45 +557,48 @@ export const es: Diccionario = {
     vision:
       "Ser consolidados como la empresa líder y el socio tecnológico 'end-to-end' referente en Chile para la inspección, mantenimiento y analítica de datos en industrias, destacando por la innovación continua, la automatización de procesos y el impacto positivo en la seguridad operacional.",
     metodologia:
-      "Todos nuestros procesos de análisis y procesamiento de información se realizan utilizando avanzados softwares de inteligencia artificial. Estos resultados están respaldados y avalados por profesionales especializados en cada servicio, garantizando la precisión y la seguridad de los resultados entregados a nuestros clientes.",
+      "Todos nuestros procesos de análisis y procesamiento de información se realizan con tecnología de drones de última generación y software especializado. Estos resultados están respaldados y avalados por profesionales especializados en cada servicio, garantizando la precisión y la seguridad de los resultados entregados a nuestros clientes.",
     ventajas: [
       {
-        titulo: "Baja probabilidad de accidentes",
-        detalle: "Nadie sube. Se elimina la exposición del personal al riesgo de caída.",
+        titulo: "Trayectoria y experiencia",
+        detalle:
+          "Más de 9 años aportando soluciones tecnológicas a los sectores minero, energético e industrial.",
       },
       {
-        titulo: "Continuidad de la operación",
-        detalle: "Se trabaja sobre estructuras activas, sin cortes prolongados de producción.",
+        titulo: "Innovación aplicada",
+        detalle:
+          "Combinamos tecnología aérea, inteligencia artificial y software propio para resolver desafíos reales.",
       },
       {
-        titulo: "Eficiencia, rapidez y menor costo",
-        detalle: "La captura toma horas donde el método tradicional toma días o semanas.",
+        titulo: "Compromiso con la excelencia",
+        detalle:
+          "Abordamos cada proyecto con rigurosidad técnica, atención al detalle y un enfoque orientado a resultados confiables.",
       },
     ],
     historia: {
-      "2016": {
+      "2015": {
         titulo: "Se funda AGS Soluciones",
         detalle:
-          "La empresa nace en Antofagasta para cubrir la demanda industrial de tecnología de drones en minería y energía.",
+          "AGS Soluciones Industriales Aéreas nace en Antofagasta, en el centro de la minería del norte de Chile, para llevar la tecnología de drones al terreno industrial.",
       },
-      "2020": {
-        titulo: "Primeras campañas termográficas a gran escala",
+      "2019": {
+        titulo: "Una nueva etapa: soluciones integrales",
         detalle:
-          "Inspección de plantas fotovoltaicas sobre cientos de hectáreas para operadores de generación en el norte de Chile.",
-      },
-      "2023": {
-        titulo: "Expansión a Perú y Argentina",
-        detalle:
-          "El abanico de servicios se extiende fuera de Chile, manteniendo la base de operaciones en Antofagasta.",
+          "La empresa da paso a una nueva etapa y se enfoca en ofrecer soluciones integrales para los sectores de energía y minería mediante el uso de tecnologías aéreas no tripuladas.",
       },
       "2025": {
-        titulo: "Plataformas propias de entrega de datos",
+        titulo: "Premio Empresa Innovación",
         detalle:
-          "SmartField y SmartLayout pasan a soportar la entrega del dato de las campañas de inspección y levantamiento.",
+          "AGS es premiada en la categoría Empresa Innovación del programa Proveedores & Futuro, impulsado por Escondida | BHP.",
+      },
+      "2026": {
+        titulo: "Seleccionados en Open Aster",
+        detalle:
+          "AGS queda entre las 25 empresas elegidas en la octava generación de Open Aster, de Escondida | BHP, de más de 600 postulaciones y seis países, para llevar sus soluciones a terreno.",
       },
     },
     altEquipo:
-      "Equipo de AGS Soluciones recibiendo un reconocimiento en el encuentro de proveedores de Minera Escondida, BHP",
+      "Tres integrantes del equipo de AGS Soluciones sosteniendo el galardón de Open Aster de Escondida, BHP, durante la ceremonia de premiación",
   },
 
   certificaciones: {
@@ -598,11 +621,16 @@ export const es: Diccionario = {
     },
 
     servicios: {
-      titulo: "Siete operaciones aéreas industriales",
+      titulo: "Tecnología aérea para una industria más inteligente",
       bajada:
-        "Cada una reemplaza una tarea que hoy se hace con andamio, canasto o corte de producción.",
-      pieFoto: "Operación en faena activa, Región de Antofagasta.",
-      verDetalle: "Ver detalle",
+        "Transformamos desafíos operacionales en soluciones precisas y eficientes mediante drones, sensores avanzados y tecnología especializada para minería, energía e industria.",
+      todos: "Todos",
+      filtrarPor: "Filtrar servicios por industria",
+      contador: "{n} servicios para tu operación",
+      contadorUno: "{n} servicio para tu operación",
+      porSector: "Soluciones especializadas por sector",
+      conocerServicio: "Conocer el servicio",
+      sinResultados: "No hay servicios para esa industria.",
     },
     servicioDetalle: {
       tituloSeo: "{servicio} con drones",
@@ -613,19 +641,15 @@ export const es: Diccionario = {
     },
 
     casos: {
-      titulo: "Proyectos ya ejecutados",
+      titulo: "Casos de Éxito",
       bajada:
         "Plantas, ubicaciones y superficies medidas. Las cifras son las publicadas por cada proyecto.",
-      proyectos: "Proyectos",
-      clientes: "Clientes",
-      mwInspeccionados: "MW inspeccionados",
-      hectareasLevantadas: "Hectáreas levantadas",
+      confian: "Confían en nosotros",
       grupos: {
         "inspecciones-fotovoltaicas": "Termografía en plantas fotovoltaicas",
         "topografia-aerofotogrametria": "Topografía, aerofotogrametría y modelamiento 3D",
         "inspeccion-lineas-electricas": "Inspección de líneas eléctricas",
       },
-      nProyectos: "{n} proyectos",
     },
 
     software: {
@@ -662,7 +686,20 @@ export const es: Diccionario = {
       quienesSomos: "Quiénes somos",
       mision: "Misión",
       vision: "Visión",
+      misionAhora: "Lo que hacemos",
+      visionHacia: "Hacia dónde",
+      misionResultados: [
+        "Continuidad operacional optimizada",
+        "Riesgo de las personas reducido",
+        "Datos de terreno convertidos en decisiones",
+      ],
+      visionRasgos: [
+        "Innovación continua",
+        "Automatización de procesos",
+        "Seguridad operacional",
+      ],
       metodologiaTitulo: "Cómo procesamos la información",
+      metodologiaPasos: ["Captura con dron", "Especialista"],
       historiaTitulo: "Nuestra historia",
       brochureEtiqueta: "Brochure",
       brochurePresentacion: "Presentación comercial",
@@ -727,6 +764,16 @@ export const es: Diccionario = {
     certificaciones: {
       titulo: "Permisos, normas y certificaciones",
       bajada: "Bajo qué marco opera AGS y qué documentación respalda cada vuelo.",
+      aocAntetitulo: "Permiso de operación",
+      aocTitulo: "Operamos con AOC reconocido por la DGAC",
+      aocParrafo:
+        "AGS Soluciones cuenta con Certificado de Operador Aéreo (AOC) y figura en el registro público de empresas RPA de la Dirección General de Aeronáutica Civil. Es el permiso que habilita a una empresa a realizar operaciones aéreas remuneradas con aeronaves pilotadas a distancia en Chile.",
+      aocVerificar: "Verificar en el registro de la DGAC",
+      aocInsigniaAlt:
+        "Distintivo de la DGAC Chile que acredita a AGS Soluciones como empresa aérea certificada AOC",
+      aocLogoAlt: "Logotipo de la Dirección General de Aeronáutica Civil de Chile",
+      aocFotoAlt:
+        "Dron industrial de AGS Soluciones en terreno, con su número de matrícula y la marca de la empresa en el fuselaje",
       normaTitulo: "La norma vigente",
       normaParrafo:
         "Toda operación de drones en Chile se rige por la normativa de la DGAC. Cualquier proveedor que opere en faena debe acreditarla.",
@@ -735,12 +782,6 @@ export const es: Diccionario = {
       docTitulo: "Documentación de AGS",
       tabla: ["Documento", "Entidad emisora", "Número", "Vigente hasta"],
       indefinida: "Indefinida",
-      pendienteTitulo: "Listado en preparación",
-      pendienteParrafo:
-        "Estamos consolidando los permisos, autorizaciones y certificaciones vigentes con su entidad emisora y su fecha de vencimiento, para publicarlos acá de forma verificable.",
-      pendienteCanal:
-        "Si necesitas la documentación para una licitación o una acreditación de contratista, la enviamos directamente.",
-      pendienteCta: "Solicitar documentación a {email}",
     },
 
     noEncontrado: {

@@ -30,6 +30,23 @@ export interface Certificacion {
 export const certificaciones: Certificacion[] = [];
 
 /**
+ * El AOC de AGS, confirmado por la empresa y verificable por cualquiera en el
+ * registro público de la DGAC. Es el permiso que habilita a operar drones de
+ * forma remunerada en Chile, así que es lo PRIMERO que mira quien evalúa un
+ * proveedor: por eso encabeza la página y no va dentro de una tabla.
+ *
+ * `fuente` no es decorativa. Una empresa diciendo de sí misma que está
+ * certificada vale poco; el enlace al registro del regulador deja que el
+ * lector lo compruebe sin pedirnos nada.
+ */
+export const aoc = {
+  insignia: "/images/AOC-PRODRONE.webp",
+  logoEntidad: "/images/logo-dgac-chile.webp",
+  foto: "/images/ags-dron-permisos.webp",
+  fuente: "https://www.dgac.gob.cl/drones/empresas-rpa-aoc",
+};
+
+/**
  * Contexto regulatorio. Esto NO es una declaración de lo que AGS posee: es el
  * marco bajo el que opera cualquier empresa de drones en Chile, y va en la
  * página como contexto para quien evalúa un proveedor.

@@ -1,90 +1,140 @@
 import Image from "next/image";
-import type { Dispositivos } from "@/content/software";
+import type { Captura, Dispositivos } from "@/content/software";
+
+export interface TextosDispositivos {
+  escritorioAlt: string;
+  movilAlt?: string;
+  qrAlt?: string;
+  qrPie?: string;
+}
 
 /**
  * Composición de dispositivos de una ficha de plataforma.
  *
- * Cuenta en una sola imagen lo que el párrafo de al lado dice en palabras: la
- * plataforma se trabaja en escritorio, la versión vigente se consulta desde el
- * teléfono en terreno, y el QR es lo que lleva de una a la otra. Por eso el
- * código va encima y no al costado: es el puente entre las dos pantallas.
+ * DOS MONTAJES SEGÚN LO QUE HAYA
+ * ------------------------------
+ * Con las tres vistas —SmartLayout— se superponen, y así cuentan en una imagen
+ * lo que el párrafo de al lado dice en palabras: la plataforma se trabaja en
+ * escritorio, la versión vigente se consulta desde el teléfono en terreno, y el
+ * QR es lo que lleva de una a la otra. Por eso el código va encima y no al
+ * costado: es el puente entre las dos pantallas.
  *
- * DOS MONTAJES, NO UNO ESCALADO
- * -----------------------------
- * Desde 1024px las tres piezas se superponen, que es lo que les da profundidad.
- * Bajo ese ancho la superposición no cabe —el teléfono taparía justo la parte
- * útil del escritorio— así que se apilan: el escritorio completo arriba, y
- * debajo el teléfono junto al QR. Es el mismo material ordenado de otra forma,
- * no una versión recortada.
+ * Con escritorio y teléfono —SmartField— se superponen igual, pero sin la
+ * esquina del QR: ahí la tableta se centra contra el teléfono en vez de
+ * apoyarse arriba, para que no quede un hueco abajo a la izquierda.
  *
- * Las capturas son interfaz, así que van con `object-contain` dentro de marcos
- * de proporción fija: recortarlas se come los paneles, que es lo que hay que
- * ver. Cada marco ya trae la proporción de su captura, así que no sobra fondo.
+ * Con una sola —SmartLix— no hay nada que superponer, así que va centrada y
+ * ocupando el ancho completo de la columna. Un marco solo, metido en el tamaño
+ * que tendría dentro de la composición, se vería pequeño sin motivo.
+ *
+ * Y EN ANGOSTO, APILADAS
+ * ----------------------
+ * Bajo 1024px la superposición no cabe: el teléfono taparía justo la parte útil
+ * del escritorio. Se apilan —el escritorio completo arriba, y debajo el
+ * teléfono junto al QR—, que es el mismo material ordenado de otra forma, no
+ * una versión recortada.
  */
 export function VistaDispositivos({
   dispositivos,
   textos,
 }: {
   dispositivos: Dispositivos;
-  textos: { escritorioAlt: string; movilAlt: string; qrAlt: string; qrPie: string };
+  textos: TextosDispositivos;
 }) {
+  const { escritorio, movil, qr } = dispositivos;
+
+  // Cada pieza necesita imagen Y texto alternativo. Si falta cualquiera de las
+  // dos mitades, esa pieza no entra: nunca se publica una captura sin su
+  // descripción.
+  const tel = movil && textos.movilAlt ? { captura: movil, alt: textos.movilAlt } : null;
+  const codigo =
+    qr && textos.qrAlt && textos.qrPie
+      ? { captura: qr, alt: textos.qrAlt, pie: textos.qrPie }
+      : null;
+
+  // Sin teléfono no hay nada que superponer: la captura va sola y grande.
+  if (!tel) {
+    return (
+      <Tableta
+        captura={escritorio}
+        alt={textos.escritorioAlt}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+      />
+    );
+  }
+
+  // Con QR la tableta se apoya arriba y el código ocupa la esquina inferior
+  // izquierda; sin él esa esquina quedaría vacía, así que la tableta se centra
+  // contra el teléfono y el conjunto se acomoda en un cuadro más bajo.
+  const conQr = Boolean(codigo);
+
   return (
-    <div aria-hidden={false}>
+    <>
       {/* ---------- Superpuesto, desde 1024px ---------- */}
-      <div className="relative hidden aspect-[13/10] lg:block">
-        <Escritorio
-          src={dispositivos.escritorio}
+      <div className={`relative hidden lg:block ${conQr ? "aspect-[13/10]" : "aspect-[4/3]"}`}>
+        <Tableta
+          captura={escritorio}
           alt={textos.escritorioAlt}
           sizes="46vw"
-          className="absolute left-0 top-0 w-[89%]"
+          className={
+            conQr ? "absolute left-0 top-0 w-[89%]" : "absolute left-0 top-[18%] w-[86%]"
+          }
         />
-        <Movil
-          src={dispositivos.movil}
-          alt={textos.movilAlt}
+        <Telefono
+          captura={tel.captura}
+          alt={tel.alt}
           sizes="12vw"
-          className="absolute right-0 top-[10%] w-[31%]"
+          className={
+            conQr ? "absolute right-0 top-[10%] w-[31%]" : "absolute right-0 top-[2%] w-[31%]"
+          }
         />
-        <TarjetaQr
-          src={dispositivos.qr}
-          alt={textos.qrAlt}
-          pie={textos.qrPie}
-          sizes="20vw"
-          className="absolute bottom-[2%] left-[2%] w-[44%]"
-        />
+        {codigo ? (
+          <TarjetaQr
+            captura={codigo.captura}
+            alt={codigo.alt}
+            pie={codigo.pie}
+            sizes="20vw"
+            className="absolute bottom-[2%] left-[2%] w-[44%]"
+          />
+        ) : null}
       </div>
 
       {/* ---------- Apilado, bajo 1024px ---------- */}
       <div className="lg:hidden">
-        <Escritorio
-          src={dispositivos.escritorio}
+        <Tableta
+          captura={escritorio}
           alt={textos.escritorioAlt}
           sizes="(min-width: 640px) 90vw, 100vw"
         />
-        <div className="mt-5 flex items-start gap-5">
-          <Movil
-            src={dispositivos.movil}
-            alt={textos.movilAlt}
+        {/* Sin la tarjeta del QR el teléfono se queda solo: centrado, en vez de
+            pegado a la izquierda con medio ancho vacío al lado. */}
+        <div className={`mt-5 flex items-start gap-5 ${codigo ? "" : "justify-center"}`}>
+          <Telefono
+            captura={tel.captura}
+            alt={tel.alt}
             sizes="30vw"
-            className="w-[32%] max-w-[9rem] shrink-0"
+            className={codigo ? "w-[32%] max-w-[9rem] shrink-0" : "w-[38%] max-w-[11rem]"}
           />
-          <TarjetaQr
-            src={dispositivos.qr}
-            alt={textos.qrAlt}
-            pie={textos.qrPie}
-            sizes="60vw"
-            className="min-w-0 flex-1"
-          />
+          {codigo ? (
+            <TarjetaQr
+              captura={codigo.captura}
+              alt={codigo.alt}
+              pie={codigo.pie}
+              sizes="60vw"
+              className="min-w-0 flex-1"
+            />
+          ) : null}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Las tres piezas                                                     */
+/* Las piezas                                                          */
 /* ------------------------------------------------------------------ */
 
-type Pieza = { src: string; alt: string; sizes: string; className?: string };
+type Pieza = { captura: Captura; alt: string; sizes: string; className?: string };
 
 /**
  * RADIOS EXPLÍCITOS, A PROPÓSITO
@@ -99,34 +149,56 @@ type Pieza = { src: string; alt: string; sizes: string; className?: string };
  * es navy— un marco del mismo tono desaparece y la captura queda flotando.
  */
 const BISEL = "bg-[#030d16]";
+const SOMBRA = "shadow-[0_28px_60px_-20px_rgba(0,0,0,0.65)]";
 
 /**
- * Tableta: bisel fino y radio contenido, que es lo que la distingue del
- * teléfono. Lleva un filo claro apenas visible porque una silueta negra sobre
- * navy pierde el canto justo en las esquinas.
+ * Marco de aparato. La proporción sale de la propia captura, así que el bisel
+ * la ciñe sin dejar franjas de fondo a los lados.
  */
-function Escritorio({ src, alt, sizes, className = "" }: Pieza) {
+function Marco({
+  captura,
+  alt,
+  sizes,
+  className = "",
+  relleno,
+  radio,
+  radioInterior,
+}: Pieza & { relleno: string; radio: string; radioInterior: string }) {
   return (
     <div
-      className={`${BISEL} overflow-hidden rounded-[1.5rem] p-3 shadow-[0_28px_60px_-20px_rgba(0,0,0,0.65)] ring-1 ring-inset ring-white/10 ${className}`}
+      className={`${BISEL} ${SOMBRA} ${radio} ${relleno} overflow-hidden ring-1 ring-inset ring-white/10 ${className}`}
     >
-      <div className="relative aspect-[1112/695] overflow-hidden rounded-[0.75rem] bg-black">
-        <Image src={src} alt={alt} fill sizes={sizes} className="object-contain" />
+      <div
+        className={`${radioInterior} relative overflow-hidden bg-black`}
+        style={{ aspectRatio: captura.aspecto }}
+      >
+        <Image src={captura.src} alt={alt} fill sizes={sizes} className="object-contain" />
       </div>
     </div>
   );
 }
 
-/** Teléfono: bisel más grueso y esquinas mucho más redondeadas que la tableta. */
-function Movil({ src, alt, sizes, className = "" }: Pieza) {
+/** Tableta: bisel fino y radio contenido, que es lo que la distingue del teléfono. */
+function Tableta(props: Pieza) {
   return (
-    <div
-      className={`${BISEL} overflow-hidden rounded-[2.25rem] p-2.5 shadow-[0_28px_60px_-20px_rgba(0,0,0,0.65)] ring-1 ring-inset ring-white/10 ${className}`}
-    >
-      <div className="relative aspect-[430/932] overflow-hidden rounded-[1.75rem] bg-black">
-        <Image src={src} alt={alt} fill sizes={sizes} className="object-contain" />
-      </div>
-    </div>
+    <Marco
+      {...props}
+      relleno="p-3"
+      radio="rounded-[1.5rem]"
+      radioInterior="rounded-[0.75rem]"
+    />
+  );
+}
+
+/** Teléfono: bisel más grueso y esquinas mucho más redondeadas que la tableta. */
+function Telefono(props: Pieza) {
+  return (
+    <Marco
+      {...props}
+      relleno="p-2.5"
+      radio="rounded-[2.25rem]"
+      radioInterior="rounded-[1.75rem]"
+    />
   );
 }
 
@@ -134,13 +206,11 @@ function Movil({ src, alt, sizes, className = "" }: Pieza) {
  * La tarjeta del QR es la única pieza clara: es el puente entre las otras dos y
  * tiene que leerse como un objeto aparte, no como una tercera pantalla.
  */
-function TarjetaQr({ src, alt, pie, sizes, className = "" }: Pieza & { pie: string }) {
+function TarjetaQr({ captura, alt, pie, sizes, className = "" }: Pieza & { pie: string }) {
   return (
-    <figure
-      className={`overflow-hidden rounded-[1rem] bg-white shadow-[0_28px_60px_-20px_rgba(0,0,0,0.65)] ${className}`}
-    >
-      <div className="relative aspect-[348/219]">
-        <Image src={src} alt={alt} fill sizes={sizes} className="object-contain" />
+    <figure className={`${SOMBRA} overflow-hidden rounded-[1rem] bg-white ${className}`}>
+      <div className="relative" style={{ aspectRatio: captura.aspecto }}>
+        <Image src={captura.src} alt={alt} fill sizes={sizes} className="object-contain" />
       </div>
       <figcaption className="eyebrow border-t border-steel-100 px-3 py-3 text-center tracking-[0.1em] text-steel-500 lg:whitespace-nowrap">
         {pie}

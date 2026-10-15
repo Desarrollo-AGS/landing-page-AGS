@@ -113,9 +113,9 @@ export const servicios: Servicio[] = [
       "Registro fotográfico antes y después de la intervención",
       "Alcance sobre superficies que la grúa y el andamio no cubren",
     ],
-    imagen: "/images/faena-limpieza-fachada.webp",
+    imagen: "/images/limpieza-fachadas-maquinarias-dron.webp",
     imagenAlt:
-      "Dron de AGS aplicando agua a presión sobre la fachada metálica de una faena minera",
+      "Dron de AGS lavando con agua a presión la fachada de una nave industrial, con la manguera de alimentación colgando bajo el aparato",
     imagenIlustrativa: false,
   },
   {

@@ -271,9 +271,9 @@ export interface Diccionario {
       /** Textos de la composición de dispositivos (ver `content/software.ts`). */
       dispositivos?: {
         escritorioAlt: string;
-        movilAlt: string;
-        qrAlt: string;
-        qrPie: string;
+        movilAlt?: string;
+        qrAlt?: string;
+        qrPie?: string;
       };
     }
   >;
@@ -308,7 +308,21 @@ export interface Diccionario {
     /** Última miga de pan de cada ruta. La primera, "Inicio", está en `ui`. */
     migas: Record<string, string>;
 
-    servicios: { titulo: string; bajada: string; pieFoto: string; verDetalle: string };
+    servicios: {
+      titulo: string;
+      bajada: string;
+      /** Rótulo del filtro que no filtra nada. */
+      todos: string;
+      /** Nombre accesible del grupo de filtros. */
+      filtrarPor: string;
+      /** `{n}` se reemplaza por los servicios visibles, con dos dígitos. */
+      contador: string;
+      /** El mismo recuento cuando queda uno solo: "01 servicio", no "servicios". */
+      contadorUno: string;
+      porSector: string;
+      conocerServicio: string;
+      sinResultados: string;
+    };
     servicioDetalle: {
       /** `{servicio}` se reemplaza por el nombre del servicio. */
       tituloSeo: string;
@@ -321,14 +335,10 @@ export interface Diccionario {
     casos: {
       titulo: string;
       bajada: string;
-      proyectos: string;
-      clientes: string;
-      mwInspeccionados: string;
-      hectareasLevantadas: string;
+      /** Rótulo sobre la franja de logotipos. */
+      confian: string;
       /** Título de cada grupo de proyectos, por slug de servicio. */
       grupos: Record<string, string>;
-      /** `{n}` se reemplaza por la cantidad de proyectos del grupo. */
-      nProyectos: string;
     };
 
     software: {
@@ -357,7 +367,16 @@ export interface Diccionario {
       quienesSomos: string;
       mision: string;
       vision: string;
+      /** Rótulos de columna: la misión es el presente, la visión el destino. */
+      misionAhora: string;
+      visionHacia: string;
+      /** Los tres resultados que la misión ya enuncia, extraídos para poder recorrerlos. */
+      misionResultados: [string, string, string];
+      /** Las tres cualidades que la visión ya enuncia. */
+      visionRasgos: [string, string, string];
       metodologiaTitulo: string;
+      /** Los dos pasos del método, de la captura a quien la avala. */
+      metodologiaPasos: [string, string];
       historiaTitulo: string;
       brochureEtiqueta: string;
       brochurePresentacion: string;
@@ -398,6 +417,14 @@ export interface Diccionario {
     certificaciones: {
       titulo: string;
       bajada: string;
+      /** El AOC, que es lo que encabeza la página. */
+      aocAntetitulo: string;
+      aocTitulo: string;
+      aocParrafo: string;
+      aocVerificar: string;
+      aocInsigniaAlt: string;
+      aocLogoAlt: string;
+      aocFotoAlt: string;
       normaTitulo: string;
       normaParrafo: string;
       entidad: string;
@@ -405,11 +432,6 @@ export interface Diccionario {
       docTitulo: string;
       tabla: [string, string, string, string];
       indefinida: string;
-      pendienteTitulo: string;
-      pendienteParrafo: string;
-      pendienteCanal: string;
-      /** `{email}` se reemplaza por la casilla de contacto. */
-      pendienteCta: string;
     };
 
     noEncontrado: {
