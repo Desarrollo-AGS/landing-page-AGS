@@ -9,7 +9,6 @@ import { AvisoProvisional } from "@/components/ui/AvisoProvisional";
 import { BotonEnlace } from "@/components/ui/Boton";
 import { ContactoBloque } from "@/components/home/ContactoBloque";
 import { anioFundacion, historia } from "@/content/nosotros";
-import { enumerar, site } from "@/content/site";
 import { metadatosDe } from "@/lib/seo";
 import { diccionario } from "@/content/i18n";
 import { IDIOMA_POR_DEFECTO, esIdioma } from "@/lib/idioma";
@@ -55,14 +54,6 @@ export default async function PaginaNosotros({ params }: Props) {
     <>
       <CabeceraPagina
         titulo={pag.titulo.replace("{anios}", String(anios))}
-        bajada={pag.bajada.replace(
-          "{paises}",
-          enumerar(
-            site.operacion.map((pa) => t.ui.paises[pa]),
-            t.ui.conjuncion,
-            t.ui.separador,
-          ),
-        )}
         migas={[{ label: t.paginas.migas["/nosotros"] }]}
         lang={idioma}
       />

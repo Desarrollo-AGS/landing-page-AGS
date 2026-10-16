@@ -88,19 +88,18 @@ export interface Diccionario {
     faena: {
       capitulo: string;
       registroReal: string;
-      titulo: [string, string];
+      /** Tres líneas: el titular de este capítulo es más largo que el resto. */
+      titulo: [string, string, string];
       parrafo: string;
       altFoto: string;
       ariaVideo: string;
-      razones: [ParTexto, ParTexto, ParTexto];
+      razones: [ParTexto, ParTexto];
     };
     nosotros: {
       capitulo: string;
       /** `{anios}` se reemplaza por los años derivados del año de fundación. */
       titulo: [string, string];
       altFoto: string;
-      /** `{paises}` se reemplaza por los países de operación. */
-      extension: string;
       cta: string;
     };
     casos: {
@@ -356,8 +355,6 @@ export interface Diccionario {
     nosotros: {
       /** `{anios}` se reemplaza por los años desde la fundación. */
       titulo: string;
-      /** `{paises}` se reemplaza por los países de operación. */
-      bajada: string;
       secciones: {
         quienesSomos: string;
         mision: string;

@@ -33,7 +33,7 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Todo menos la API, los internos de Next y los archivos con extensión
+  // Todo menos la API, los internos de Next, la imagen social y los archivos con extensión
   // (imágenes, videos, robots.txt, sitemap.xml, el modelo del dron...).
-  matcher: ["/((?!api|_next|.*\\.).*)"],
+  matcher: ["/((?!api|_next|opengraph-image(?:/|$)|.*\\.).*)"],
 };

@@ -2,12 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import {
-  ArrowsOutSimple,
-  ClockCountdown,
-  Play,
-  ShieldCheck,
-} from "@phosphor-icons/react/dist/ssr";
+import { ClockCountdown, Play, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
 import { diccionario } from "@/content/i18n";
@@ -96,7 +91,7 @@ export function Faena({ lang }: { lang: Idioma }) {
         />
 
         <Contenedor className="relative flex min-h-[26rem] items-end py-14 lg:min-h-[36rem] lg:py-20">
-          <div data-faena-texto className="max-w-[36rem]">
+          <div data-faena-texto className="max-w-[44rem]">
             <Encabezado numero="04" nombre={t.inicio.faena.capitulo} />
             <p className="mt-4 inline-flex items-center gap-2 text-[0.8125rem] font-medium text-orange">
               <Play size={13} weight="fill" aria-hidden="true" />
@@ -113,8 +108,8 @@ export function Faena({ lang }: { lang: Idioma }) {
       </div>
 
       <Contenedor className="border-t border-white/10 py-14 lg:py-16">
-        <ul className="grid gap-10 sm:grid-cols-3 sm:gap-8">
-          {[ShieldCheck, ClockCountdown, ArrowsOutSimple].map((Icono, i) => {
+        <ul className="grid gap-10 sm:grid-cols-2 sm:gap-10">
+          {[ShieldCheck, ClockCountdown].map((Icono, i) => {
             const razon = t.inicio.faena.razones[i];
             return (
               <li key={razon.titulo} data-razon>

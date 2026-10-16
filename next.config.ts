@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // CloudLinux limita los procesos de la cuenta, aunque reporte muchos CPU.
+  ...(process.env.AGS_CPANEL_BUILD === "1" ? { experimental: { cpus: 1 } } : {}),
   // Hay otros package-lock.json en carpetas hermanas del escritorio. Sin esto,
   // Turbopack elige la raíz equivocada y avisa en cada build.
   turbopack: { root: import.meta.dirname },

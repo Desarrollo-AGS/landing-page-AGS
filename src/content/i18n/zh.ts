@@ -68,7 +68,7 @@ export const zh: Diccionario = {
     portada: {
       antetitulo: "自 2015 年起的工業空中作業",
       titulo: ["我們讓高處", "成為安全的作業面"],
-      bajada: "為礦業、能源與營建提供無人機熱影像檢測、測繪與清洗。不需鷹架，也不必停產。",
+      bajada: "為礦業、能源與營建提供無人機熱影像檢測、測繪與清洗。",
       ctaPrimario: "索取報價",
       ctaSecundario: "查看服務",
       altPoster: "沙漠丘陵自雲海之上升起的空拍畫面",
@@ -80,31 +80,30 @@ export const zh: Diccionario = {
     clientes: { capitulo: "合作夥伴" },
     servicios: {
       capitulo: "服務項目",
-      titulo: ["七項作業，同一個原則：", "不必有人爬上去"],
+      titulo: ["七項作業，", "無人暴露於墜落風險"],
       parrafo:
         "每一項服務都取代一件今天還得靠鷹架、吊籃或停產才能完成的工作。採集只要數小時，設施照常運轉。",
       pieFoto: "具地理坐標的正射影像：測繪成果的交付物。",
       altFoto: "航空攝影測量的正射影像，含 UTM 坐標網格、等高線、地面控制點與測區邊界",
     },
     faena: {
-      capitulo: "現場實錄",
+      capitulo: "礦場現場實際作業",
       registroReal: "真實影像",
-      titulo: ["礦場外牆，", "以飛行完成清洗"],
-      parrafo: "運轉中工業結構物的真實作業影像。沒有人爬上去，工廠也沒有停機。",
+      titulo: ["以無人機清洗", "工業外牆，", "全程不停產"],
+      parrafo:
+        "在這座礦場，我們在不搭設鷹架、不吊升人員的情況下，完成了一面難以到達的工業外牆清洗。整個作業在工廠持續運轉中執行，以安全與作業連續性為優先。",
       altFoto: "礦業設施外牆的無人機清洗作業",
       ariaVideo: "運轉中礦場的無人機外牆清洗作業影像",
       razones: [
         {
-          titulo: "免除高處作業",
-          detalle: "沒有人爬上去，同時免除人員墜落風險與隨之而來的許可作業流程。",
+          titulo: "減少高處作業的暴露",
+          detalle:
+            "我們的無人機可清洗外牆與高聳結構物，降低為了到達這些位置而使用鷹架、吊籃或工作平台的需求。",
         },
         {
-          titulo: "不必停產",
-          detalle: "在運轉中的結構物上作業，無須搭設鷹架，也不必協調長時間停產。",
-        },
-        {
-          titulo: "沒有進入限制",
-          detalle: "可觸及鷹架與吊車無法涵蓋的表面，包含屋頂與高聳結構物。",
+          titulo: "作業不中斷",
+          detalle:
+            "在這個專案中，我們在不停產的情況下完成清洗。這套方案讓運轉中的設施也能施作，減少對作業流程的干擾。",
         },
       ],
     },
@@ -112,7 +111,6 @@ export const zh: Diccionario = {
       capitulo: "關於我們",
       titulo: ["在工業場域操作無人機", "已邁入第 {anios} 年"],
       altFoto: "AGS Soluciones 團隊在辦公室企業招牌前的合影",
-      extension: "今日我們的服務已延伸至{paises}，基地設於安托法加斯塔。",
       cta: "認識 AGS",
     },
     casos: {
@@ -659,7 +657,6 @@ export const zh: Diccionario = {
 
     nosotros: {
       titulo: "{anios} 年來，我們讓高處成為安全的作業面",
-      bajada: "自安托法加斯塔出發，服務範圍涵蓋{paises}。",
       secciones: {
         quienesSomos: "關於我們",
         mision: "使命與願景",

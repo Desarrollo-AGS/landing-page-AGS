@@ -1,7 +1,7 @@
 import { IDIOMA_POR_DEFECTO, LOCALE_INTL, type Idioma } from "@/lib/idioma";
 import fs from "node:fs";
 import path from "node:path";
-import matter from "gray-matter";
+import { leerFrontMatter as matter } from "@/lib/frontMatter";
 import sharp from "sharp";
 import { remark } from "remark";
 import html from "remark-html";

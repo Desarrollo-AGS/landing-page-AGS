@@ -1135,49 +1135,73 @@
   display: none;
 }
 
-[data-movimiento] .ini-carrusel__controles {
-  display: flex;
+/* ============================================================================
+   EL CARRUSEL 3D PIDE ANCHO
+   ----------------------------------------------------------------------------
+   Las reglas de abajo van dentro de una consulta de 640px a propósito. El
+   resto del capítulo se activa con `[data-movimiento]` a secas —vale para
+   móvil y escritorio— pero el carrusel no puede: apila tres tarjetas con
+   perspectiva, y bajo 640px la activa quedaba en 148px de ancho con la
+   captura dentro a 98px. El texto salía a dos palabras por línea y las
+   vecinas se le montaban encima.
+
+   Bajo ese ancho manda la grilla estática de una columna que ya existe arriba:
+   las tres plataformas, a ancho completo, una debajo de otra. No es una
+   versión degradada, es la misma información en el orden que cabe.
+   ========================================================================== */
+@media (min-width: 640px) {
+  [data-movimiento] .ini-carrusel__controles {
+    display: flex;
+  }
+
+  [data-movimiento] .ini-carrusel {
+    display: block;
+    position: relative;
+    height: clamp(34rem, 68svh, 44rem);
+    padding-inline: 0;
+    perspective: 1500px;
+    perspective-origin: 50% 46%;
+    transform-style: preserve-3d;
+  }
+
+  [data-movimiento] .ini-carrusel__tarjeta {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* 62vw entre 640 y 1024px: con el 38vw de escritorio la tarjeta se
+       quedaba en 243px en una tablet y volvía a estrangular el texto. */
+    width: min(30rem, 62vw);
+    margin: 0;
+    transform-style: preserve-3d;
+    /* El orden importa: primero se centra, después se separa, se hunde y gira. */
+    transform: translate(-50%, -50%) translateX(calc(var(--off) * 58%))
+      translateZ(calc(var(--abs) * -180px)) rotateY(calc(var(--off) * -32deg));
+    opacity: calc(1 - var(--abs) * 0.4);
+    z-index: calc(10 - var(--abs));
+    box-shadow: 0 18px 50px -26px rgb(0 26 43 / 0.35);
+    transition:
+      transform 620ms var(--ease-smooth),
+      opacity 620ms var(--ease-smooth),
+      box-shadow 620ms var(--ease-smooth);
+  }
+
+  [data-movimiento] .ini-carrusel__tarjeta[data-activa] {
+    opacity: 1;
+    box-shadow: 0 34px 74px -32px rgb(0 26 43 / 0.45);
+  }
+
+  /* Más allá de las vecinas inmediatas no se dibuja: con una cuarta plataforma
+     entraría por detrás en vez de aparecer de la nada en el costado. */
+  [data-movimiento] .ini-carrusel__tarjeta[aria-hidden="true"] {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
-[data-movimiento] .ini-carrusel {
-  display: block;
-  position: relative;
-  height: clamp(34rem, 68svh, 44rem);
-  padding-inline: 0;
-  perspective: 1500px;
-  perspective-origin: 50% 46%;
-  transform-style: preserve-3d;
-}
-
-[data-movimiento] .ini-carrusel__tarjeta {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(30rem, 38vw);
-  margin: 0;
-  transform-style: preserve-3d;
-  /* El orden importa: primero se centra, después se separa, se hunde y gira. */
-  transform: translate(-50%, -50%) translateX(calc(var(--off) * 58%))
-    translateZ(calc(var(--abs) * -180px)) rotateY(calc(var(--off) * -32deg));
-  opacity: calc(1 - var(--abs) * 0.4);
-  z-index: calc(10 - var(--abs));
-  box-shadow: 0 18px 50px -26px rgb(0 26 43 / 0.35);
-  transition:
-    transform 620ms var(--ease-smooth),
-    opacity 620ms var(--ease-smooth),
-    box-shadow 620ms var(--ease-smooth);
-}
-
-[data-movimiento] .ini-carrusel__tarjeta[data-activa] {
-  opacity: 1;
-  box-shadow: 0 34px 74px -32px rgb(0 26 43 / 0.45);
-}
-
-/* Más allá de las vecinas inmediatas no se dibuja: con una cuarta plataforma
-   entraría por detrás en vez de aparecer de la nada en el costado. */
-[data-movimiento] .ini-carrusel__tarjeta[aria-hidden="true"] {
-  opacity: 0;
-  pointer-events: none;
+@media (min-width: 1024px) {
+  [data-movimiento] .ini-carrusel__tarjeta {
+    width: min(30rem, 38vw);
+  }
 }
 
 /* Flechas del carrusel: flanquean las tarjetas. En el encabezado quedaban
@@ -1187,38 +1211,42 @@
   display: none;
 }
 
-[data-movimiento] .ini-carrusel__flecha {
-  position: absolute;
-  top: 50%;
-  z-index: 20;
-  display: flex;
-  height: 3rem;
-  width: 3rem;
-  translate: 0 -50%;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-steel-300);
-  background: #fff;
-  color: var(--color-steel-700);
-  box-shadow: 0 10px 30px -18px rgb(0 26 43 / 0.5);
-  transition:
-    border-color 200ms var(--ease-smooth),
-    color 200ms var(--ease-smooth);
-}
+/* Las flechas solo existen donde existe el carrusel: bajo 640px las
+   tarjetas están apiladas y no hay nada que desplazar. */
+@media (min-width: 640px) {
+  [data-movimiento] .ini-carrusel__flecha {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+    display: flex;
+    height: 3rem;
+    width: 3rem;
+    translate: 0 -50%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-steel-300);
+    background: #fff;
+    color: var(--color-steel-700);
+    box-shadow: 0 10px 30px -18px rgb(0 26 43 / 0.5);
+    transition:
+      border-color 200ms var(--ease-smooth),
+      color 200ms var(--ease-smooth);
+  }
 
-[data-movimiento] .ini-carrusel__flecha:hover {
-  border-color: var(--color-orange);
-  color: var(--color-orange);
-}
+  [data-movimiento] .ini-carrusel__flecha:hover {
+    border-color: var(--color-orange);
+    color: var(--color-orange);
+  }
 
-/* Alineadas con la canaleta del contenedor de 1320px, con un mínimo de 5,5rem:
-   con el mínimo anterior la flecha izquierda se montaba sobre el índice de
-   capítulos, que ocupa hasta unos 62px desde el borde. El mínimo es el mismo en
-   las dos para que queden simétricas. */
-[data-movimiento] .ini-carrusel__flecha--izq {
-  left: max(5.5rem, calc((100vw - 1320px) / 2));
-}
+  /* Alineadas con la canaleta del contenedor de 1320px, con un mínimo de 5,5rem:
+     con el mínimo anterior la flecha izquierda se montaba sobre el índice de
+     capítulos, que ocupa hasta unos 62px desde el borde. El mínimo es el mismo en
+     las dos para que queden simétricas. */
+  [data-movimiento] .ini-carrusel__flecha--izq {
+    left: max(5.5rem, calc((100vw - 1320px) / 2));
+  }
 
-[data-movimiento] .ini-carrusel__flecha--der {
-  right: max(5.5rem, calc((100vw - 1320px) / 2));
+  [data-movimiento] .ini-carrusel__flecha--der {
+    right: max(5.5rem, calc((100vw - 1320px) / 2));
+  }
 }

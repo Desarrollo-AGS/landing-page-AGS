@@ -60,7 +60,7 @@ export const en: Diccionario = {
       antetitulo: "Industrial air operations since 2015",
       titulo: ["We turn height", "into safe ground"],
       bajada:
-        "Thermal inspection, surveying and cleaning with drones for mining, energy and construction. No scaffolding, no production shutdown.",
+        "Thermal inspection, surveying and cleaning with drones for mining, energy and construction.",
       ctaPrimario: "Request a quote",
       ctaSecundario: "View services",
       altPoster: "Aerial view of desert hills rising above a sea of clouds",
@@ -72,7 +72,7 @@ export const en: Diccionario = {
     clientes: { capitulo: "Trusted by" },
     servicios: {
       capitulo: "The services",
-      titulo: ["Seven operations, one", "rule: nobody climbs"],
+      titulo: ["Seven operations,", "no falls from height"],
       parrafo:
         "Each service replaces a task that today needs scaffolding, a man basket or a production shutdown. Capture takes hours, and the installation keeps running.",
       pieFoto: "Georeferenced orthomosaic: the survey deliverable.",
@@ -80,28 +80,23 @@ export const en: Diccionario = {
         "Orthomosaic from an aerial photogrammetric survey, with a UTM coordinate grid, contour lines, ground control points and the boundary of the surveyed area",
     },
     faena: {
-      capitulo: "Operation recorded on site",
+      capitulo: "Real operation at a mine site",
       registroReal: "Real footage",
-      titulo: ["Mine site façade,", "cleaned in flight"],
+      titulo: ["Industrial façade cleaning", "with drones, without", "stopping production"],
       parrafo:
-        "Real footage of an operation on a live industrial structure. Nobody climbed, and the plant never stopped.",
+        "At this mine site we cleaned a hard-to-reach industrial façade without erecting scaffolding or lifting workers. The work was carried out with the plant running, prioritising safety and operational continuity.",
       altFoto: "Façade of a mining facility during drone cleaning",
       ariaVideo: "Footage of a drone façade-cleaning operation at an active mine site",
       razones: [
         {
-          titulo: "No work at height",
+          titulo: "Less exposure to work at height",
           detalle:
-            "Nobody climbs. It removes both the fall risk for personnel and the permit logistics that come with it.",
+            "Our drones clean façades and elevated structures, reducing the need for scaffolding, man baskets or platforms to reach them.",
         },
         {
-          titulo: "No production shutdown",
+          titulo: "The operation keeps running",
           detalle:
-            "Work is done on live structures, with no scaffolding to erect and no extended production stoppages to coordinate.",
-        },
-        {
-          titulo: "No access limits",
-          detalle:
-            "It reaches surfaces that scaffolding and cranes cannot cover, including roofs and tall structures.",
+            "On this project we cleaned without stopping production. A solution that lets live installations be worked on, reducing interference with operational processes.",
         },
       ],
     },
@@ -109,7 +104,6 @@ export const en: Diccionario = {
       capitulo: "About us",
       titulo: ["{anios} years flying drones", "on industrial sites"],
       altFoto: "The AGS Soluciones team gathered in front of the company sign at their offices",
-      extension: "Today we extend the service to {paises}, from our base in Antofagasta.",
       cta: "About AGS",
     },
     casos: {
@@ -681,7 +675,6 @@ export const en: Diccionario = {
 
     nosotros: {
       titulo: "{anios} years turning height into safe ground",
-      bajada: "From Antofagasta, operating in {paises}.",
       secciones: {
         quienesSomos: "Who we are",
         mision: "Mission and vision",

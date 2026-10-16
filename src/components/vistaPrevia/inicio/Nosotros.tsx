@@ -3,7 +3,6 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { BotonEnlace } from "@/components/ui/Boton";
 import { anioFundacion, quienesSomosExtracto, ventajas } from "@/content/nosotros";
-import { enumerar, site } from "@/content/site";
 import { Encabezado, Lineas } from "@/components/vistaPrevia/iao/Tipografia";
 import { diccionario } from "@/content/i18n";
 import type { Idioma } from "@/lib/idioma";
@@ -66,15 +65,7 @@ export function Nosotros({ lang }: { lang: Idioma }) {
               />
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-600">
-              {t.nosotros.extracto}{" "}
-              {t.inicio.nosotros.extension.replace(
-                "{paises}",
-                enumerar(
-                  site.operacion.slice(1).map((pa) => t.ui.paises[pa]),
-                  t.ui.conjuncion,
-                  t.ui.separador,
-                ),
-              )}
+              {t.nosotros.extracto}
             </p>
 
             <ul className="mt-9 space-y-5">

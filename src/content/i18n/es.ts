@@ -52,7 +52,7 @@ export const es: Diccionario = {
       antetitulo: "Operaciones aéreas industriales desde 2015",
       titulo: ["Convertimos la altura", "en un terreno seguro"],
       bajada:
-        "Inspección termográfica, topografía y limpieza con drones para minería, energía y construcción. Sin andamios, sin detener la planta.",
+        "Inspección termográfica, topografía y limpieza con drones para minería, energía y construcción.",
       ctaPrimario: "Cotizar un servicio",
       ctaSecundario: "Ver servicios",
       altPoster: "Vista aérea de cerros del desierto que emergen sobre un mar de nubes",
@@ -64,7 +64,7 @@ export const es: Diccionario = {
     clientes: { capitulo: "Confían en nosotros" },
     servicios: {
       capitulo: "Los servicios",
-      titulo: ["Siete operaciones, un mismo", "criterio: nadie sube"],
+      titulo: ["Siete operaciones,", "sin caídas en altura"],
       parrafo:
         "Cada servicio reemplaza una tarea que hoy se hace con andamio, canasto o corte de producción. La captura toma horas y la instalación sigue funcionando.",
       pieFoto: "Ortomosaico georreferenciado: el entregable del levantamiento.",
@@ -72,29 +72,24 @@ export const es: Diccionario = {
         "Ortomosaico de un levantamiento aerofotogramétrico, con grilla de coordenadas UTM, curvas de nivel, puntos de control en terreno y el polígono del área levantada",
     },
     faena: {
-      capitulo: "Operación registrada en faena",
+      capitulo: "Operación real en faena minera",
       registroReal: "Registro real",
-      titulo: ["Fachada de faena minera,", "limpiada en vuelo"],
+      titulo: ["Limpieza de fachadas", "industriales con drones,", "sin detener la producción"],
       parrafo:
-        "Registro real de una operación sobre estructura industrial activa. Nadie subió, y la planta no se detuvo.",
+        "En esta faena minera realizamos la limpieza de una fachada industrial de difícil acceso, sin instalar andamios ni elevar trabajadores. Una intervención ejecutada con la planta en funcionamiento, priorizando la seguridad y la continuidad operacional.",
       altFoto: "Fachada de una instalación minera durante la limpieza con dron",
       ariaVideo:
         "Registro de una operación de limpieza de fachada con dron, en faena minera activa",
       razones: [
         {
-          titulo: "Sin trabajo en altura",
+          titulo: "Menos exposición a trabajos en altura",
           detalle:
-            "Nadie sube. Se elimina la exposición del personal al riesgo de caída y la logística de permisos que la acompaña.",
+            "Nuestros drones permiten limpiar fachadas y estructuras elevadas, reduciendo la necesidad de utilizar andamios, canastillos o plataformas para acceder a ellas.",
         },
         {
-          titulo: "Sin detener la planta",
+          titulo: "La operación continúa",
           detalle:
-            "Se opera sobre estructuras activas, sin montar andamios ni coordinar cortes prolongados de producción.",
-        },
-        {
-          titulo: "Sin límite de acceso",
-          detalle:
-            "Se alcanzan superficies que el andamio y la grúa no cubren, incluidas cubiertas y estructuras de gran altura.",
+            "En este proyecto realizamos la limpieza sin detener la producción. Una solución que permite intervenir instalaciones activas, reduciendo las interferencias con los procesos operacionales.",
         },
       ],
     },
@@ -102,7 +97,6 @@ export const es: Diccionario = {
       capitulo: "Quiénes somos",
       titulo: ["{anios} años operando drones", "en faena industrial"],
       altFoto: "Equipo de AGS Soluciones reunido frente al letrero corporativo en sus oficinas",
-      extension: "Hoy extendemos el servicio a {paises}, desde nuestra base en Antofagasta.",
       cta: "Conocer AGS",
     },
     casos: {
@@ -675,7 +669,6 @@ export const es: Diccionario = {
 
     nosotros: {
       titulo: "{anios} años convirtiendo la altura en un terreno seguro",
-      bajada: "Desde Antofagasta, operando en {paises}.",
       secciones: {
         quienesSomos: "Quiénes somos",
         mision: "Misión y visión",

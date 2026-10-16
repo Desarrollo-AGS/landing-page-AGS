@@ -43,6 +43,8 @@ const interTight = Inter_Tight({
  */
 const notoTC = Noto_Sans_TC({
   weight: ["400", "500", "600", "700"],
+  // Google no ofrece el subconjunto CJK como opción de precarga.
+  preload: false,
   variable: "--font-cjk",
   display: "swap",
 });
