@@ -154,12 +154,16 @@ export function Portada({ lang }: { lang: Idioma }) {
 
             max-w a la mitad: el vacío de la derecha es donde vuela el dron. */}
         <div data-portada-texto className="my-auto max-w-[46rem] lg:max-w-[52%]">
-          <p className="eyebrow iao-entrada-suave text-orange" style={retraso(60)}>
-            {t.inicio.portada.antetitulo}
-          </p>
-
-          <h1 className="mt-5 text-[2.5rem] font-bold leading-[1.04] tracking-[-0.03em] text-white [text-shadow:0_2px_24px_rgb(0_26_43/0.5)] sm:text-[3.4rem] lg:text-d1">
-            <Lineas lineas={t.inicio.portada.titulo} className="iao-entrada" />
+          {/* El antetítulo va DENTRO del H1: es el que nombra la búsqueda
+              ("Servicios con drones en Antofagasta") y el eslogan, que es lo
+              que se ve grande, no la nombra. Visualmente no cambia nada. */}
+          <h1>
+            <span className="eyebrow iao-entrada-suave block text-orange" style={retraso(60)}>
+              {t.inicio.portada.antetitulo}
+            </span>{" "}
+            <span className="mt-5 block text-[2.5rem] font-bold leading-[1.04] tracking-[-0.03em] text-white [text-shadow:0_2px_24px_rgb(0_26_43/0.5)] sm:text-[3.4rem] lg:text-d1">
+              <Lineas lineas={t.inicio.portada.titulo} className="iao-entrada" />
+            </span>
           </h1>
 
           <p

@@ -33,7 +33,6 @@ export const zh: Diccionario = {
     rutaNavegacion: "導覽路徑",
     conjuncion: "與",
     separador: "、",
-    paises: { Chile: "智利", Perú: "秘魯", Argentina: "阿根廷" },
     instagram: "AGS Soluciones 的 Instagram，另開新視窗",
     linkedin: "AGS Soluciones 的 LinkedIn，另開新視窗",
     nuevaPestana: "另開新視窗",
@@ -66,7 +65,7 @@ export const zh: Diccionario = {
 
   inicio: {
     portada: {
-      antetitulo: "自 2015 年起的工業空中作業",
+      antetitulo: "安托法加斯塔無人機服務 · 自 2015 年起",
       titulo: ["我們讓高處", "成為安全的作業面"],
       bajada: "為礦業、能源與營建提供無人機熱影像檢測、測繪與清洗。",
       ctaPrimario: "索取報價",
@@ -214,7 +213,7 @@ export const zh: Diccionario = {
       "/": {
         titulo: "安托法加斯塔工業無人機服務：礦業、能源與營建",
         descripcion:
-          "AGS Soluciones 在智利、秘魯與阿根廷操作工業無人機：太陽能電廠熱影像檢測、輸電線路檢測、測繪與航空攝影測量、外牆清洗與工業設施檢測。",
+          "AGS Soluciones 在智利操作工業無人機：太陽能電廠熱影像檢測、輸電線路檢測、測繪與航空攝影測量、外牆清洗與工業設施檢測。",
       },
       "/servicios": {
         titulo: "礦業、能源與營建的無人機服務",
@@ -222,14 +221,14 @@ export const zh: Diccionario = {
           "七項工業空中作業：太陽能電廠熱影像檢測、輸電線路檢測、測繪與航空攝影測量、外牆清洗、工業設施檢測、堆浸場灑水控制與影像製作。",
       },
       "/casos": {
-        titulo: "已完成專案與成功案例",
+        titulo: "安托法加斯塔無人機作業實績",
         descripcion:
           "礦業與能源領域的成功案例：在智利完成的太陽能電廠熱影像檢測、輸電線路檢視與地形測繪。",
       },
       "/nosotros": {
         titulo: "關於我們：我們是誰、使命、願景與歷程",
         descripcion:
-          "AGS Soluciones 自 {anio} 年起從安托法加斯塔出發操作工業無人機，服務智利、秘魯與阿根廷的礦業、能源與營建產業。",
+          "AGS Soluciones 自 {anio} 年起從安托法加斯塔出發操作工業無人機，服務智利的礦業、能源與營建產業。",
       },
       "/nosotros/brochure": {
         titulo: "AGS 2026 電子型錄",
@@ -259,6 +258,10 @@ export const zh: Diccionario = {
     "inspecciones-fotovoltaicas": {
       titulo: "太陽能電廠檢測",
       tituloCorto: "太陽能電廠檢測",
+      tituloSeo: "無人機太陽能電廠熱影像檢測",
+      descripcionSeo:
+        "以無人機進行太陽能電廠熱影像檢測：辨識、分類並排序全部異常，標示於互動式地理空間數位孿生。",
+      h1: "以無人機進行太陽能電廠熱影像檢測",
       resumen: "快速、精確、可直接執行。",
       descripcion:
         "我們是智利太陽能電廠熱影像檢測的領導者。我們處理熱影像資料，辨識、分類並排序全部異常，並將每一項指派到數位孿生上。我們提供快速且可信的報告、細緻的異常分級、標示精確位置的互動式地理空間平台，以及既往檢測的數位化，讓您握有完整的歷史紀錄。",
@@ -272,6 +275,10 @@ export const zh: Diccionario = {
     "inspeccion-lineas-electricas": {
       titulo: "輸電線路檢測",
       tituloCorto: "輸電線路檢測",
+      tituloSeo: "無人機輸電線路檢測",
+      descripcionSeo:
+        "以無人機檢測輸電線路：熱影像偵測熱點、目視檢測損傷與鏽蝕、LiDAR 掃描植生與導線，並附報告。",
+      h1: "以無人機進行輸電線路檢測",
       resumen: "預先掌握風險，維持供電不中斷。",
       descripcion:
         "我們讓電力設施維持最佳狀態且不中斷運轉。我們提供可偵測熱點的熱影像檢測、可辨識損傷與鏽蝕的目視檢測、可繪製植生與干擾風險的 LiDAR 雷射掃描、可偵測磨耗與斷股的導線檢測，以及附具體建議的詳細報告。",
@@ -285,6 +292,10 @@ export const zh: Diccionario = {
     "topografia-aerofotogrametria": {
       titulo: "無人機測繪與航空攝影測量",
       tituloCorto: "測繪與航空攝影測量",
+      tituloSeo: "安托法加斯塔無人機測繪",
+      descripcionSeo:
+        "在安托法加斯塔以無人機測繪：公分級精度的 3D 模型與地形圖，數小時完成資料採集，可進入偏遠地形。",
+      h1: "安托法加斯塔無人機測繪與航空攝影測量",
       resumen: "快速、精確、安全。",
       descripcion:
         "我們以高解析度相機產製精確的 3D 模型與地形圖。我們提供優於傳統方法的公分級精度、以小時而非數日或數週完成的資料採集、可進入偏遠或難以到達的地形，以及供專案規劃使用的 3D 視覺化與進階互動分析。",
@@ -298,6 +309,10 @@ export const zh: Diccionario = {
     "limpieza-fachadas-maquinarias": {
       titulo: "無人機外牆與機具清洗",
       tituloCorto: "外牆與機具清洗",
+      tituloSeo: "安托法加斯塔無人機外牆清洗",
+      descripcionSeo:
+        "在安托法加斯塔以無人機清洗外牆與機具：免搭鷹架、免人員懸吊，縮短停機時間並可觸及難以到達的區域。",
+      h1: "安托法加斯塔無人機外牆與機具清洗",
       resumen: "快速、精確、安全。",
       descripcion:
         "我們以先進技術清除污垢、粉塵與污染物，安全地完成外牆清洗，免除搭設鷹架或人員懸吊的需求。其效益包含：降低風險以提升安全、縮短停機時間以提高作業效率，以及可處理傳統方法無法觸及的區域。",
@@ -311,6 +326,10 @@ export const zh: Diccionario = {
     "inspeccion-instalaciones-industriales": {
       titulo: "工業設施檢測",
       tituloCorto: "工業設施檢測",
+      tituloSeo: "安托法加斯塔無人機工業設施檢測",
+      descripcionSeo:
+        "以無人機檢測工業設施：在高聳結構物與侷限空間擷取高解析度影像與影片，人員無須暴露於危險。",
+      h1: "以無人機進行工業設施檢測",
       resumen: "快速、精確、安全。",
       descripcion:
         "我們在不讓人員暴露於危險的情況下完成檢測，並具備在侷限空間與高聳結構物中飛行的能力。我們擷取高解析度影像與影片，呈現損傷、撕裂與鏽蝕。其效益包含無與倫比的精確度、縮短停機時間的效率與速度，以及可進入傳統方法無法到達或具危險性的區域。",
@@ -324,6 +343,10 @@ export const zh: Diccionario = {
     "control-riego-pilas-lixiviacion": {
       titulo: "堆浸場灑水分布控制",
       tituloCorto: "堆浸場灑水控制",
+      tituloSeo: "無人機堆浸場灑水控制",
+      descripcionSeo:
+        "以無人機控制堆浸場灑水分布：產製灑水分布圖與效率分析報告，提升灑水均勻度與金屬回收率。",
+      h1: "以無人機控制堆浸場灑水分布",
       resumen: "精確的資料，快速、安全，成本更低。",
       descripcion:
         "我們以搭載高解析度相機與感測器的無人機擷取堆浸場的詳細資料。我們產製灑水分布圖、含效率分析的客製化報告，並與既有的控制系統整合。其效益包含減少資源浪費、提升灑水均勻度以提高金屬回收率，以及節省水與化學藥劑的成本。",
@@ -337,6 +360,10 @@ export const zh: Diccionario = {
     "produccion-audiovisual": {
       titulo: "影像製作",
       tituloCorto: "影像製作",
+      tituloSeo: "安托法加斯塔無人機空拍",
+      descripcionSeo:
+        "在安托法加斯塔以無人機空拍與製作影像：用於簡報、行銷與內部溝通的企業宣傳影片。",
+      h1: "影像製作與無人機空拍",
       resumen: "能傳達客戶核心訊息的企業影像內容。",
       descripcion:
         "我們專精於製作具影響力的影像內容。我們提供能呈現企業形象的宣傳影片，可用於簡報、行銷與內部溝通。我們的優勢在於專業經驗、創意發想與對品質的堅持。服務包含比傳統方式更精準的影像擷取、以小時而非數日或數週完成的資料採集，以及可進入偏遠或限制進入的區域。",
@@ -485,6 +512,7 @@ export const zh: Diccionario = {
 
   software: {
     smartfield: {
+      tituloSeo: "SmartField：礦業檢測與發現事項管理平台",
       resuelve: "用於礦業作業檢測與發現事項智慧管理的地理空間平台。",
       descripcion:
         "它把高解析度正射影像、區域視覺化與觀察事項的追蹤整合在同一個環境中。每一項發現都附有影像、位置、日期、嚴重程度與負責人，並依地理區劃推進直到結案。",
@@ -502,6 +530,7 @@ export const zh: Diccionario = {
       },
     },
     smartlayout: {
+      tituloSeo: "SmartLayout：場域作業配置圖管理平台",
       resuelve: "在單一平台上設計、控管並發布場域的作業配置圖。",
       descripcion:
         "配置圖直接以圖層方式繪製在作業現場具地理坐標的正射影像上。每一次變更都須經審查與核准才會發布，並記錄作者、審查者與事由。現行版本透過 QR 碼發送，可在現場以手機查閱，甚至能以 GPS 定位使用者，顯示其所在位置的配置圖。",
@@ -521,6 +550,7 @@ export const zh: Diccionario = {
       },
     },
     smartlix: {
+      tituloSeo: "SmartLix：堆浸場灑水監控平台",
       resuelve: "在單一平台上監看、分析並優化堆浸場的灑水作業。",
       descripcion:
         "SmartLix 整合灑水區域與模組的視覺化、熱影像分析、正射影像與 3D 模型，協助現場做出更快、更精準的作業決策。",
@@ -541,7 +571,7 @@ export const zh: Diccionario = {
     extracto:
       "AGS Soluciones Industriales Aéreas 是一家位於安托法加斯塔的公司，專精於為礦業、能源與營建等產業提供空中服務與無人機資料智能。",
     quienesSomos:
-      "AGS Soluciones Industriales Aéreas 是一家位於安托法加斯塔的公司，專精於為礦業、能源與營建等產業提供空中服務與無人機資料智能。憑藉在智利北部超過 9 年的經驗，我們把技術檢測與現場採集轉化為端到端的解決方案，為客戶的安全與作業效率帶來最大效益。",
+      "AGS Soluciones Industriales Aéreas 是一家位於安托法加斯塔的公司，專精於為礦業、能源與營建等產業提供空中服務與無人機資料智能。憑藉在智利北部{anios} 年的經驗，我們把技術檢測與現場採集轉化為端到端的解決方案，為客戶的安全與作業效率帶來最大效益。",
     mision:
       "透過無人機技術、軟體開發與人工智慧，提供整合性的空中與工業解決方案，優化作業連續性、降低人員風險，並把現場資料轉化為高價值的策略決策。",
     vision:
@@ -551,7 +581,7 @@ export const zh: Diccionario = {
     ventajas: [
       {
         titulo: "經驗與資歷",
-        detalle: "超過 9 年為礦業、能源與工業部門提供技術解決方案。",
+        detalle: "{anios} 年來為礦業、能源與工業部門提供技術解決方案。",
       },
       {
         titulo: "應用創新",
@@ -627,7 +657,7 @@ export const zh: Diccionario = {
     },
 
     casos: {
-      titulo: "成功案例",
+      titulo: "安托法加斯塔無人機作業實績",
       bajada: "電廠、地點與實測面積。所列數字皆為各專案已公開的資料。",
       confian: "合作夥伴",
       grupos: {

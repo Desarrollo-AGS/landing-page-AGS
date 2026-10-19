@@ -33,8 +33,6 @@ export interface Diccionario {
     conjuncion: string;
     /** Separador entre los elementos de una lista. El chino usa 、, no coma. */
     separador: string;
-    /** Los países de operación. "Perú" lleva tilde solo en español. */
-    paises: Record<string, string>;
     instagram: string;
     linkedin: string;
     nuevaPestana: string;
@@ -230,6 +228,18 @@ export interface Diccionario {
       titulo: string;
       /** Para navbar, footer y el selector del formulario, donde el largo no cabe. */
       tituloCorto: string;
+      /**
+       * `<title>` de la página, escrito para la búsqueda a la que apunta el
+       * servicio. Sin él se arma con `paginas.servicioDetalle.tituloSeo`.
+       */
+      tituloSeo?: string;
+      /**
+       * Meta descripción escrita a mano: 155 caracteres en español e inglés,
+       * 78 en chino (ver `recortarDescripcion`). Sin ella se recorta el texto.
+       */
+      descripcionSeo?: string;
+      /** H1 de la página del servicio. Sin él, `titulo`. */
+      h1?: string;
       resumen: string;
       descripcion: string;
       /** Tres, en orden: el primero es el que muestra el inicio. */
@@ -264,6 +274,8 @@ export interface Diccionario {
   software: Record<
     string,
     {
+      /** `<title>` de la ficha: el nombre más lo que resuelve. Sin él, `seo.softwareTitulo`. */
+      tituloSeo?: string;
       resuelve: string;
       descripcion: string;
       capturaAlt: string;

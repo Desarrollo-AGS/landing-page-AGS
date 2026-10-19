@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const idioma = esIdioma(lang) ? lang : IDIOMA_POR_DEFECTO;
   const t = diccionario(idioma);
   return metadatosDe({
-    titulo: t.seo.softwareTitulo.replace("{producto}", p.nombre),
+    titulo: t.software[slug].tituloSeo ?? t.seo.softwareTitulo.replace("{producto}", p.nombre),
     // `resuelve` sola ronda los 100 caracteres y desaprovecha el snippet:
     // se le suma la descripción y se recorta al presupuesto del idioma.
     descripcion: recortarDescripcion(

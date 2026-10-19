@@ -43,13 +43,13 @@ export const site = {
     aviso: "Todos los derechos reservados",
   },
 
-  /** Territorio de operación, verificado en el texto de "Quiénes somos". */
-  operacion: ["Chile", "Perú", "Argentina"],
+  /** Territorio de operación. AGS opera solo en Chile. */
+  operacion: ["Chile"],
 } as const;
 
 /**
- * Une una lista: "Chile, Perú y Argentina", "Chile, Peru and Argentina",
- * "智利、秘魯與阿根廷".
+ * Une una lista: "minería, energía y construcción", "mining, energy and
+ * construction", "礦業、能源與營建".
  *
  * El separador es un parámetro y no una coma fija porque el chino no enumera
  * con la coma occidental: lleva 、, y una lista con ", " en medio se lee como

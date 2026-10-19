@@ -18,51 +18,49 @@ import { ETIQUETA_HTML, IDIOMAS, IDIOMA_POR_DEFECTO, type Idioma, rutaDe } from 
  * que lee primero al descubrir una página nueva.
  */
 
-/** Las rutas fijas con su prioridad. Sin prefijo de idioma: lo pone `rutaDe`. */
+/**
+ * Las rutas fijas. Sin prefijo de idioma: lo pone `rutaDe`.
+ *
+ * Sin `priority` ni `changefreq`: Google los ignora. Y sin `lastmod`: la única
+ * fecha disponible era la del build, que cambia en cada despliegue aunque la
+ * página no cambie, y Google deja de confiar en un `lastmod` que siempre dice
+ * "hoy". Solo las noticias, que tienen fecha real, lo declaran.
+ */
 const FIJAS = [
-  { ruta: "/", priority: 1, changeFrequency: "monthly" },
-  { ruta: "/servicios", priority: 0.9, changeFrequency: "monthly" },
-  { ruta: "/casos", priority: 0.9, changeFrequency: "monthly" },
-  { ruta: "/nosotros", priority: 0.8, changeFrequency: "yearly" },
-  { ruta: "/nosotros/brochure", priority: 0.8, changeFrequency: "monthly" },
-  { ruta: "/nosotros/certificaciones", priority: 0.7, changeFrequency: "monthly" },
-  { ruta: "/noticias", priority: 0.7, changeFrequency: "weekly" },
-  { ruta: "/contacto", priority: 0.9, changeFrequency: "yearly" },
-] as const satisfies readonly {
-  ruta: string;
-  priority: number;
-  changeFrequency: NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
-}[];
+  "/",
+  "/servicios",
+  "/casos",
+  "/nosotros",
+  "/nosotros/brochure",
+  "/nosotros/certificaciones",
+  "/noticias",
+  "/contacto",
+];
 
-/** Los idiomas alternativos de una ruta, en el formato que espera el sitemap. */
-function alternatesDe(ruta: string) {
+/**
+ * Los idiomas alternativos de una ruta, en el formato que espera el sitemap,
+ * más `x-default` al español: lo mismo que declara el `<head>` (`metadatosDe`).
+ */
+function alternatesDe(ruta: string, idiomas: readonly Idioma[] = IDIOMAS) {
   return {
-    languages: Object.fromEntries(
-      IDIOMAS.map((l) => [ETIQUETA_HTML[l], `${site.url}${rutaDe(l, ruta)}`]),
-    ),
+    languages: {
+      ...Object.fromEntries(
+        idiomas.map((l) => [ETIQUETA_HTML[l], `${site.url}${rutaDe(l, ruta)}`]),
+      ),
+      "x-default": `${site.url}${rutaDe(IDIOMA_POR_DEFECTO, ruta)}`,
+    },
   };
 }
 
 /** La misma ruta en todos los idiomas, cada una apuntando a las demás. */
-function porIdioma(
-  ruta: string,
-  extra: Omit<MetadataRoute.Sitemap[number], "url" | "alternates">,
-): MetadataRoute.Sitemap {
+function porIdioma(ruta: string): MetadataRoute.Sitemap {
   return IDIOMAS.map((l) => ({
     url: `${site.url}${rutaDe(l, ruta)}`,
     alternates: alternatesDe(ruta),
-    // La versión en el idioma del negocio manda: la traducción entra con algo
-    // menos de prioridad, no compitiendo de igual a igual con su original.
-    ...extra,
-    priority:
-      extra.priority !== undefined && l !== IDIOMA_POR_DEFECTO
-        ? Math.round(extra.priority * 90) / 100
-        : extra.priority,
   }));
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const hoy = new Date();
   const noticias = await getNoticias();
   // Una nota se publica en otro idioma SOLO si tiene traducción propia, y cada
   // idioma se mira por separado: una nota puede estar traducida al inglés y no
@@ -77,30 +75,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   return [
-    ...FIJAS.flatMap(({ ruta, ...resto }) => porIdioma(ruta, { ...resto, lastModified: hoy })),
-    ...servicios.flatMap((s) =>
-      porIdioma(`/servicios/${s.slug}`, {
-        lastModified: hoy,
-        changeFrequency: "monthly",
-        priority: 0.8,
-      }),
-    ),
-    ...productos.flatMap((p) =>
-      porIdioma(`/software/${p.slug}`, {
-        lastModified: hoy,
-        changeFrequency: "monthly",
-        priority: 0.7,
-      }),
-    ),
+    ...FIJAS.flatMap(porIdioma),
+    ...servicios.flatMap((s) => porIdioma(`/servicios/${s.slug}`)),
+    ...productos.flatMap((p) => porIdioma(`/software/${p.slug}`)),
     ...noticias.flatMap((n) => {
       const ruta = `/noticias/${n.slug}`;
-      const entrada = {
-        // Sin fecha propia, la del build: es lo que hay, y mentirle al sitemap
-        // con una fecha inventada no mejora nada.
-        lastModified: n.fecha ? new Date(n.fecha) : hoy,
-        changeFrequency: "yearly" as const,
-        priority: 0.6,
-      };
       const idiomas = IDIOMAS.filter(
         (l) => l === IDIOMA_POR_DEFECTO || traducidas.get(l)?.has(n.slug),
       );
@@ -108,14 +87,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${site.url}${rutaDe(l, ruta)}`,
         // Los alternates de una nota listan solo los idiomas en que de verdad
         // existe, no los tres por defecto.
-        alternates: {
-          languages: Object.fromEntries(
-            idiomas.map((o) => [ETIQUETA_HTML[o], `${site.url}${rutaDe(o, ruta)}`]),
-          ),
-        },
-        ...entrada,
-        priority:
-          l === IDIOMA_POR_DEFECTO ? entrada.priority : Math.round(entrada.priority * 90) / 100,
+        alternates: alternatesDe(ruta, idiomas),
+        // Sin fecha propia, sin `lastmod`: una fecha inventada no mejora nada.
+        ...(n.fecha ? { lastModified: new Date(n.fecha) } : {}),
       }));
     }),
   ];

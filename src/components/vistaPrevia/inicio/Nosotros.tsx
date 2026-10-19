@@ -77,7 +77,7 @@ export function Nosotros({ lang }: { lang: Idioma }) {
                       {v.titulo}
                     </h3>
                     <p className="mt-1 text-[0.9375rem] leading-relaxed text-steel-600">
-                      {v.detalle}
+                      {v.detalle.replace("{anios}", String(anios))}
                     </p>
                   </div>
                 </li>

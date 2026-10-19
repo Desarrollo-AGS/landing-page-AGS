@@ -88,7 +88,7 @@ export default async function PaginaNosotros({ params }: Props) {
               <span className="rule-accent mb-6" aria-hidden="true" />
               <h2 className="text-d3 text-steel-900">{pag.quienesSomos}</h2>
               <p className="mt-6 text-[1.0625rem] leading-relaxed text-steel-700">
-                {t.nosotros.quienesSomos}
+                {t.nosotros.quienesSomos.replace("{anios}", String(anios))}
               </p>
 
               <ul className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -98,7 +98,9 @@ export default async function PaginaNosotros({ params }: Props) {
                     <h3 className="mt-4 text-[0.9375rem] font-semibold text-steel-900">
                       {v.titulo}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-steel-600">{v.detalle}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-steel-600">
+                      {v.detalle.replace("{anios}", String(anios))}
+                    </p>
                   </li>
                 ))}
               </ul>

@@ -15,7 +15,6 @@ export const es: Diccionario = {
     rutaNavegacion: "Ruta de navegación",
     conjuncion: " y ",
     separador: ", ",
-    paises: { Chile: "Chile", Perú: "Perú", Argentina: "Argentina" },
     instagram: "Instagram de AGS Soluciones, se abre en una pestaña nueva",
     linkedin: "LinkedIn de AGS Soluciones, se abre en una pestaña nueva",
     nuevaPestana: "se abre en una pestaña nueva",
@@ -49,7 +48,7 @@ export const es: Diccionario = {
 
   inicio: {
     portada: {
-      antetitulo: "Operaciones aéreas industriales desde 2015",
+      antetitulo: "Servicios con drones en Antofagasta · desde 2015",
       titulo: ["Convertimos la altura", "en un terreno seguro"],
       bajada:
         "Inspección termográfica, topografía y limpieza con drones para minería, energía y construcción.",
@@ -202,9 +201,9 @@ export const es: Diccionario = {
   seo: {
     paginas: {
       "/": {
-        titulo: "Drones industriales en Antofagasta",
+        titulo: "Servicios con drones en Antofagasta",
         descripcion:
-          "Inspección termográfica de plantas fotovoltaicas, líneas eléctricas, topografía y limpieza de fachadas con drones. Operamos en Chile, Perú y Argentina.",
+          "Servicio con drones en Antofagasta para minería, energía e industria: termografía de plantas solares, líneas eléctricas, topografía y limpieza de fachadas.",
       },
       "/servicios": {
         titulo: "Servicios con drones: minería y energía",
@@ -212,14 +211,14 @@ export const es: Diccionario = {
           "Siete operaciones aéreas: termografía fotovoltaica, líneas eléctricas, topografía, limpieza de fachadas, inspección industrial y riego en pilas.",
       },
       "/casos": {
-        titulo: "Proyectos ejecutados y casos de éxito",
+        titulo: "Trabajos con drones en Antofagasta",
         descripcion:
-          "Casos de éxito en minería y energía: termografía en plantas fotovoltaicas, revisión de líneas eléctricas y levantamientos topográficos en Chile.",
+          "Trabajos con drones en Antofagasta y el norte de Chile: termografía de plantas solares, inspección de líneas eléctricas y topografía para minería.",
       },
       "/nosotros": {
         titulo: "Quiénes somos, misión e historia",
         descripcion:
-          "AGS Soluciones opera drones industriales desde {anio} en Antofagasta, con servicios en Chile, Perú y Argentina para minería, energía y construcción.",
+          "AGS Soluciones opera drones industriales desde {anio} en Antofagasta, con servicios en Chile para minería, energía y construcción.",
       },
       "/nosotros/brochure": {
         titulo: "Brochure AGS 2026",
@@ -250,6 +249,10 @@ export const es: Diccionario = {
     "inspecciones-fotovoltaicas": {
       titulo: "Inspecciones Fotovoltaicas",
       tituloCorto: "Inspecciones fotovoltaicas",
+      tituloSeo: "Inspección termográfica con drones en plantas solares",
+      descripcionSeo:
+        "Inspección termográfica de plantas fotovoltaicas con drones: clasificamos y priorizamos el 100% de las anomalías en un gemelo digital geoespacial.",
+      h1: "Inspección termográfica de plantas fotovoltaicas con drones",
       resumen: "Rápido. Preciso. Trabajable.",
       descripcion:
         "Somos líderes en inspecciones termográficas de plantas fotovoltaicas a nivel nacional. Procesamos imágenes térmicas identificando, clasificando y priorizando el 100% de las anomalías, asignadas a un gemelo digital. Ofrecemos entrega rápida de informes confiables, clasificación granular de anomalías, una plataforma digital geoespacial interactiva con ubicaciones exactas, y digitalización de inspecciones anteriores para contar con un histórico completo.",
@@ -264,6 +267,10 @@ export const es: Diccionario = {
     "inspeccion-lineas-electricas": {
       titulo: "Inspección de Líneas Eléctricas",
       tituloCorto: "Inspección de líneas eléctricas",
+      tituloSeo: "Inspección de líneas eléctricas con drones",
+      descripcionSeo:
+        "Inspección de líneas eléctricas con drones: termografía de puntos calientes, inspección visual y LiDAR de vegetación y conductores, con informe.",
+      h1: "Inspección de líneas eléctricas con drones",
       resumen: "Anticipa los riesgos y garantiza la continuidad de la operación.",
       descripcion:
         "Garantizamos el rendimiento óptimo de las instalaciones eléctricas sin interrupciones. Ofrecemos inspección termográfica que detecta puntos calientes, inspección visual que identifica daños y corrosión, inspección láser LiDAR que mapea riesgos de vegetación e interferencia, inspección de hebras de conductor que detecta desgaste y daños, e informes detallados con recomendaciones específicas.",
@@ -278,6 +285,10 @@ export const es: Diccionario = {
     "topografia-aerofotogrametria": {
       titulo: "Topografía con Drones. Aerofotogrametría",
       tituloCorto: "Topografía y aerofotogrametría",
+      tituloSeo: "Topografía con drones en Antofagasta",
+      descripcionSeo:
+        "Topografía con drones en Antofagasta: modelos 3D y mapas topográficos con precisión centimétrica, datos en horas y acceso a terrenos remotos.",
+      h1: "Topografía con drones y aerofotogrametría en Antofagasta",
       resumen: "Rápido. Preciso. Seguro.",
       descripcion:
         "Generamos modelos 3D y mapas topográficos precisos mediante cámaras de alta resolución. Ofrecemos precisión centimétrica que supera los métodos tradicionales, recopilación de datos en horas versus días o semanas, acceso a terrenos remotos o inaccesibles, y visualización 3D con análisis avanzados e interactivos para la planificación de proyectos.",
@@ -292,6 +303,10 @@ export const es: Diccionario = {
     "limpieza-fachadas-maquinarias": {
       titulo: "Limpieza de Fachadas y Maquinarias con Drones",
       tituloCorto: "Limpieza de fachadas y maquinarias",
+      tituloSeo: "Limpieza de fachadas con drones en Antofagasta",
+      descripcionSeo:
+        "Limpieza de fachadas y maquinarias con drones en Antofagasta: sin andamios ni personal colgado, menos tiempo detenido y acceso a zonas difíciles.",
+      h1: "Limpieza de fachadas y maquinarias con drones en Antofagasta",
       resumen: "Rápido. Preciso. Seguro.",
       descripcion:
         "Realizamos limpieza segura de fachadas eliminando la necesidad de andamios o personal colgado, utilizando tecnología avanzada para eliminar suciedad, polvo y contaminantes. Los beneficios incluyen mayor seguridad al minimizar riesgos, eficiencia operacional al reducir la inactividad, y soluciones para áreas inaccesibles con métodos tradicionales.",
@@ -306,6 +321,10 @@ export const es: Diccionario = {
     "inspeccion-instalaciones-industriales": {
       titulo: "Inspección de Instalaciones Industriales",
       tituloCorto: "Inspección de instalaciones industriales",
+      tituloSeo: "Inspección industrial con drones en Antofagasta",
+      descripcionSeo:
+        "Inspección industrial con drones: imágenes y video en alta resolución de estructuras elevadas y espacios confinados, sin exponer a personas.",
+      h1: "Inspección de instalaciones industriales con drones",
       resumen: "Rápido. Preciso. Seguro.",
       descripcion:
         "Realizamos inspecciones sin exponer a personal a situaciones peligrosas, con capacidad de vuelo en espacios confinados y estructuras elevadas. Capturamos imágenes y videos de alta resolución que detectan daños, desgarre y corrosión. Los beneficios incluyen precisión sin igual, eficiencia y rapidez que reducen el tiempo de inactividad, y acceso a áreas inaccesibles o peligrosas para métodos tradicionales.",
@@ -320,6 +339,10 @@ export const es: Diccionario = {
     "control-riego-pilas-lixiviacion": {
       titulo: "Control de Distribución de Riego en Pilas de Lixiviación",
       tituloCorto: "Control de riego en pilas de lixiviación",
+      tituloSeo: "Control de riego en pilas de lixiviación con drones",
+      descripcionSeo:
+        "Control de riego en pilas de lixiviación con drones: mapas de distribución de riego e informes de eficiencia para mejorar la uniformidad y la recuperación.",
+      h1: "Control de distribución de riego en pilas de lixiviación con drones",
       resumen: "Datos precisos, rápidos y con seguridad a un menor costo.",
       descripcion:
         "Utilizamos drones con cámaras y sensores de alta resolución para capturar datos detallados de pilas de lixiviación. Generamos mapas que muestran la distribución de riego, informes personalizados con análisis de eficiencia, e integración con los sistemas de control existentes. Los beneficios incluyen la reducción del desperdicio de recursos, una mayor uniformidad del riego para maximizar la recuperación de metales, y ahorro de costos de agua y químicos.",
@@ -334,6 +357,10 @@ export const es: Diccionario = {
     "produccion-audiovisual": {
       titulo: "Producción Audiovisual",
       tituloCorto: "Producción audiovisual",
+      tituloSeo: "Filmación con drones en Antofagasta",
+      descripcionSeo:
+        "Producción audiovisual y filmación con drones en Antofagasta: videos corporativos para presentaciones, marketing y comunicación interna.",
+      h1: "Producción audiovisual y filmación con drones",
       resumen:
         "Contenido audiovisual corporativo que captura la esencia del mensaje del cliente.",
       descripcion:
@@ -484,6 +511,7 @@ export const es: Diccionario = {
 
   software: {
     smartfield: {
+      tituloSeo: "SmartField: gestión de hallazgos e inspecciones en minería",
       resuelve:
         "Una plataforma geoespacial para la gestión inteligente de inspecciones y hallazgos en operaciones mineras.",
       descripcion:
@@ -503,6 +531,7 @@ export const es: Diccionario = {
       },
     },
     smartlayout: {
+      tituloSeo: "SmartLayout: layouts operacionales de faena en una plataforma",
       resuelve:
         "Diseña, controla y publica los layouts operacionales de tu faena desde un solo lugar.",
       descripcion:
@@ -524,6 +553,7 @@ export const es: Diccionario = {
       },
     },
     smartlix: {
+      tituloSeo: "SmartLix: control del riego en pilas de lixiviación",
       resuelve:
         "Supervisa, analiza y optimiza el riego de pilas de lixiviación desde una sola plataforma.",
       descripcion:
@@ -546,7 +576,7 @@ export const es: Diccionario = {
     extracto:
       "AGS Soluciones Industriales Aéreas es una empresa antofagastina especializada en servicios aéreos e inteligencia de datos con drones para industrias como la minera, energética y de construcción.",
     quienesSomos:
-      "AGS Soluciones Industriales Aéreas es una empresa antofagastina especializada en servicios aéreos e inteligencia de datos con drones para industrias como la minera, energética y de construcción. Con más de 9 años de trayectoria en el norte de Chile, transformamos la inspección técnica y la captura de campo en soluciones 'end-to-end', maximizando la seguridad y la eficiencia operacional de nuestros clientes.",
+      "AGS Soluciones Industriales Aéreas es una empresa antofagastina especializada en servicios aéreos e inteligencia de datos con drones para industrias como la minera, energética y de construcción. Con {anios} años de trayectoria en el norte de Chile, transformamos la inspección técnica y la captura de campo en soluciones 'end-to-end', maximizando la seguridad y la eficiencia operacional de nuestros clientes.",
     mision:
       "Entregar soluciones aéreas e industriales integrales a través de tecnología de drones, desarrollo de software y utilizando inteligencia artificial, optimizando la continuidad operacional, reduciendo los riesgos de las personas y transformando datos de terreno en decisiones estratégicas de alto valor.",
     vision:
@@ -557,7 +587,7 @@ export const es: Diccionario = {
       {
         titulo: "Trayectoria y experiencia",
         detalle:
-          "Más de 9 años aportando soluciones tecnológicas a los sectores minero, energético e industrial.",
+          "{anios} años aportando soluciones tecnológicas a los sectores minero, energético e industrial.",
       },
       {
         titulo: "Innovación aplicada",
@@ -607,7 +637,7 @@ export const es: Diccionario = {
   paginas: {
     migas: {
       "/servicios": "Servicios",
-      "/casos": "Proyectos",
+      "/casos": "Trabajos",
       "/nosotros": "Nosotros",
       "/nosotros/brochure": "Brochure",
       "/nosotros/certificaciones": "Certificaciones",
@@ -636,7 +666,7 @@ export const es: Diccionario = {
     },
 
     casos: {
-      titulo: "Casos de Éxito",
+      titulo: "Trabajos con drones en Antofagasta",
       bajada:
         "Plantas, ubicaciones y superficies medidas. Las cifras son las publicadas por cada proyecto.",
       confian: "Confían en nosotros",

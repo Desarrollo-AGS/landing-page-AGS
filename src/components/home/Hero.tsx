@@ -164,7 +164,7 @@ export function Hero() {
 
       <Contenedor className="relative z-10 pb-16 pt-[calc(68px+5rem)] sm:pb-20 lg:pb-24">
         <div data-hero-texto className="max-w-[46rem]">
-          <p className="eyebrow text-orange">Operaciones aéreas industriales desde 2016</p>
+          <p className="eyebrow text-orange">Operaciones aéreas industriales desde 2015</p>
 
           <h1 className="mt-5 text-[2.5rem] leading-[1.04] font-bold tracking-[-0.03em] text-white text-balance [text-shadow:0_2px_24px_rgb(0_26_43/0.5)] sm:text-[3.4rem] lg:text-d1">
             Convertimos la altura en un terreno seguro

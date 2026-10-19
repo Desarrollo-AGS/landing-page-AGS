@@ -34,7 +34,7 @@ import {
 export const TITULO_BASE =
   "Servicios de drones en Antofagasta para minería, energía y construcción";
 export const DESCRIPCION_BASE =
-  "AGS Soluciones opera drones industriales en Chile, Perú y Argentina: inspección termográfica de plantas fotovoltaicas, líneas eléctricas, topografía y aerofotogrametría, limpieza de fachadas e inspección de instalaciones.";
+  "AGS Soluciones opera drones industriales en Chile desde Antofagasta: inspección termográfica de plantas fotovoltaicas, líneas eléctricas, topografía y aerofotogrametría, limpieza de fachadas e inspección de instalaciones.";
 
 /** Imagen de compartido por defecto. Ver nota en `app/opengraph-image.tsx`. */
 const OG_POR_DEFECTO = "/opengraph-image";
@@ -137,7 +137,23 @@ export function metadatosDe({
  * fundación) son datos, no texto, y no cambian.
  */
 export function organizacionJsonLdDe(lang: Idioma = IDIOMA_POR_DEFECTO) {
-  return { ...organizacionJsonLd, description: diccionario(lang).seo.paginas["/"].descripcion };
+  const { "@context": contexto, ...organizacion } = organizacionJsonLd;
+  // Un solo grafo con la organización y el sitio. Las páginas (servicios,
+  // noticias) apuntan a la organización por su `@id` en vez de repetirla.
+  return {
+    "@context": contexto,
+    "@graph": [
+      { ...organizacion, description: diccionario(lang).seo.paginas["/"].descripcion },
+      {
+        "@type": "WebSite",
+        "@id": `${site.url}/#sitio`,
+        url: site.url,
+        name: site.nombre,
+        inLanguage: ETIQUETA_HTML[lang],
+        publisher: { "@id": organizacion["@id"] },
+      },
+    ],
+  };
 }
 
 /** Datos estructurados de organización, con dirección y teléfono reales. */
@@ -161,6 +177,10 @@ export const organizacionJsonLd = {
     addressRegion: site.contacto.direccion.regionLarga,
     addressCountry: site.contacto.direccion.pais,
   },
-  areaServed: site.operacion.map((pais) => ({ "@type": "Country", name: pais })),
+  areaServed: [
+    { "@type": "City", name: site.contacto.direccion.ciudad },
+    { "@type": "AdministrativeArea", name: site.contacto.direccion.regionLarga },
+    ...site.operacion.map((pais) => ({ "@type": "Country", name: pais })),
+  ],
   sameAs: [site.redes.linkedin, site.redes.instagram],
 };

@@ -13,10 +13,12 @@
 
 export const anioFundacion = 2015;
 
+/** Años de trayectoria, derivados de la fundación: no se escriben a mano. */
+export const aniosTrayectoria = new Date().getFullYear() - anioFundacion;
+
 export const quienesSomos = {
   verificado: true,
-  texto:
-    "AGS Soluciones Industriales Aéreas es una empresa antofagastina especializada en servicios aéreos e inteligencia de datos con drones para industrias como la minera, energética y de construcción. Con más de 9 años de trayectoria en el norte de Chile, transformamos la inspección técnica y la captura de campo en soluciones 'end-to-end', maximizando la seguridad y la eficiencia operacional de nuestros clientes.",
+  texto: `AGS Soluciones Industriales Aéreas es una empresa antofagastina especializada en servicios aéreos e inteligencia de datos con drones para industrias como la minera, energética y de construcción. Con ${aniosTrayectoria} años de trayectoria en el norte de Chile, transformamos la inspección técnica y la captura de campo en soluciones 'end-to-end', maximizando la seguridad y la eficiencia operacional de nuestros clientes.`,
 };
 
 /** Primera oración del párrafo anterior. Se reutiliza en el bloque del home. */
@@ -44,8 +46,7 @@ export const metodologia = {
 export const ventajas = [
   {
     titulo: "Trayectoria y experiencia",
-    detalle:
-      "Más de 9 años aportando soluciones tecnológicas a los sectores minero, energético e industrial.",
+    detalle: `${aniosTrayectoria} años aportando soluciones tecnológicas a los sectores minero, energético e industrial.`,
   },
   {
     titulo: "Innovación aplicada",
@@ -62,9 +63,8 @@ export const ventajas = [
 /**
  * LÍNEA DE TIEMPO — F-04.
  *
- * Solo dos hitos tienen fuente verificable hoy: la fundación en 2016 y la
- * expansión a Perú y Argentina, ambos citados en el texto oficial de "Quiénes
- * somos". El resto de la historia de la empresa lo tiene que entregar AGS.
+ * Cada hito debe tener fuente verificable. El resto de la historia de la
+ * empresa lo tiene que entregar AGS.
  *
  * La página renderiza esta lista sea cual sea su largo: funciona con un hito y
  * con quince, sin tocar el layout.

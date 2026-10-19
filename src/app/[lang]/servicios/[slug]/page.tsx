@@ -13,7 +13,7 @@ import { getServicio, servicios, serviciosRelacionados } from "@/content/servici
 import { metadatosDe, recortarDescripcion } from "@/lib/seo";
 import { site } from "@/content/site";
 import { diccionario } from "@/content/i18n";
-import { IDIOMA_POR_DEFECTO, esIdioma } from "@/lib/idioma";
+import { ETIQUETA_HTML, IDIOMA_POR_DEFECTO, esIdioma, rutaDe } from "@/lib/idioma";
 
 type Props = { params: Promise<{ lang: string; slug: string }> };
 
@@ -35,14 +35,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const yaNombraElDron = /dron/i.test(texto.titulo);
 
   return metadatosDe({
-    titulo: yaNombraElDron
-      ? texto.titulo
-      : t.paginas.servicioDetalle.tituloSeo.replace("{servicio}", texto.titulo),
+    titulo:
+      texto.tituloSeo ??
+      (yaNombraElDron
+        ? texto.titulo
+        : t.paginas.servicioDetalle.tituloSeo.replace("{servicio}", texto.titulo)),
     // Se recorta la descripción real del servicio en vez de escribir una
     // distinta: así el snippet de Google coincide con lo que se lee al entrar.
     // El recorte lo hace `recortarDescripcion`, que conoce el presupuesto de
     // cada idioma; cortar a 150 fijos se pasaba de largo al sumarle el resumen.
-    descripcion: recortarDescripcion(`${texto.resumen} ${texto.descripcion}`, idioma),
+    descripcion:
+      texto.descripcionSeo ??
+      recortarDescripcion(`${texto.resumen} ${texto.descripcion}`, idioma),
     ruta: `/servicios/${servicio.slug}`,
     lang: idioma,
     imagen: servicio.imagen,
@@ -60,14 +64,25 @@ export default async function PaginaServicio({ params }: Props) {
   const relacionados = serviciosRelacionados(slug, 3);
   const casosDelServicio = casos.filter((c) => c.servicioSlug === slug).slice(0, 3);
 
+  const url = `${site.url}${rutaDe(idioma, `/servicios/${servicio.slug}`)}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: texto.titulo,
+    "@id": `${url}#servicio`,
+    url,
+    name: texto.h1 ?? texto.titulo,
     serviceType: texto.titulo,
     description: texto.descripcion,
-    provider: { "@type": "Organization", name: site.nombre, url: site.url },
-    areaServed: site.operacion.map((p) => ({ "@type": "Country", name: p })),
+    inLanguage: ETIQUETA_HTML[idioma],
+    image: `${site.url}${servicio.imagen}`,
+    // La organización se referencia por su `@id`, no se repite: así Google
+    // entiende que el proveedor es el mismo negocio del inicio.
+    provider: { "@id": `${site.url}/#organizacion` },
+    areaServed: [
+      { "@type": "City", name: site.contacto.direccion.ciudad },
+      { "@type": "AdministrativeArea", name: site.contacto.direccion.regionLarga },
+      ...site.operacion.map((p) => ({ "@type": "Country", name: p })),
+    ],
   };
 
   return (
@@ -78,7 +93,7 @@ export default async function PaginaServicio({ params }: Props) {
       />
 
       <CabeceraPagina
-        titulo={texto.titulo}
+        titulo={texto.h1 ?? texto.titulo}
         bajada={texto.resumen}
         migas={[
           { label: t.paginas.migas["/servicios"], href: "/servicios" },

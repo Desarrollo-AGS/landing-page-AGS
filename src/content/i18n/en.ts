@@ -23,7 +23,6 @@ export const en: Diccionario = {
     rutaNavegacion: "Breadcrumb",
     conjuncion: " and ",
     separador: ", ",
-    paises: { Chile: "Chile", Perú: "Peru", Argentina: "Argentina" },
     instagram: "AGS Soluciones on Instagram, opens in a new tab",
     linkedin: "AGS Soluciones on LinkedIn, opens in a new tab",
     nuevaPestana: "opens in a new tab",
@@ -57,7 +56,7 @@ export const en: Diccionario = {
 
   inicio: {
     portada: {
-      antetitulo: "Industrial air operations since 2015",
+      antetitulo: "Drone services in Antofagasta · since 2015",
       titulo: ["We turn height", "into safe ground"],
       bajada:
         "Thermal inspection, surveying and cleaning with drones for mining, energy and construction.",
@@ -210,9 +209,9 @@ export const en: Diccionario = {
   seo: {
     paginas: {
       "/": {
-        titulo: "Industrial drones in Antofagasta",
+        titulo: "Drone services in Antofagasta",
         descripcion:
-          "Thermal inspection of photovoltaic plants, power lines, surveying and façade cleaning with drones. We operate in Chile, Peru and Argentina.",
+          "Drone services in Antofagasta for mining, energy and industry: solar plant thermography, power line inspection, surveying and façade cleaning.",
       },
       "/servicios": {
         titulo: "Drone services: mining and energy",
@@ -220,14 +219,14 @@ export const en: Diccionario = {
           "Seven aerial operations: photovoltaic thermography, power lines, surveying, façade cleaning, industrial inspection and leach pad irrigation.",
       },
       "/casos": {
-        titulo: "Projects delivered and case studies",
+        titulo: "Drone projects in Antofagasta and northern Chile",
         descripcion:
-          "Success stories in mining and energy: thermal inspection of photovoltaic plants, power line surveys and topographic surveys delivered across Chile.",
+          "Drone projects in Antofagasta and northern Chile: solar plant thermography, power line inspection and topographic surveys for mining.",
       },
       "/nosotros": {
         titulo: "About AGS: who we are and our history",
         descripcion:
-          "AGS Soluciones has operated industrial drones from Antofagasta since {anio}, serving mining, energy and construction in Chile, Peru and Argentina.",
+          "AGS Soluciones has operated industrial drones from Antofagasta since {anio}, serving mining, energy and construction across Chile.",
       },
       "/nosotros/brochure": {
         titulo: "AGS Brochure 2026",
@@ -258,6 +257,10 @@ export const en: Diccionario = {
     "inspecciones-fotovoltaicas": {
       titulo: "Photovoltaic Inspections",
       tituloCorto: "Photovoltaic inspections",
+      tituloSeo: "Drone thermal inspection of solar plants",
+      descripcionSeo:
+        "Drone thermal inspection of photovoltaic plants: we classify and prioritise 100% of anomalies on an interactive geospatial digital twin.",
+      h1: "Thermal inspection of photovoltaic plants with drones",
       resumen: "Fast. Precise. Actionable.",
       descripcion:
         "We are the national leader in thermal inspection of photovoltaic plants. We process thermal imagery by identifying, classifying and prioritising 100% of the anomalies, each one assigned to a digital twin. We deliver reliable reports fast, with granular anomaly classification, an interactive geospatial platform showing exact locations, and digitisation of earlier inspections so you hold a complete history.",
@@ -272,6 +275,10 @@ export const en: Diccionario = {
     "inspeccion-lineas-electricas": {
       titulo: "Power Line Inspection",
       tituloCorto: "Power line inspection",
+      tituloSeo: "Power line inspection with drones",
+      descripcionSeo:
+        "Power line inspection with drones: thermography for hot spots, visual inspection and LiDAR for vegetation and conductors, with a full report.",
+      h1: "Power line inspection with drones",
       resumen: "Anticipate the risks and keep the operation running.",
       descripcion:
         "We keep electrical installations performing at their best, without interruptions. We offer thermal inspection that detects hot spots, visual inspection that identifies damage and corrosion, LiDAR laser inspection that maps vegetation and interference risks, conductor strand inspection that detects wear and damage, and detailed reports with specific recommendations.",
@@ -286,6 +293,10 @@ export const en: Diccionario = {
     "topografia-aerofotogrametria": {
       titulo: "Drone Surveying. Aerial Photogrammetry",
       tituloCorto: "Surveying and aerial photogrammetry",
+      tituloSeo: "Drone surveying in Antofagasta",
+      descripcionSeo:
+        "Drone surveying in Antofagasta: 3D models and topographic maps with centimetre accuracy, data in hours and access to remote terrain.",
+      h1: "Drone surveying and aerial photogrammetry in Antofagasta",
       resumen: "Fast. Precise. Safe.",
       descripcion:
         "We produce accurate 3D models and topographic maps using high-resolution cameras. We offer centimetre accuracy beyond what traditional methods reach, data collection in hours rather than days or weeks, access to remote or unreachable terrain, and 3D visualisation with advanced, interactive analysis for project planning.",
@@ -300,6 +311,10 @@ export const en: Diccionario = {
     "limpieza-fachadas-maquinarias": {
       titulo: "Façade and Equipment Cleaning with Drones",
       tituloCorto: "Façade and equipment cleaning",
+      tituloSeo: "Drone façade cleaning in Antofagasta",
+      descripcionSeo:
+        "Façade and equipment cleaning with drones in Antofagasta: no scaffolding or suspended crews, less downtime and access to hard-to-reach areas.",
+      h1: "Façade and equipment cleaning with drones in Antofagasta",
       resumen: "Fast. Precise. Safe.",
       descripcion:
         "We clean façades safely, removing the need for scaffolding or suspended personnel, using advanced technology to lift dirt, dust and contaminants. The benefits include greater safety by minimising risk, operational efficiency by cutting downtime, and solutions for areas traditional methods cannot reach.",
@@ -314,6 +329,10 @@ export const en: Diccionario = {
     "inspeccion-instalaciones-industriales": {
       titulo: "Industrial Facility Inspection",
       tituloCorto: "Industrial facility inspection",
+      tituloSeo: "Drone industrial inspection in Antofagasta",
+      descripcionSeo:
+        "Industrial facility inspection with drones: high-resolution images and video of elevated structures and confined spaces, without exposing people.",
+      h1: "Industrial facility inspection with drones",
       resumen: "Fast. Precise. Safe.",
       descripcion:
         "We carry out inspections without exposing personnel to dangerous situations, with the ability to fly in confined spaces and elevated structures. We capture high-resolution images and video that reveal damage, tearing and corrosion. The benefits include unmatched precision, efficiency and speed that cut downtime, and access to areas that are unreachable or dangerous for traditional methods.",
@@ -328,6 +347,10 @@ export const en: Diccionario = {
     "control-riego-pilas-lixiviacion": {
       titulo: "Irrigation Distribution Control on Leach Pads",
       tituloCorto: "Irrigation control on leach pads",
+      tituloSeo: "Leach pad irrigation control with drones",
+      descripcionSeo:
+        "Leach pad irrigation control with drones: irrigation distribution maps and efficiency reports to improve uniformity and metal recovery.",
+      h1: "Irrigation distribution control on leach pads with drones",
       resumen: "Accurate data, fast and safe, at a lower cost.",
       descripcion:
         "We use drones with high-resolution cameras and sensors to capture detailed data from leach pads. We produce maps showing irrigation distribution, tailored reports with efficiency analysis, and integration with existing control systems. The benefits include less wasted resource, more uniform irrigation to maximise metal recovery, and savings on water and chemicals.",
@@ -342,6 +365,10 @@ export const en: Diccionario = {
     "produccion-audiovisual": {
       titulo: "Audiovisual Production",
       tituloCorto: "Audiovisual production",
+      tituloSeo: "Drone filming in Antofagasta",
+      descripcionSeo:
+        "Audiovisual production and drone filming in Antofagasta: corporate videos for presentations, marketing and internal communications.",
+      h1: "Audiovisual production and drone filming",
       resumen:
         "Corporate audiovisual content that captures the essence of the client's message.",
       descripcion:
@@ -492,6 +519,7 @@ export const en: Diccionario = {
 
   software: {
     smartfield: {
+      tituloSeo: "SmartField: inspection and findings management for mining",
       resuelve:
         "A geospatial platform for the intelligent management of inspections and findings in mining operations.",
       descripcion:
@@ -511,6 +539,7 @@ export const en: Diccionario = {
       },
     },
     smartlayout: {
+      tituloSeo: "SmartLayout: operational site layouts on one platform",
       resuelve:
         "Design, control and publish your site's operational layouts from a single place.",
       descripcion:
@@ -532,6 +561,7 @@ export const en: Diccionario = {
       },
     },
     smartlix: {
+      tituloSeo: "SmartLix: leach pad irrigation monitoring and control",
       resuelve: "Monitor, analyse and optimise leach pad irrigation from a single platform.",
       descripcion:
         "SmartLix brings together the view of irrigation zones and modules, thermal analysis, orthophotos and 3D models to support faster, more precise operational decisions on site.",
@@ -553,7 +583,7 @@ export const en: Diccionario = {
     extracto:
       "AGS Soluciones Industriales Aéreas is a company based in Antofagasta, specialising in aerial services and drone data intelligence for industries such as mining, energy and construction.",
     quienesSomos:
-      "AGS Soluciones Industriales Aéreas is a company based in Antofagasta, specialising in aerial services and drone data intelligence for industries such as mining, energy and construction. With more than 9 years of experience across northern Chile, we turn technical inspection and field capture into end-to-end solutions, maximising our clients' safety and operational efficiency.",
+      "AGS Soluciones Industriales Aéreas is a company based in Antofagasta, specialising in aerial services and drone data intelligence for industries such as mining, energy and construction. With {anios} years of experience across northern Chile, we turn technical inspection and field capture into end-to-end solutions, maximising our clients' safety and operational efficiency.",
     mision:
       "To deliver comprehensive aerial and industrial solutions through drone technology, software development and artificial intelligence, improving operational continuity, reducing risk to people and turning field data into high-value strategic decisions.",
     vision:
@@ -564,7 +594,7 @@ export const en: Diccionario = {
       {
         titulo: "Track record and experience",
         detalle:
-          "More than 9 years bringing technology solutions to the mining, energy and industrial sectors.",
+          "{anios} years bringing technology solutions to the mining, energy and industrial sectors.",
       },
       {
         titulo: "Applied innovation",
@@ -643,7 +673,7 @@ export const en: Diccionario = {
     },
 
     casos: {
-      titulo: "Success Stories",
+      titulo: "Drone projects in Antofagasta",
       bajada:
         "Plants, locations and areas measured. The figures are the ones published for each project.",
       confian: "Trusted by",

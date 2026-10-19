@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // `x-powered-by: Next.js` no le sirve a nadie y le anuncia el stack a quien
+  // esté buscando versiones vulnerables.
+  poweredByHeader: false,
   // CloudLinux limita los procesos de la cuenta, aunque reporte muchos CPU.
   ...(process.env.AGS_CPANEL_BUILD === "1" ? { experimental: { cpus: 1 } } : {}),
   // Hay otros package-lock.json en carpetas hermanas del escritorio. Sin esto,
@@ -25,8 +28,34 @@ const nextConfig: NextConfig = {
     // estructura metálica, mucho degradado suave). WebP queda como respaldo.
     formats: ["image/avif", "image/webp"],
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          // Sin `includeSubDomains`: el dominio tiene subdominios del hosting
+          // (correo, cPanel) que no controlamos, y HSTS sobre ellos los rompería
+          // si alguno no sirve HTTPS.
+          { key: "Strict-Transport-Security", value: "max-age=31536000" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
+      // www y el dominio desnudo servían el mismo sitio con 200: dos copias de
+      // cada página para Google. La canónica es sin www (`site.url`).
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.agssoluciones.cl" }],
+        destination: "https://agssoluciones.cl/:path*",
+        permanent: true,
+      },
+
       // Las URLs de casos del sitio WordPress actual están indexadas. No se pierden.
       { source: "/casos-exito", destination: "/casos", permanent: true },
       { source: "/casos-exito/:slug", destination: "/casos", permanent: true },
@@ -79,6 +108,7 @@ const nextConfig: NextConfig = {
       // redirige al índice, que es donde vive ese contenido ahora.
       { source: "/comunidad", destination: "/noticias", permanent: true },
       { source: "/en/comunidad", destination: "/en/noticias", permanent: true },
+      { source: "/zh/comunidad", destination: "/zh/noticias", permanent: true },
 
       // El índice /software dejó de existir: las plataformas son productos
       // individuales y se entra a cada una por su ficha. La URL llegó a estar
@@ -88,7 +118,8 @@ const nextConfig: NextConfig = {
       // redirect permanente sobre una página que sí existe la vuelve
       // inalcanzable, que es exactamente lo que pasaba con /servicios.
       { source: "/software", destination: "/#capitulo-03", permanent: true },
-      { source: "/en/software", destination: "/en/#capitulo-03", permanent: true },
+      { source: "/en/software", destination: "/en#capitulo-03", permanent: true },
+      { source: "/zh/software", destination: "/zh#capitulo-03", permanent: true },
 
       // /proyectos/ — URL indexada del sitio viejo (hoy devuelve 500).
       {

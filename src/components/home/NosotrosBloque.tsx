@@ -3,7 +3,6 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Contenedor } from "@/components/ui/Contenedor";
 import { Revelar } from "@/components/ui/Revelar";
 import { anioFundacion, quienesSomosExtracto, ventajas } from "@/content/nosotros";
-import { site } from "@/content/site";
 import { BotonEnlace } from "@/components/ui/Boton";
 
 /**
@@ -42,8 +41,7 @@ export function NosotrosBloque() {
               {anios} años operando drones en faena industrial
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-600">
-              {quienesSomosExtracto} Hoy extendemos el servicio a{" "}
-              {site.operacion.slice(1).join(" y ")}, desde nuestra base en Antofagasta.
+              {quienesSomosExtracto} Operamos desde nuestra base en Antofagasta.
             </p>
 
             <ul className="mt-9 space-y-5">

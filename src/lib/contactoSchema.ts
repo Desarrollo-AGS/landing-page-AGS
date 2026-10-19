@@ -29,7 +29,7 @@ export function contactoSchemaDe(lang: Idioma = IDIOMA_POR_DEFECTO) {
 
     // Opcional de verdad: vacío es válido. Si viene con contenido, se exige un
     // formato de teléfono razonable, sin obligar a un formato chileno exacto
-    // porque también escriben desde Perú y Argentina.
+    // porque también escriben clientes con números extranjeros.
     telefono: z
       .string()
       .trim()

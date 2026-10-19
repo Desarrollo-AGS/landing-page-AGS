@@ -29,8 +29,8 @@
  */
 
 import { type Caso, casos, casosDestacados, totales } from "./casos";
+import { servicios } from "./servicios";
 import { getProducto } from "./software";
-import { site } from "./site";
 
 /* ------------------------------------------------------------------ */
 /* Capítulos                                                           */
@@ -332,9 +332,5 @@ export const metricas: Metrica[] = [
   { valor: totales.mw, etiqueta: "MW inspeccionados", detalle: "En plantas fotovoltaicas" },
   { valor: totales.hectareas, etiqueta: "Hectáreas", detalle: "Inspeccionadas y levantadas" },
   { valor: torres, etiqueta: "Torres eléctricas", detalle: "Inspeccionadas" },
-  {
-    valor: site.operacion.length,
-    etiqueta: "Países",
-    detalle: site.operacion.join(", "),
-  },
+  { valor: servicios.length, etiqueta: "Servicios", detalle: "Para minería, energía e industria" },
 ];

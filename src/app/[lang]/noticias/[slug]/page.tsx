@@ -59,7 +59,7 @@ export default async function PaginaNoticia({ params }: Props) {
     ...(noticia.fecha ? { datePublished: noticia.fecha } : {}),
     image: noticia.portada ? `${site.url}${noticia.portada}` : undefined,
     author: { "@type": "Organization", name: noticia.autor ?? site.nombre },
-    publisher: { "@type": "Organization", name: site.nombre, url: site.url },
+    publisher: { "@id": `${site.url}/#organizacion` },
     mainEntityOfPage: `${site.url}${rutaDe(idioma, `/noticias/${noticia.slug}`)}`,
   };
 
